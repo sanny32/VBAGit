@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VBEGit", "VBAGit\VBEGit.csproj", "{B69B3AA8-D84D-4999-917F-B76FD5385923}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VBEGit", "VBEGit\VBEGit.csproj", "{B69B3AA8-D84D-4999-917F-B76FD5385923}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VBEditor", "VBEditor\VBEditor.csproj", "{44FA7CE8-A0CB-479D-811B-042DF2310D59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VBAGitUI", "VBAGitUI\VBAGitUI.csproj", "{40BB2415-6088-45F4-85CA-5D9E3CECE531}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{44FA7CE8-A0CB-479D-811B-042DF2310D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44FA7CE8-A0CB-479D-811B-042DF2310D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44FA7CE8-A0CB-479D-811B-042DF2310D59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40BB2415-6088-45F4-85CA-5D9E3CECE531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40BB2415-6088-45F4-85CA-5D9E3CECE531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40BB2415-6088-45F4-85CA-5D9E3CECE531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40BB2415-6088-45F4-85CA-5D9E3CECE531}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

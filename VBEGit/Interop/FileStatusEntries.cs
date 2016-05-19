@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 namespace VBEGit.Interop
 {
     [ComVisible(true)]
-    [Guid("8E63F81E-C01F-4C51-92C2-34F8CC658601")]
-    [ProgId("VBAGit.FileStatusEntries")]
+    [Guid("8156FBA2-AD35-48F1-B6DA-C6154EC920BB")]
+    [ProgId("VBEGit.FileStatusEntries")]
     [ClassInterface(ClassInterfaceType.None)]
     [Description("Collection of IFileEntries representing the status of the repository files.")]
     public class FileStatusEntries : IEnumerable

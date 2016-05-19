@@ -4,7 +4,7 @@ namespace VBEGit
 {
     [ComVisible(true)]
     [Guid("8032591E-E75D-48E4-90CB-D71F98335E7D")]
-    [ProgId("VBAGit.Repository")]
+    [ProgId("VBEGit.Repository")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Repository : IRepository
     {

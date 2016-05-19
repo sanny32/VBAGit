@@ -17,7 +17,7 @@ namespace VBEGit
 
     [ComVisible(true)]
     [Guid("2F004FFB-B368-46D5-85A7-C6DEB28CB9FB")]
-    [ProgId("VBAGit.FileStatus")]
+    [ProgId("VBEGit.FileStatus")]
     [ClassInterface(ClassInterfaceType.AutoDual)]
     public class FileStatusEntry : IFileStatusEntry
     {

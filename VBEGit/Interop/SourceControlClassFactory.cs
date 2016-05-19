@@ -22,7 +22,7 @@ namespace VBEGit.Interop
 
     [ComVisible(true)]
     [Guid("CA3477DC-3604-48E5-A553-C9512AB6F0EB")]
-    [ProgId("VBAGit.SourceControlClassFactory")]
+    [ProgId("VBEGit.SourceControlClassFactory")]
     [ClassInterface(ClassInterfaceType.None)]
     public class SourceControlClassFactory : _ISourceControlClassFactory
     {

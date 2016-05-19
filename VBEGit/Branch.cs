@@ -23,7 +23,7 @@ namespace VBEGit
 
     [ComVisible(true)]
     [Guid("1CA9DB25-1C47-460B-9368-A9D283FD4C28")]
-    [ProgId("VBAGit.Branch")]
+    [ProgId("VBEGit.Branch")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Branch : IBranch
     {

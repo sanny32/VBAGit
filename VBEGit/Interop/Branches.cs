@@ -7,7 +7,7 @@ namespace VBEGit.Interop
 {
     [ComVisible(true)]
     [Guid("F2BBB099-9DD4-4669-AF30-A62F2CACE0CF")]
-    [ProgId("VBAGit.Branches")]
+    [ProgId("VBEGit.Branches")]
     [ClassInterface(ClassInterfaceType.None)]
     [Description("Collection of string representation of branches in a repository.")]
     public class Branches : IEnumerable
