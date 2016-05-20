@@ -220,7 +220,7 @@ namespace VBAGit.UI
                 this.Provider.Merge(source, destination);
                 _view.Current = this.Provider.CurrentBranch.Name;
 
-                _mergeView.StatusText = string.Format(VBAGit.SourceControl_SuccessfulMerge, source, destination);
+                _mergeView.StatusText = string.Format(VBAGitUI.SourceControl_SuccessfulMerge, source, destination);
                 _mergeView.Status = MergeStatus.Success;
 
                 _mergeView.Hide();

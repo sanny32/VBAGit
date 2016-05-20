@@ -86,14 +86,14 @@ namespace VBAGit.UI
 
         private void SetText()
         {
-            CurrentBranchLabel.Text = VBAGit.SourceControl_CurrentBranchLabel;
-            FetchIncomingCommitsButton.Text = VBAGit.SourceControl_FetchCommitsLabel;
-            PullButton.Text = VBAGit.SourceControl_PullCommitsLabel;
-            PushButton.Text = VBAGit.SourceControl_PushCommitsLabel;
-            SyncButton.Text = VBAGit.SourceControl_SyncCommitsLabel;
+            CurrentBranchLabel.Text = VBAGitUI.SourceControl_CurrentBranchLabel;
+            FetchIncomingCommitsButton.Text = VBAGitUI.SourceControl_FetchCommitsLabel;
+            PullButton.Text = VBAGitUI.SourceControl_PullCommitsLabel;
+            PushButton.Text = VBAGitUI.SourceControl_PushCommitsLabel;
+            SyncButton.Text = VBAGitUI.SourceControl_SyncCommitsLabel;
 
-            IncomingCommitsBox.Text = VBAGit.SourceControl_IncomingCommits;
-            OutgoingCommitsBox.Text = VBAGit.SourceControl_OutgoingCommits;
+            IncomingCommitsBox.Text = VBAGitUI.SourceControl_IncomingCommits;
+            OutgoingCommitsBox.Text = VBAGitUI.SourceControl_OutgoingCommits;
         }
     }
 }

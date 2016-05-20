@@ -16,16 +16,16 @@ namespace VBAGit.UI
 
         private void SetText()
         {
-            GlobalSettingsBox.Text = VBAGit.SourceControl_GlobalSettings;
-            UserNameLabel.Text = VBAGit.SourceControl_UserNameLabel;
-            EmailAddressLabel.Text = VBAGit.SourceControl_EmailAddressLabel;
-            DefaultRepositoryLocationLabel.Text = VBAGit.SourceControl_DefaultRepoLocationLabel;
-            UpdateGlobalSettingsButton.Text = VBAGit.SourceControl_UpdateGlobalSettings;
-            CancelGlobalSettingsButton.Text = VBAGit.SourceControl_CancelGlobalSettings;
+            GlobalSettingsBox.Text = VBAGitUI.SourceControl_GlobalSettings;
+            UserNameLabel.Text = VBAGitUI.SourceControl_UserNameLabel;
+            EmailAddressLabel.Text = VBAGitUI.SourceControl_EmailAddressLabel;
+            DefaultRepositoryLocationLabel.Text = VBAGitUI.SourceControl_DefaultRepoLocationLabel;
+            UpdateGlobalSettingsButton.Text = VBAGitUI.SourceControl_UpdateGlobalSettings;
+            CancelGlobalSettingsButton.Text = VBAGitUI.SourceControl_CancelGlobalSettings;
 
-            RepositorySettingsBox.Text = VBAGit.SourceControl_RespositorySettings;
-            EditIgnoreFileButton.Text = VBAGit.SourceControl_IgnoreFile;
-            EditAttributeFileButton.Text = VBAGit.SourceControl_AttributesFile;
+            RepositorySettingsBox.Text = VBAGitUI.SourceControl_RespositorySettings;
+            EditIgnoreFileButton.Text = VBAGitUI.SourceControl_IgnoreFile;
+            EditAttributeFileButton.Text = VBAGitUI.SourceControl_AttributesFile;
         }
 
         string ISourceControlUserSettings.UserName

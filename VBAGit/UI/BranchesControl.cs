@@ -18,11 +18,11 @@ namespace VBAGit.UI
 
         private void SetText()
         {
-            CurrentBranch.Text = VBAGit.SourceControl_CurrentBranchLabel;
-            NewBranchButton.Text = VBAGit.SourceControl_NewBranch;
-            MergeBranchButton.Text = VBAGit.SourceControl_MergeBranch;
-            PublishedBranchesBox.Text = VBAGit.SourceControl_PublishedBranchesLabel;
-            UnpublishedBranchesBox.Text = VBAGit.SourceControl_UnpublishedBranchesLabel;
+            CurrentBranch.Text = VBAGitUI.SourceControl_CurrentBranchLabel;
+            NewBranchButton.Text = VBAGitUI.SourceControl_NewBranch;
+            MergeBranchButton.Text = VBAGitUI.SourceControl_MergeBranch;
+            PublishedBranchesBox.Text = VBAGitUI.SourceControl_PublishedBranchesLabel;
+            UnpublishedBranchesBox.Text = VBAGitUI.SourceControl_UnpublishedBranchesLabel;
         }
 
         private BindingList<string> _branches;

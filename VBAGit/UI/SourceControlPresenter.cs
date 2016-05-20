@@ -103,7 +103,7 @@ namespace VBAGit.UI
 
         private void OnInitNewRepository(object sender, EventArgs e)
         {
-            using (var folderPicker = _folderBrowserFactory.CreateFolderBrowser((VBAGit.SourceControl_CreateNewRepo)))
+            using (var folderPicker = _folderBrowserFactory.CreateFolderBrowser((VBAGitUI.SourceControl_CreateNewRepo)))
             {
                 if (folderPicker.ShowDialog() != DialogResult.OK)
                 {
@@ -120,13 +120,13 @@ namespace VBAGit.UI
                 AddRepoToConfig((Repository)repo);
 
                 SetChildPresenterSourceControlProviders(_provider);
-                _view.Status = VBAGit.Online;
+                _view.Status = VBAGitUI.Online;
             }
         }
 
         private void OnOpenWorkingDirectory(object sender, EventArgs e)
         {
-            using (var folderPicker = _folderBrowserFactory.CreateFolderBrowser(VBAGit.SourceControl_OpenWorkingDirectory, false))
+            using (var folderPicker = _folderBrowserFactory.CreateFolderBrowser(VBAGitUI.SourceControl_OpenWorkingDirectory, false))
             {
                 if (folderPicker.ShowDialog() != DialogResult.OK)
                 {
@@ -149,7 +149,7 @@ namespace VBAGit.UI
                 AddRepoToConfig(repo);
 
                 SetChildPresenterSourceControlProviders(_provider);
-                _view.Status = VBAGit.Online;
+                _view.Status = VBAGitUI.Online;
             }
         }
 
@@ -168,7 +168,7 @@ namespace VBAGit.UI
         {
             if (!ValidRepoExists())
             {
-                _view.Status = VBAGit.Offline;
+                _view.Status = VBAGitUI.Offline;
                 return;
             }
 
@@ -185,7 +185,7 @@ namespace VBAGit.UI
 
             SetChildPresenterSourceControlProviders(_provider);
 
-            _view.Status = VBAGit.Online;
+            _view.Status = VBAGitUI.Online;
         }
 
         private void ShowSecondaryPanel(string title, string message)

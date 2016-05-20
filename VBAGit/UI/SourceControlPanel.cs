@@ -37,14 +37,14 @@ namespace VBAGit.UI
 
         private void SetText()
         {
-            RefreshButton.ToolTipText = VBAGit.SourceControl_RefreshButtonToolTip;
-            OpenWorkingFolderButton.ToolTipText = VBAGit.SourceControl_OpenWorkingFolderToolTip;
-            InitRepoButton.ToolTipText = VBAGit.SourceControl_InitRepoButtonToolTip;
+            RefreshButton.ToolTipText = VBAGitUI.SourceControl_RefreshButtonToolTip;
+            OpenWorkingFolderButton.ToolTipText = VBAGitUI.SourceControl_OpenWorkingFolderToolTip;
+            InitRepoButton.ToolTipText = VBAGitUI.SourceControl_InitRepoButtonToolTip;
 
-            ChangesTab.Text = VBAGit.SourceControl_Changes;
-            BranchesTab.Text = VBAGit.SourceControl_Branches;
-            UnsyncedCommitsTab.Text = VBAGit.SourceControl_UnsyncedCommits;
-            SettingsTab.Text = VBAGit.SourceControl_Settings;
+            ChangesTab.Text = VBAGitUI.SourceControl_Changes;
+            BranchesTab.Text = VBAGitUI.SourceControl_Branches;
+            UnsyncedCommitsTab.Text = VBAGitUI.SourceControl_UnsyncedCommits;
+            SettingsTab.Text = VBAGitUI.SourceControl_Settings;
         }
 
         public string ClassId
@@ -54,7 +54,7 @@ namespace VBAGit.UI
 
         public string Caption
         {
-            get { return VBAGit.SourceControlPanel_Caption; }
+            get { return VBAGitUI.SourceControlPanel_Caption; }
         }
 
         public string Status 

@@ -92,7 +92,7 @@ namespace VBAGit.UI
             // 
             // FetchIncomingCommitsButton
             // 
-            this.FetchIncomingCommitsButton.Image = global::VBAGitUI.Properties.Resources.arrow_step;
+            this.FetchIncomingCommitsButton.Image = global::VBAGit.Properties.Resources.arrow_step;
             this.FetchIncomingCommitsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.FetchIncomingCommitsButton.Location = new System.Drawing.Point(9, 39);
             this.FetchIncomingCommitsButton.Name = "FetchIncomingCommitsButton";
@@ -114,7 +114,7 @@ namespace VBAGit.UI
             // 
             // PushButton
             // 
-            this.PushButton.Image = global::VBAGitUI.Properties.Resources.drive_upload;
+            this.PushButton.Image = global::VBAGit.Properties.Resources.drive_upload;
             this.PushButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PushButton.Location = new System.Drawing.Point(147, 39);
             this.PushButton.Name = "PushButton";
@@ -127,7 +127,7 @@ namespace VBAGit.UI
             // 
             // PullButton
             // 
-            this.PullButton.Image = global::VBAGitUI.Properties.Resources.drive_download;
+            this.PullButton.Image = global::VBAGit.Properties.Resources.drive_download;
             this.PullButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PullButton.Location = new System.Drawing.Point(78, 39);
             this.PullButton.Name = "PullButton";

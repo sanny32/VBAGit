@@ -130,7 +130,7 @@ namespace VBAGit.UI
             this.CommitButton.AutoSize = true;
             this.CommitButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CommitButton.Enabled = false;
-            this.CommitButton.Image = global::VBAGitUI.Properties.Resources.tick;
+            this.CommitButton.Image = global::VBAGit.Properties.Resources.tick;
             this.CommitButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CommitButton.Location = new System.Drawing.Point(227, 107);
             this.CommitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -147,9 +147,9 @@ namespace VBAGit.UI
             this.CommitActionDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CommitActionDropdown.FormattingEnabled = true;
             this.CommitActionDropdown.Items.AddRange(new object[] {
-            VBAGit.SourceControl_Commit,
-            VBAGit.SourceControl_CommitPush,
-            VBAGit.SourceControl_CommitSync});
+            VBAGitUI.SourceControl_Commit,
+            VBAGitUI.SourceControl_CommitPush,
+            VBAGitUI.SourceControl_CommitSync});
             this.CommitActionDropdown.Location = new System.Drawing.Point(12, 107);
             this.CommitActionDropdown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CommitActionDropdown.MinimumSize = new System.Drawing.Size(160, 0);

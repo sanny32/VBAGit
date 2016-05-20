@@ -90,7 +90,7 @@ namespace VBAGit.UI
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::VBAGitUI.Properties.Resources.arrow;
+            this.pictureBox1.Image = global::VBAGit.Properties.Resources.arrow;
             this.pictureBox1.Location = new System.Drawing.Point(197, 124);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
@@ -202,7 +202,7 @@ namespace VBAGit.UI
             this.Controls.Add(this.DestinationSelector);
             this.Controls.Add(this.SourceSelector);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::VBAGit.UI.VBAGit.Ducky;
+            this.Icon = global::VBAGit.UI.VBAGitUI.Ducky;
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

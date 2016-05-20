@@ -14,13 +14,13 @@ namespace VBAGit.UI
 
             Branches = new List<string>();
 
-            Text = VBAGit.SourceControl_DeleteBranchCaption;
-            TitleLabel.Text = VBAGit.SourceControl_DeleteBranchTitleLable;
-            InstructionsLabel.Text = VBAGit.SourceControl_DeleteBranchInstructionsLabel;
-            OkButton.Text = VBAGit.OK_AllCaps;
+            Text = VBAGitUI.SourceControl_DeleteBranchCaption;
+            TitleLabel.Text = VBAGitUI.SourceControl_DeleteBranchTitleLable;
+            InstructionsLabel.Text = VBAGitUI.SourceControl_DeleteBranchInstructionsLabel;
+            OkButton.Text = VBAGitUI.OK_AllCaps;
 
             OkButton.Click += OkButton_Click;
-            CancelButton.Text = VBAGit.CancelButtonText;
+            CancelButton.Text = VBAGitUI.CancelButtonText;
             CancelButton.Click += CancelButton_Click;
             BranchList.SelectedValueChanged += BranchList_SelectedValueChanged;
         }

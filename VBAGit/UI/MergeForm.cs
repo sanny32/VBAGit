@@ -13,14 +13,14 @@ namespace VBAGit.UI
         {
             InitializeComponent();
 
-            Text = VBAGit.SourceControl_MergeFormCaption;
-            TitleLabel.Text = VBAGit.SourceControl_MergeFormTitle;
-            InstructionsLabel.Text = VBAGit.SourceControl_MergeFormInstructions;
-            SourceLabel.Text = VBAGit.SourceControl_SourceLabel;
-            DestinationLabel.Text = VBAGit.SourceControl_DestinationLabel;
-            OkButton.Text = VBAGit.OK;
+            Text = VBAGitUI.SourceControl_MergeFormCaption;
+            TitleLabel.Text = VBAGitUI.SourceControl_MergeFormTitle;
+            InstructionsLabel.Text = VBAGitUI.SourceControl_MergeFormInstructions;
+            SourceLabel.Text = VBAGitUI.SourceControl_SourceLabel;
+            DestinationLabel.Text = VBAGitUI.SourceControl_DestinationLabel;
+            OkButton.Text = VBAGitUI.OK;
             OkButton.Click += OnConfirm;
-            CancelButton.Text = VBAGit.CancelButtonText;
+            CancelButton.Text = VBAGitUI.CancelButtonText;
             CancelButton.Click += OnCancel;
         }
 

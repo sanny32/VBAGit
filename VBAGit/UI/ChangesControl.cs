@@ -20,12 +20,12 @@ namespace VBAGit.UI
 
         private void SetText()
         {
-            CurrentBranchLabel.Text = VBAGit.SourceControl_CurrentBranchLabel;
-            CommitMessageLabel.Text = VBAGit.SourceControl_CommitMessageLabel;
-            CommitButton.Text = VBAGit.SourceControl_CommitButtonLabel;
-            IncludedChangesBox.Text = VBAGit.SourceControl_IncludedChanges;
-            ExcludedChangesBox.Text = VBAGit.SourceControl_ExcludedChanges;
-            UntrackedFilesBox.Text = VBAGit.SourceControl_UntrackedFiles;
+            CurrentBranchLabel.Text = VBAGitUI.SourceControl_CurrentBranchLabel;
+            CommitMessageLabel.Text = VBAGitUI.SourceControl_CommitMessageLabel;
+            CommitButton.Text = VBAGitUI.SourceControl_CommitButtonLabel;
+            IncludedChangesBox.Text = VBAGitUI.SourceControl_IncludedChanges;
+            ExcludedChangesBox.Text = VBAGitUI.SourceControl_ExcludedChanges;
+            UntrackedFilesBox.Text = VBAGitUI.SourceControl_UntrackedFiles;
         }
 
         public string CurrentBranch

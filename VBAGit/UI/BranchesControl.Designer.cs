@@ -67,7 +67,7 @@ namespace VBAGit.UI
             // 
             this.DeleteBranchButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DeleteBranchButton.AutoSize = true;
-            this.DeleteBranchButton.Image = global::VBAGitUI.Properties.Resources.cross_script;
+            this.DeleteBranchButton.Image = global::VBAGit.Properties.Resources.cross_script;
             this.DeleteBranchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DeleteBranchButton.Location = new System.Drawing.Point(195, 3);
             this.DeleteBranchButton.Name = "DeleteBranchButton";
@@ -104,7 +104,7 @@ namespace VBAGit.UI
             // 
             this.MergeBranchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MergeBranchButton.AutoSize = true;
-            this.MergeBranchButton.Image = global::VBAGitUI.Properties.Resources.arrow_merge_090;
+            this.MergeBranchButton.Image = global::VBAGit.Properties.Resources.arrow_merge_090;
             this.MergeBranchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MergeBranchButton.Location = new System.Drawing.Point(101, 3);
             this.MergeBranchButton.Name = "MergeBranchButton";
@@ -161,7 +161,7 @@ namespace VBAGit.UI
             // NewBranchButton
             // 
             this.NewBranchButton.AutoSize = true;
-            this.NewBranchButton.Image = global::VBAGitUI.Properties.Resources.arrow_branch_090;
+            this.NewBranchButton.Image = global::VBAGit.Properties.Resources.arrow_branch_090;
             this.NewBranchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.NewBranchButton.Location = new System.Drawing.Point(3, 3);
             this.NewBranchButton.Name = "NewBranchButton";

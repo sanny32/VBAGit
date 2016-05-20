@@ -129,7 +129,7 @@ namespace VBAGit.UI
             // 
             // InvalidNameValidationIcon
             // 
-            this.InvalidNameValidationIcon.Image = global::VBAGitUI.Properties.Resources.cross_circle;
+            this.InvalidNameValidationIcon.Image = global::VBAGit.Properties.Resources.cross_circle;
             this.InvalidNameValidationIcon.Location = new System.Drawing.Point(397, 100);
             this.InvalidNameValidationIcon.Margin = new System.Windows.Forms.Padding(4);
             this.InvalidNameValidationIcon.Name = "InvalidNameValidationIcon";
@@ -151,7 +151,7 @@ namespace VBAGit.UI
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.UserInputBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::VBAGit.UI.VBAGit.Ducky;
+            this.Icon = global::VBAGit.UI.VBAGitUI.Ducky;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

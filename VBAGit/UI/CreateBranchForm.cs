@@ -11,12 +11,12 @@ namespace VBAGit.UI
         {
             InitializeComponent();
 
-            Text = VBAGit.SourceControl_CreateNewBranchCaption;
-            TitleLabel.Text = VBAGit.SourceControl_CreateNewBranchTitle;
-            InstructionsLabel.Text = VBAGit.SourceControl_CreateNewBranchInstructions;
-            OkButton.Text = VBAGit.OK_AllCaps;
+            Text = VBAGitUI.SourceControl_CreateNewBranchCaption;
+            TitleLabel.Text = VBAGitUI.SourceControl_CreateNewBranchTitle;
+            InstructionsLabel.Text = VBAGitUI.SourceControl_CreateNewBranchInstructions;
+            OkButton.Text = VBAGitUI.OK_AllCaps;
             OkButton.Click += OkButton_Click;
-            CancelButton.Text = VBAGit.CancelButtonText;
+            CancelButton.Text = VBAGitUI.CancelButtonText;
             CancelButton.Click += CancelButton_Click;
         }
 

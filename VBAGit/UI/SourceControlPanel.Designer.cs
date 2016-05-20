@@ -69,7 +69,7 @@ namespace VBAGit.UI
             // RefreshButton
             // 
             this.RefreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.RefreshButton.Image = global::VBAGitUI.Properties.Resources.arrow_circle_double;
+            this.RefreshButton.Image = global::VBAGit.Properties.Resources.arrow_circle_double;
             this.RefreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Size = new System.Drawing.Size(23, 22);
@@ -80,7 +80,7 @@ namespace VBAGit.UI
             // OpenWorkingFolderButton
             // 
             this.OpenWorkingFolderButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.OpenWorkingFolderButton.Image = global::VBAGitUI.Properties.Resources.folder_horizontal_open;
+            this.OpenWorkingFolderButton.Image = global::VBAGit.Properties.Resources.folder_horizontal_open;
             this.OpenWorkingFolderButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenWorkingFolderButton.Name = "OpenWorkingFolderButton";
             this.OpenWorkingFolderButton.Size = new System.Drawing.Size(23, 22);
@@ -108,7 +108,7 @@ namespace VBAGit.UI
             // 
             this.StatusMessage.Enabled = false;
             this.StatusMessage.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.StatusMessage.Image = global::VBAGitUI.Properties.Resources.icon_github;
+            this.StatusMessage.Image = global::VBAGit.Properties.Resources.icon_github;
             this.StatusMessage.Name = "StatusMessage";
             this.StatusMessage.Size = new System.Drawing.Size(59, 22);
             this.StatusMessage.Text = "Offline";
