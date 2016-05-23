@@ -618,5 +618,14 @@ namespace VBAGitAddin.UI {
                 return ResourceManager.GetString("VBAGitMenu_About", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Source Control.
+        /// </summary>
+        internal static string VBAGitMenu_SourceControl {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_SourceControl", resourceCulture);
+            }
+        }
     }
 }

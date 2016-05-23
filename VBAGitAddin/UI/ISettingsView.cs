@@ -1,4 +1,5 @@
 ﻿using System;
+using VBAGitAddin.Settings;
 
 namespace VBAGitAddin.UI
 {

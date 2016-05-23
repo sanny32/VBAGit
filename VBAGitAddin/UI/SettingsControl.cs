@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
+using VBAGitAddin.Settings;
 
 namespace VBAGitAddin.UI
 {

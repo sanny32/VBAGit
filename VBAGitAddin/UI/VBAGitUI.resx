@@ -305,4 +305,7 @@
   <data name="Online" xml:space="preserve">
     <value>Online</value>
   </data>
+  <data name="VBAGitMenu_SourceControl" xml:space="preserve">
+    <value>&amp;Source Control</value>
+  </data>
 </root>

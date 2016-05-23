@@ -4,6 +4,7 @@ using System.Security;
 using System.Windows.Forms;
 using Microsoft.Vbe.Interop;
 using VBAGitAddin.SourceControl;
+using VBAGitAddin.Settings;
 
 namespace VBAGitAddin.UI
 {

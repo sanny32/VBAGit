@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VBAGitAddin.SourceControl;
 
-namespace VBAGitAddin.UI
+namespace VBAGitAddin.Settings
 {
     public interface ISourceControlUserSettings
     {

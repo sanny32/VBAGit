@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using VBAGitAddin.Settings;
 using VBAGitAddin.SourceControl;
 
 namespace VBAGitAddin.UI
