@@ -620,11 +620,56 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Source Control.
+        ///   Looks up a localized string similar to Git &amp;Commit....
         /// </summary>
-        internal static string VBAGitMenu_SourceControl {
+        internal static string VBAGitMenu_Commit {
             get {
-                return ResourceManager.GetString("VBAGitMenu_SourceControl", resourceCulture);
+                return ResourceManager.GetString("VBAGitMenu_Commit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetch.
+        /// </summary>
+        internal static string VBAGitMenu_Fecth {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Fecth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pull.
+        /// </summary>
+        internal static string VBAGitMenu_Pull {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Pull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Push.
+        /// </summary>
+        internal static string VBAGitMenu_Push {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Push", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Git &amp;Sync....
+        /// </summary>
+        internal static string VBAGitMenu_Sync {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Sync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VBAGit.
+        /// </summary>
+        internal static string VBAGitMenu_VBAGit {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_VBAGit", resourceCulture);
             }
         }
     }

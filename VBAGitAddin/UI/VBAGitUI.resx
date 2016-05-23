@@ -305,7 +305,22 @@
   <data name="Online" xml:space="preserve">
     <value>Online</value>
   </data>
-  <data name="VBAGitMenu_SourceControl" xml:space="preserve">
-    <value>&amp;Source Control</value>
+  <data name="VBAGitMenu_Commit" xml:space="preserve">
+    <value>Git &amp;Commit...</value>
+  </data>
+  <data name="VBAGitMenu_Fecth" xml:space="preserve">
+    <value>Fetch</value>
+  </data>
+  <data name="VBAGitMenu_Pull" xml:space="preserve">
+    <value>Pull</value>
+  </data>
+  <data name="VBAGitMenu_Push" xml:space="preserve">
+    <value>Push</value>
+  </data>
+  <data name="VBAGitMenu_Sync" xml:space="preserve">
+    <value>Git &amp;Sync...</value>
+  </data>
+  <data name="VBAGitMenu_VBAGit" xml:space="preserve">
+    <value>VBAGit</value>
   </data>
 </root>
