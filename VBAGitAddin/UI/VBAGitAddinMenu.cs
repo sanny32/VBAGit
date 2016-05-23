@@ -9,10 +9,7 @@ namespace VBAGitAddin.UI
 {
     internal class VBAGitAddinMenu : Menu
     {       
-        private readonly AddIn _addIn;
-
-        private CommandBarButton _about;
-        private CommandBarButton _settings;
+        private readonly AddIn _addIn;      
         private CommandBarButton _sourceControl;
 
        public VBAGitAddinMenu(VBE vbe, AddIn addIn, IActiveCodePaneEditor editor)
