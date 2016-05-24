@@ -108,7 +108,6 @@ namespace VBAGitAddin.UI
             // 
             this.StatusMessage.Enabled = false;
             this.StatusMessage.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.StatusMessage.Image = global::VBAGitAddin.Properties.Resources.icon_github;
             this.StatusMessage.Name = "StatusMessage";
             this.StatusMessage.Size = new System.Drawing.Size(59, 22);
             this.StatusMessage.Text = "Offline";

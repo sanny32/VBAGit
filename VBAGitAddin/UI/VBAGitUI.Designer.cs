@@ -629,6 +629,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Git create repositor&amp;y....
+        /// </summary>
+        internal static string VBAGitMenu_Create {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fetch.
         /// </summary>
         internal static string VBAGitMenu_Fecth {

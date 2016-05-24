@@ -308,6 +308,9 @@
   <data name="VBAGitMenu_Commit" xml:space="preserve">
     <value>Git &amp;Commit...</value>
   </data>
+  <data name="VBAGitMenu_Create" xml:space="preserve">
+    <value>Git create repositor&amp;y...</value>
+  </data>
   <data name="VBAGitMenu_Fecth" xml:space="preserve">
     <value>Fetch</value>
   </data>

@@ -9,6 +9,10 @@ namespace VBAGitAddin.UI
     internal class VBAGitAddinMenu : Menu
     {       
         private readonly AddIn _addIn;
+
+        private CommandBarPopup _menu;
+
+        private CommandBarButton _scCreate;
         private CommandBarButton _scSync;
         private CommandBarButton _scCommit;
         private CommandBarButton _scPull;
@@ -16,67 +20,113 @@ namespace VBAGitAddin.UI
         private CommandBarButton _scPush;
         private CommandBarPopup _vbaGitMenu;
 
+        private bool _activeProjectHasRepo;
+
         public VBAGitAddinMenu(VBE vbe, AddIn addIn, IActiveCodePaneEditor editor)
             : base(vbe, addIn)
         {
-            _addIn = addIn;                      
+            _addIn = addIn;
+            _activeProjectHasRepo = false;
         }       
 
         public void Initialize()
         {
+            RecreateMenu();
+        }
+
+        public void RecreateMenu()
+        {
+            if (_menu != null)
+            {
+                UnsubsribeCommandBarButtonClickEvents();
+                _menu.Delete();
+            }
+
             const int windowMenuId = 30009;
             var menuBarControls = IDE.CommandBars[1].Controls;
             var beforeIndex = FindMenuInsertionIndex(menuBarControls, windowMenuId);
-            _menu = menuBarControls.Add(MsoControlType.msoControlPopup, Before: beforeIndex, Temporary: true) as CommandBarPopup;
 
+            _menu = menuBarControls.Add(MsoControlType.msoControlPopup, Before: beforeIndex, Temporary: true) as CommandBarPopup;
             _menu.Caption = VBAGitUI.VBAGitMenu;
 
-            _scSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnSourceControlSync, VBAGitAddin.Properties.Resources.arrow_circle_double);
-            _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnSourceControlCommit, VBAGitAddin.Properties.Resources.arrow1);
+            if (_activeProjectHasRepo)
+            {
+                _scSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnSourceControlSync);
+                SetButtonImage(_scSync, VBAGitAddin.Properties.Resources.git_sync, VBAGitAddin.Properties.Resources.git_sync_mask);
 
-            _scPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnSourceControlPull, VBAGitAddin.Properties.Resources.arrow_270);
-            _scFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnSourceControlFetch, VBAGitAddin.Properties.Resources.arrow_270);
-            _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnSourceControlPush, VBAGitAddin.Properties.Resources.arrow_090);
+                _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnSourceControlCommit);
+                SetButtonImage(_scCommit, VBAGitAddin.Properties.Resources.git_commit, VBAGitAddin.Properties.Resources.git_commit_mask);
 
-            _vbaGitMenu = _menu.Controls.Add(MsoControlType.msoControlPopup, Temporary: true) as CommandBarPopup;
-            _vbaGitMenu.BeginGroup = true;
-            _vbaGitMenu.Caption = VBAGitUI.VBAGitMenu_VBAGit;
+                _scPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnSourceControlPull);
+                SetButtonImage(_scPull, VBAGitAddin.Properties.Resources.git_pull, VBAGitAddin.Properties.Resources.git_pull_mask);
+
+                _scFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnSourceControlFetch);
+                SetButtonImage(_scFetch, VBAGitAddin.Properties.Resources.git_pull, VBAGitAddin.Properties.Resources.git_pull_mask);
+
+                _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnSourceControlPush);
+                SetButtonImage(_scPush, VBAGitAddin.Properties.Resources.git_push, VBAGitAddin.Properties.Resources.git_push_mask);
+
+                _vbaGitMenu = _menu.Controls.Add(MsoControlType.msoControlPopup, Temporary: true) as CommandBarPopup;
+                _vbaGitMenu.BeginGroup = true;
+                _vbaGitMenu.Caption = VBAGitUI.VBAGitMenu_VBAGit;
+            }
+            else
+            {
+                _scCreate = AddButton(_menu, VBAGitUI.VBAGitMenu_Create, false, OnSourceControlCreate);
+                SetButtonImage(_scCreate, VBAGitAddin.Properties.Resources.create_repo, VBAGitAddin.Properties.Resources.create_repo_mask);
+            }
         }
 
-        private App _sourceControlApp;       
         private void OnSourceControlSync(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            //if (_sourceControlApp == null)
-            //{
-            //    _sourceControlApp = new App(this.IDE, this.AddIn, new SourceControlConfigurationService(), 
-            //                                                    new ChangesControl(), new UnSyncedCommitsControl(),
-            //                                                    new SettingsControl(), new BranchesControl(),
-            //                                                    new CreateBranchForm(), new DeleteBranchForm(),
-            //                                                    new MergeForm());
-            //}
-
-            //_sourceControlApp.ShowWindow();
+         
         }
+
         private void OnSourceControlCommit(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
+
         private void OnSourceControlPull(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
+
         private void OnSourceControlFetch(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
+
         private void OnSourceControlPush(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private bool _disposed;
-        private CommandBarPopup _menu;
+        private void OnSourceControlCreate(CommandBarButton Ctrl, ref bool CancelDefault)
+        {
+            _activeProjectHasRepo = true;
+            RecreateMenu();
+        }
 
+        private void UnsubsribeCommandBarButtonClickEvents()
+        {
+            if (_scCreate != null)
+                _scCreate.Click -= OnSourceControlCreate;
+
+            if (_scSync != null)
+                _scSync.Click -= OnSourceControlSync;
+            if (_scCommit != null)
+                _scCommit.Click -= OnSourceControlCommit;
+
+            if (_scPull != null)
+                _scPull.Click -= OnSourceControlPull;
+            if (_scFetch != null)
+                _scFetch.Click -= OnSourceControlFetch;
+            if (_scPush != null)
+                _scPush.Click -= OnSourceControlPush;
+        }
+
+        private bool _disposed;
         protected override void Dispose(bool disposing)
         {
             if (_disposed || !disposing)
@@ -84,14 +134,14 @@ namespace VBAGitAddin.UI
                 return;
             }
 
-            _scSync.Click -= OnSourceControlSync;
-            _scCommit.Click -= OnSourceControlCommit;
-            _scPull.Click -= OnSourceControlPull;
-            _scFetch.Click -= OnSourceControlFetch;
-            _scPush.Click -= OnSourceControlPush;
+            UnsubsribeCommandBarButtonClickEvents();
 
-            var menuBarControls = IDE.CommandBars[1].Controls;
-            menuBarControls.Parent.FindControl(_menu.Type, _menu.Id, _menu.Tag, _menu.Visible).Delete();
+            if (_menu != null)
+            {
+                var menuBarControls = IDE.CommandBars[1].Controls;
+                var control = menuBarControls.Parent.FindControl(_menu.Type, _menu.Id, _menu.Tag, _menu.Visible);
+                if (control != null) control.Delete();
+            }
 
             _disposed = true;
             base.Dispose(true);

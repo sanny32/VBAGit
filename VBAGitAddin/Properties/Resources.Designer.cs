@@ -183,6 +183,16 @@ namespace VBAGitAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clone_repo_mask {
+            get {
+                object obj = ResourceManager.GetObject("clone_repo_mask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap control_000_small {
             get {
                 object obj = ResourceManager.GetObject("control_000_small", resourceCulture);
@@ -193,9 +203,19 @@ namespace VBAGitAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap creative_commons {
+        internal static System.Drawing.Bitmap create_repo {
             get {
-                object obj = ResourceManager.GetObject("creative_commons", resourceCulture);
+                object obj = ResourceManager.GetObject("create_repo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap create_repo_mask {
+            get {
+                object obj = ResourceManager.GetObject("create_repo_mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -283,56 +303,6 @@ namespace VBAGitAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap flask {
-            get {
-                object obj = ResourceManager.GetObject("flask", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap flask_arrow {
-            get {
-                object obj = ResourceManager.GetObject("flask_arrow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap flask_empty {
-            get {
-                object obj = ResourceManager.GetObject("flask_empty", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap flask_exclamation {
-            get {
-                object obj = ResourceManager.GetObject("flask_exclamation", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap flask_plus {
-            get {
-                object obj = ResourceManager.GetObject("flask_plus", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap folder_horizontal {
             get {
                 object obj = ResourceManager.GetObject("folder_horizontal", resourceCulture);
@@ -373,9 +343,9 @@ namespace VBAGitAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap github_alt {
+        internal static System.Drawing.Bitmap git_commit {
             get {
-                object obj = ResourceManager.GetObject("github_alt", resourceCulture);
+                object obj = ResourceManager.GetObject("git_commit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -383,9 +353,69 @@ namespace VBAGitAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap github_circle_black_128 {
+        internal static System.Drawing.Bitmap git_commit_mask {
             get {
-                object obj = ResourceManager.GetObject("github_circle_black_128", resourceCulture);
+                object obj = ResourceManager.GetObject("git_commit_mask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap git_pull {
+            get {
+                object obj = ResourceManager.GetObject("git_pull", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap git_pull_mask {
+            get {
+                object obj = ResourceManager.GetObject("git_pull_mask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap git_push {
+            get {
+                object obj = ResourceManager.GetObject("git_push", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap git_push_mask {
+            get {
+                object obj = ResourceManager.GetObject("git_push_mask", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap git_sync {
+            get {
+                object obj = ResourceManager.GetObject("git_sync", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap git_sync_mask {
+            get {
+                object obj = ResourceManager.GetObject("git_sync_mask", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -396,16 +426,6 @@ namespace VBAGitAddin.Properties {
         internal static System.Drawing.Bitmap hourglass {
             get {
                 object obj = ResourceManager.GetObject("hourglass", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icon_github {
-            get {
-                object obj = ResourceManager.GetObject("icon_github", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -426,16 +446,6 @@ namespace VBAGitAddin.Properties {
         internal static System.Drawing.Bitmap information_white {
             get {
                 object obj = ResourceManager.GetObject("information_white", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap light_bulb_code {
-            get {
-                object obj = ResourceManager.GetObject("light_bulb_code", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -210,7 +210,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\BranchesControl.resx">
       <DependentUpon>BranchesControl.cs</DependentUpon>
@@ -250,6 +250,72 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\create-repo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\git-commit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\git-pull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\git-push.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\git-sync.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\application-resize.png" />
+    <Content Include="Resources\applycodechanges_6548_321.bmp" />
+    <Content Include="Resources\arrow-090.png" />
+    <Content Include="Resources\arrow-270.png" />
+    <Content Include="Resources\arrow-branch-090.png" />
+    <Content Include="Resources\arrow-circle-double.png" />
+    <Content Include="Resources\arrow-merge-090.png" />
+    <Content Include="Resources\arrow-repeat.png" />
+    <Content Include="Resources\arrow-repeat1.png" />
+    <Content Include="Resources\arrow-return-180-left.png" />
+    <Content Include="Resources\arrow-split.png" />
+    <Content Include="Resources\arrow-step.png" />
+    <Content Include="Resources\arrow.png" />
+    <Content Include="Resources\arrow1.png" />
+    <None Include="Resources\clone-repo-mask.png" />
+    <Content Include="Resources\clone-repo.png" />
+    <Content Include="Resources\control-000-small.png" />
+    <None Include="Resources\create-repo-mask.png" />
+    <Content Include="Resources\creative-commons.png" />
+    <Content Include="Resources\cross-circle.png" />
+    <Content Include="Resources\cross-script.png" />
+    <Content Include="Resources\document-copy.png" />
+    <Content Include="Resources\drive-download.png" />
+    <Content Include="Resources\drive-upload.png" />
+    <Content Include="Resources\Ducky.ico" />
+    <Content Include="Resources\exclamation-circle.png" />
+    <Content Include="Resources\exclamation-diamond.png" />
+    <Content Include="Resources\exclamation-white.png" />
+    <Content Include="Resources\exclamation.png" />
+    <Content Include="Resources\folder-horizontal-open.png" />
+    <Content Include="Resources\folder-horizontal.png" />
+    <Content Include="Resources\gear.png" />
+    <None Include="Resources\git-sync.bmp" />
+    <None Include="Resources\git-sync-mask.png" />
+    <None Include="Resources\git-commit-sync.png" />
+    <None Include="Resources\git-pull-mask.png" />
+    <None Include="Resources\git-push-mask.png" />
+    <None Include="Resources\git-commit-mask.png" />
+    <Content Include="Resources\git.png" />
+    <Content Include="Resources\hourglass.png" />
+    <Content Include="Resources\information-white.png" />
+    <Content Include="Resources\information.png" />
+    <Content Include="Resources\minus-circle1.png" />
+    <Content Include="Resources\navigation-180.png" />
+    <Content Include="Resources\navigation.png" />
+    <Content Include="Resources\plus-circle1.png" />
+    <Content Include="Resources\question-white.png" />
+    <Content Include="Resources\tick-circle.png" />
+    <Content Include="Resources\tick.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -75,7 +75,7 @@ namespace VBAGitAddin.UI
 
             if (image != null)
             {
-                image.MakeTransparent(Color.Transparent);
+                image.MakeTransparent(Color.Magenta);
                 Clipboard.SetDataObject(image, true);
                 button.PasteFace();
             }
