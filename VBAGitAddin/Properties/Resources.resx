@@ -256,4 +256,94 @@
   <data name="git_sync_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\git-sync-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="VBAGit_about" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_about_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-about-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_checkmod" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-checkmod.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_checkmod_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-checkmod-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_checkout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-checkout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_checkout_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-checkout-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_cleanup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-cleanup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_cleanup_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-cleanup-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_createbranch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-createbranch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_createbranch_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-createbranch-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_delete_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-delete-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_diff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-diff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_diff_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-diff-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_export_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-export-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_merge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-merge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_merge_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-merge-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_rebase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-rebase.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_rebase_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-rebase-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_repobrowser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-repobrowser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_repobrowser_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-repobrowser-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_resolve" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-resolve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_resolve_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-resolve-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_revert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-revert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_revert_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-revert-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_settings_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-settings-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_showlog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-showlog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VBAGit_showlog_mask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VBAGit-showlog-mask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

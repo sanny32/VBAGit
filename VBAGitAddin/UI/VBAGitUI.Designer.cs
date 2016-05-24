@@ -575,24 +575,6 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use of unassigned variable &apos;{0}&apos;.
-        /// </summary>
-        internal static string UnassignedVariableUsage_ {
-            get {
-                return ResourceManager.GetString("UnassignedVariableUsage_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Build {0} ({1}).
-        /// </summary>
-        internal static string VBAGit_AboutBuild {
-            get {
-                return ResourceManager.GetString("VBAGit_AboutBuild", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VBAGit Add-In could not be loaded.
         /// </summary>
         internal static string VBAGitLoadFailure {
@@ -620,6 +602,33 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for modifications.
+        /// </summary>
+        internal static string VBAGitMenu_CheckForModifications {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_CheckForModifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swicth/Checkout....
+        /// </summary>
+        internal static string VBAGitMenu_Checkout {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Checkout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clean up....
+        /// </summary>
+        internal static string VBAGitMenu_CleanUp {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_CleanUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Git &amp;Commit....
         /// </summary>
         internal static string VBAGitMenu_Commit {
@@ -638,11 +647,56 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Branch....
+        /// </summary>
+        internal static string VBAGitMenu_CreateBranch {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_CreateBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string VBAGitMenu_Delete {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diff.
+        /// </summary>
+        internal static string VBAGitMenu_Diff {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Diff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export....
+        /// </summary>
+        internal static string VBAGitMenu_Export {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fetch.
         /// </summary>
         internal static string VBAGitMenu_Fecth {
             get {
                 return ResourceManager.GetString("VBAGitMenu_Fecth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge....
+        /// </summary>
+        internal static string VBAGitMenu_Merge {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Merge", resourceCulture);
             }
         }
         
@@ -661,6 +715,60 @@ namespace VBAGitAddin.UI {
         internal static string VBAGitMenu_Push {
             get {
                 return ResourceManager.GetString("VBAGitMenu_Push", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rebase....
+        /// </summary>
+        internal static string VBAGitMenu_Rebase {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Rebase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repo-browser.
+        /// </summary>
+        internal static string VBAGitMenu_RepoBrowser {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_RepoBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resolve....
+        /// </summary>
+        internal static string VBAGitMenu_Resolve {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Resolve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert....
+        /// </summary>
+        internal static string VBAGitMenu_Revert {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string VBAGitMenu_Settings {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show log.
+        /// </summary>
+        internal static string VBAGitMenu_ShowLog {
+            get {
+                return ResourceManager.GetString("VBAGitMenu_ShowLog", resourceCulture);
             }
         }
         

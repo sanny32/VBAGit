@@ -126,18 +126,11 @@
   <data name="VBAGitLoadFailure" xml:space="preserve">
     <value>VBAGit Add-In could not be loaded</value>
   </data>
-  <data name="VBAGit_AboutBuild" xml:space="preserve">
-    <value>Build {0} ({1})</value>
-    <comment>0: Version; 1: ProcessorArchitecture</comment>
-  </data>
   <data name="SourceControl_CreateNewRepo" xml:space="preserve">
     <value>Create New Repository</value>
   </data>
   <data name="SourceControl_OpenWorkingDirectory" xml:space="preserve">
     <value>Open Working Directory</value>
-  </data>
-  <data name="UnassignedVariableUsage_" xml:space="preserve">
-    <value>Use of unassigned variable '{0}'</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Ducky" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -325,5 +318,47 @@
   </data>
   <data name="VBAGitMenu_VBAGit" xml:space="preserve">
     <value>VBAGit</value>
+  </data>
+  <data name="VBAGitMenu_CheckForModifications" xml:space="preserve">
+    <value>Check for modifications</value>
+  </data>
+  <data name="VBAGitMenu_Checkout" xml:space="preserve">
+    <value>Swicth/Checkout...</value>
+  </data>
+  <data name="VBAGitMenu_CleanUp" xml:space="preserve">
+    <value>Clean up...</value>
+  </data>
+  <data name="VBAGitMenu_CreateBranch" xml:space="preserve">
+    <value>Create Branch...</value>
+  </data>
+  <data name="VBAGitMenu_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="VBAGitMenu_Diff" xml:space="preserve">
+    <value>Diff</value>
+  </data>
+  <data name="VBAGitMenu_Export" xml:space="preserve">
+    <value>Export...</value>
+  </data>
+  <data name="VBAGitMenu_Merge" xml:space="preserve">
+    <value>Merge...</value>
+  </data>
+  <data name="VBAGitMenu_Rebase" xml:space="preserve">
+    <value>Rebase...</value>
+  </data>
+  <data name="VBAGitMenu_RepoBrowser" xml:space="preserve">
+    <value>Repo-browser</value>
+  </data>
+  <data name="VBAGitMenu_Resolve" xml:space="preserve">
+    <value>Resolve...</value>
+  </data>
+  <data name="VBAGitMenu_Revert" xml:space="preserve">
+    <value>Revert...</value>
+  </data>
+  <data name="VBAGitMenu_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="VBAGitMenu_ShowLog" xml:space="preserve">
+    <value>Show log</value>
   </data>
 </root>

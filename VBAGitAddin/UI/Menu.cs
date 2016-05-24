@@ -61,6 +61,16 @@ namespace VBAGitAddin.UI
             return button;
         }
 
+        protected CommandBarButton AddButton(CommandBarPopup parentMenu, string caption, bool beginGroup, CommandBarButtonClickEvent buttonClickHandler, string imageName)
+        {
+            var button = AddButton(parentMenu, caption, beginGroup, buttonClickHandler);
+            var resourceCulture = VBAGitAddin.Properties.Resources.Culture;
+            Bitmap image = (System.Drawing.Bitmap)VBAGitAddin.Properties.Resources.ResourceManager.GetObject(imageName, resourceCulture);
+            Bitmap mask = (System.Drawing.Bitmap)VBAGitAddin.Properties.Resources.ResourceManager.GetObject(imageName + "_mask", resourceCulture);
+            SetButtonImage(button, image, mask);
+            return button;
+        }
+
         protected CommandBarButton AddButton(CommandBarPopup parentMenu, string caption, bool beginGroup, CommandBarButtonClickEvent buttonClickHandler, Bitmap image)
         {
             var button = AddButton(parentMenu, caption, beginGroup, buttonClickHandler);
