@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Extensibility;
 using Microsoft.Vbe.Interop;
 using VBAGitAddin.UI;
+using VBAGitAddin.VBEditor;
 
 namespace VBAGitAddin
 {

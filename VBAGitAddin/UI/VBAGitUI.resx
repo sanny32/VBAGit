@@ -319,6 +319,15 @@
   <data name="VBAGitMenu_VBAGit" xml:space="preserve">
     <value>VBAGit</value>
   </data>
+  <data name="SourceControl_SuccessfulCreateNewRepo" xml:space="preserve">
+    <value>Repository created successfully!</value>
+  </data>
+  <data name="VBAGitCaption" xml:space="preserve">
+    <value>VBAGit</value>
+  </data>
+  <data name="VBAGitFolder" xml:space="preserve">
+    <value>.VBAGit</value>
+  </data>
   <data name="VBAGitMenu_CheckForModifications" xml:space="preserve">
     <value>Check for modifications</value>
   </data>

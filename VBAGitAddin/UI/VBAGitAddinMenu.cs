@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.Office.Core;
 using Microsoft.Vbe.Interop;
 using VBAGitAddin.VBEditor;
+using System.IO;
+using System.Windows.Forms;
 
 namespace VBAGitAddin.UI
 {
@@ -38,15 +40,15 @@ namespace VBAGitAddin.UI
 
         private bool _activeProjectHasRepo;
 
-        public VBAGitAddinMenu(VBE vbe, AddIn addIn, IActiveCodePaneEditor editor)
+        public VBAGitAddinMenu(VBE vbe, AddIn addIn)
             : base(vbe, addIn)
         {
-            _addIn = addIn;
-            _activeProjectHasRepo = false;
+            _addIn = addIn;            
         }       
 
         public void Initialize()
         {
+            _activeProjectHasRepo = false;
             RecreateMenu();
         }
 
@@ -141,8 +143,25 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCreate(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            _activeProjectHasRepo = true;
-            RecreateMenu();
+            try
+            {
+                var project = IDE.ActiveVBProject;
+                var providerFactory = new SourceControlProviderFactory();
+                var provider = providerFactory.CreateProvider(project);
+                var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
+                var repo = provider.Init(Path.Combine(pathVBAGit, project.Name));                
+
+                //AddRepoToConfig((Repository)repo);
+
+                _activeProjectHasRepo = true;
+                RecreateMenu();
+
+                MessageBox.Show(VBAGitUI.SourceControl_SuccessfulCreateNewRepo, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void OnSourceControlDiff(CommandBarButton Ctrl, ref bool CancelDefault)

@@ -189,7 +189,6 @@
     </Compile>
     <Compile Include="VBEditor\ActiveCodePaneEditor.cs" />
     <Compile Include="VBEditor\CodeModuleSelection.cs" />
-    <Compile Include="VBEditor\DocumentEventHandlerPrefixes.cs" />
     <Compile Include="VBEditor\Extensions\CodeModuleExtensions.cs" />
     <Compile Include="VBEditor\Extensions\CodePaneExtensions.cs" />
     <Compile Include="VBEditor\Extensions\StringExtensions.cs" />
@@ -205,6 +204,7 @@
     <Compile Include="VBEditor\QualifiedSelection.cs" />
     <Compile Include="VBEditor\Selection.cs" />
     <Compile Include="VBEditor\SubClassingWindowEventArgs.cs" />
+    <Compile Include="VBEditor\VBProjectsEventsSink.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

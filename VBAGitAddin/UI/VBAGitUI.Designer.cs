@@ -503,6 +503,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Repository created successfully!.
+        /// </summary>
+        internal static string SourceControl_SuccessfulCreateNewRepo {
+            get {
+                return ResourceManager.GetString("SourceControl_SuccessfulCreateNewRepo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully Merged {0} into {1}.
         /// </summary>
         internal static string SourceControl_SuccessfulMerge {
@@ -571,6 +580,24 @@ namespace VBAGitAddin.UI {
         internal static string SourceControlPanel_Caption {
             get {
                 return ResourceManager.GetString("SourceControlPanel_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VBAGit.
+        /// </summary>
+        internal static string VBAGitCaption {
+            get {
+                return ResourceManager.GetString("VBAGitCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .VBAGit.
+        /// </summary>
+        internal static string VBAGitFolder {
+            get {
+                return ResourceManager.GetString("VBAGitFolder", resourceCulture);
             }
         }
         

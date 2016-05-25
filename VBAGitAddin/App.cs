@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using Microsoft.Vbe.Interop;
 using VBAGitAddin.UI;
 using VBAGitAddin.VBEditor;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace VBAGitAddin
 {
@@ -11,21 +11,24 @@ namespace VBAGitAddin
         private readonly VBE _vbe;
         private readonly AddIn _addIn;
         private VBAGitAddinMenu _menu;
-        private readonly ActiveCodePaneEditor _editor;
 
-        private bool displayToolbar = false;
-        private Point toolbarCoords = new Point(-1, -1);
+        private VBProjectsEventsSink _sink;
+        private IConnectionPoint _projectsEventsConnectionPoint;
+        private int _projectsEventsCookie;
 
         public App(VBE vbe, AddIn addIn)
         {
             _vbe = vbe;
-            _addIn = addIn;            
-
-            _editor = new ActiveCodePaneEditor(vbe);
+            _addIn = addIn;
 
             CleanUp();
 
             Setup();
+        }
+
+        private void _sink_ProjectActivated(object sender, DispatcherEventArgs<VBProject> e)
+        {
+            _menu.Initialize();
         }
 
         private void _configService_SettingsChanged(object sender, EventArgs e)
@@ -37,8 +40,14 @@ namespace VBAGitAddin
 
         private void Setup()
         {            
-            _menu = new VBAGitAddinMenu(_vbe, _addIn, _editor);
-            _menu.Initialize();
+            _menu = new VBAGitAddinMenu(_vbe, _addIn);
+
+            _sink = new VBProjectsEventsSink();
+            var connectionPointContainer = (IConnectionPointContainer)_vbe.VBProjects;
+            var interfaceId = typeof(_dispVBProjectsEvents).GUID;
+            connectionPointContainer.FindConnectionPoint(ref interfaceId, out _projectsEventsConnectionPoint);
+            _projectsEventsConnectionPoint.Advise(_sink, out _projectsEventsCookie);
+            _sink.ProjectActivated += _sink_ProjectActivated;
         }
         
         public void Dispose()
@@ -58,7 +67,12 @@ namespace VBAGitAddin
             if (_menu != null)
             {
                 _menu.Dispose();
-            }          
+            }
+
+            if (_projectsEventsConnectionPoint != null)
+            {
+                _projectsEventsConnectionPoint.Unadvise(_projectsEventsCookie);
+            }
         }
     }
 }
