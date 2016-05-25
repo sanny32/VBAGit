@@ -3,15 +3,17 @@ using Microsoft.Vbe.Interop;
 using VBAGitAddin.UI;
 using VBAGitAddin.VBEditor;
 using System.Runtime.InteropServices.ComTypes;
+using VBAGitAddin.Settings;
 
 namespace VBAGitAddin
 {
     public class App : IDisposable
     {
         private readonly VBE _vbe;
-        private readonly AddIn _addIn;
-        private VBAGitAddinMenu _menu;
+        private readonly AddIn _addIn;        
+        private readonly SourceControlConfiguration _config;
 
+        private VBAGitAddinMenu _menu;
         private VBProjectsEventsSink _sink;
         private IConnectionPoint _projectsEventsConnectionPoint;
         private int _projectsEventsCookie;

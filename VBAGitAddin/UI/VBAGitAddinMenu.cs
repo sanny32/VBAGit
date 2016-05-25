@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.Office.Core;
 using Microsoft.Vbe.Interop;
-using VBAGitAddin.VBEditor;
-using System.IO;
 using System.Windows.Forms;
 
 namespace VBAGitAddin.UI
@@ -11,6 +8,7 @@ namespace VBAGitAddin.UI
     internal class VBAGitAddinMenu : Menu
     {       
         private readonly AddIn _addIn;
+        private App _app;
 
         private CommandBarPopup _menu;
 
@@ -38,17 +36,15 @@ namespace VBAGitAddin.UI
         private CommandBarButton _scSettings;
         private CommandBarButton _scAbout;
 
-        private bool _activeProjectHasRepo;
-
         public VBAGitAddinMenu(VBE vbe, AddIn addIn)
             : base(vbe, addIn)
         {
-            _addIn = addIn;            
+            _addIn = addIn;
+            _app = new App(vbe, addIn);
         }       
 
         public void Initialize()
         {
-            _activeProjectHasRepo = false;
             RecreateMenu();
         }
 
@@ -69,7 +65,7 @@ namespace VBAGitAddin.UI
             _menu.Tag = "VBAFGit";       
             _menu.Caption = VBAGitUI.VBAGitMenu;
 
-            if (_activeProjectHasRepo)
+            if (_app.IsActiveProjectHasRepo)
             {
                 _scSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnSourceControlSync, "git_sync");               
                 _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnSourceControlCommit, "git_commit");                
@@ -91,7 +87,7 @@ namespace VBAGitAddin.UI
             _vbaGitMenu.BeginGroup = true;
             _vbaGitMenu.Caption = VBAGitUI.VBAGitMenu_VBAGit;
 
-            if (_activeProjectHasRepo)
+            if (_app.IsActiveProjectHasRepo)
             {                
                 _scDiff = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Diff, false, OnSourceControlDiff, "VBAGit_diff");
 
@@ -145,15 +141,8 @@ namespace VBAGitAddin.UI
         {
             try
             {
-                var project = IDE.ActiveVBProject;
-                var providerFactory = new SourceControlProviderFactory();
-                var provider = providerFactory.CreateProvider(project);
-                var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
-                var repo = provider.Init(Path.Combine(pathVBAGit, project.Name));                
+                _app.CreateNewRepo();
 
-                //AddRepoToConfig((Repository)repo);
-
-                _activeProjectHasRepo = true;
                 RecreateMenu();
 
                 MessageBox.Show(VBAGitUI.SourceControl_SuccessfulCreateNewRepo, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);

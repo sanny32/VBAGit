@@ -1,56 +1,51 @@
 ﻿using Microsoft.Vbe.Interop;
+using System.IO;
+using VBAGitAddin.SourceControl;
 using VBAGitAddin.Settings;
 
 namespace VBAGitAddin.UI
 {
     class App
     {
-        private readonly SourceControlPresenter _sourceControlPresenter;
-        private ISourceControlView _sourceControlView;
+        private readonly VBE _vbe;
+        private readonly AddIn _addIn;
+        private readonly IConfigurationService<SourceControlConfiguration> _configService;
+        private readonly SourceControlConfiguration _config;
 
-        internal App(
-                    VBE vbe, 
-                    AddIn addIn, 
-                    IConfigurationService<SourceControlConfiguration> configService, 
-                    IChangesView changesView, 
-                    IUnsyncedCommitsView unsyncedCommitsView, 
-                    ISettingsView settingsView,
-                    IBranchesView branchesView, 
-                    ICreateBranchView createBranchView,
-                    IDeleteBranchView deleteBranchView,
-                    IMergeView mergeView
-                )
+        internal App(VBE vbe, AddIn addIn)
         {
-            var failedActionView = new FailedActionControl();
-       
-             _sourceControlView = new SourceControlPanel(branchesView, changesView, unsyncedCommitsView, settingsView, failedActionView);
-            var changesPresenter = new ChangesPresenter(changesView);
-            var branchesPresenter = new BranchesPresenter(branchesView, createBranchView, deleteBranchView, mergeView);
-            var settingsPresenter = new SettingsPresenter(settingsView, configService, new DialogFactory());
-            var unsyncedPresenter = new UnsyncedCommitsPresenter(unsyncedCommitsView);
+            _vbe = vbe;
+            _addIn = addIn;
 
-            _sourceControlPresenter = 
-                new SourceControlPresenter
-                (
-                    vbe, 
-                    addIn, 
-                    configService, 
-                    _sourceControlView, 
-                    changesPresenter, 
-                    branchesPresenter, 
-                    settingsPresenter, 
-                    unsyncedPresenter,
-                    new DialogFactory(), 
-                    new SourceControlProviderFactory(),
-                    failedActionView,
-                    new LoginControl()
-                );
+            _configService = new SourceControlConfigurationService();
+            _config = _configService.LoadConfiguration();
         }
 
-        public void ShowWindow()
+        public bool IsActiveProjectHasRepo
         {
-            _sourceControlPresenter.RefreshChildren();
-            _sourceControlPresenter.Show();
+            get
+            {
+                var project = _vbe.ActiveVBProject;
+                return _config.Repositories.Exists((Repository r) => r.Name == project.Name);                
+            }
         }
+
+        public void CreateNewRepo()
+        {
+            var project = _vbe.ActiveVBProject;
+            var providerFactory = new SourceControlProviderFactory();
+            var provider = providerFactory.CreateProvider(project);
+            var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
+            var repo = provider.Init(Path.Combine(pathVBAGit, project.Name));
+
+            AddRepoToConfig((Repository)repo);
+        }
+
+        private void AddRepoToConfig(Repository repo)
+        {
+            _config.Repositories.Add(repo);
+            _configService.SaveConfiguration(_config);
+        }
+
     }
 }
