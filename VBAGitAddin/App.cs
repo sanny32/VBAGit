@@ -28,7 +28,10 @@ namespace VBAGitAddin
 
         private void _sink_ProjectActivated(object sender, DispatcherEventArgs<VBProject> e)
         {
-            _menu.Initialize();
+            if (_menu != null)
+            {
+                _menu.Initialize();
+            }
         }
 
         private void _configService_SettingsChanged(object sender, EventArgs e)

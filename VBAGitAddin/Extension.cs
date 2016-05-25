@@ -5,15 +5,13 @@ using System.Windows.Forms;
 using Extensibility;
 using Microsoft.Vbe.Interop;
 using VBAGitAddin.UI;
-using VBAGitAddin.VBEditor;
 
 namespace VBAGitAddin
 {
     [ComVisible(true)]
     [Guid(ClassId)]
     [ProgId(ProgId)]
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    // ReSharper disable once InconsistentNaming
+    [EditorBrowsable(EditorBrowsableState.Never)]    
     public class _Extension : IDTExtensibility2, IDisposable
     {
         private const string ClassId = "C723A557-FD00-4C16-AE87-E8D31DC164F9";
