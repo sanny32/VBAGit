@@ -17,6 +17,6 @@ namespace VBAGitAddin.SourceControl
 
         [DispId(2)]
         [Description("FilePath or URL of remote repository.")]
-        string RemoteLocation { get; }        
+        string RemoteLocation { get; }
     }
 }

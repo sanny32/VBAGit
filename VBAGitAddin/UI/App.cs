@@ -7,7 +7,7 @@ using VBAGitAddin.Settings;
 namespace VBAGitAddin.UI
 {
     class App
-    {
+    {       
         private readonly VBE _vbe;
         private readonly AddIn _addIn;
         private readonly IConfigurationService<SourceControlConfiguration> _configService;
@@ -27,7 +27,9 @@ namespace VBAGitAddin.UI
             get
             {
                 var project = _vbe.ActiveVBProject;
-                return _config.Repositories.Exists((Repository r) => r.Name == project.Name && Directory.Exists(r.LocalLocation));                
+                return _config.Repositories.Exists(
+                    (Repository r) => (r.Name == project.Name && Directory.Exists(r.LocalLocation)) ||
+                                      (r.Name == project.Name + Repository.BareExt && Directory.Exists(r.RemoteLocation)));                
             }
         }
 
@@ -35,21 +37,15 @@ namespace VBAGitAddin.UI
         {
             using (var initForm = new InitForm())
             {
-                var project = _vbe.ActiveVBProject;
-                var providerFactory = new SourceControlProviderFactory();
-                var provider = providerFactory.CreateProvider(project);
+                var project = _vbe.ActiveVBProject;                
                 var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
                 var pathRepo = Path.Combine(pathVBAGit, project.Name);
 
                 if (initForm.ShowDialog(pathRepo) == DialogResult.OK)
                 {
-                    bool bare = initForm.Bare;
-                    if (bare)
-                    {
-                        pathRepo += ".git";
-                    }
-
-                    var repo = (Repository)provider.Init(pathRepo, bare);
+                    var providerFactory = new SourceControlProviderFactory();
+                    var provider = providerFactory.CreateProvider(project);
+                    var repo = (Repository)provider.Init(pathRepo, initForm.Bare);
                     AddRepoToConfig(repo);
 
                     return true;
@@ -57,6 +53,18 @@ namespace VBAGitAddin.UI
             }
 
             return false;
+        }
+
+        public void Commit()
+        {
+            using (var commitForm = new CommitForm())
+            {
+                //var project = _vbe.ActiveVBProject;
+                //var providerFactory = new SourceControlProviderFactory();
+                //var provider = providerFactory.CreateProvider(project);
+                
+                commitForm.ShowDialog();
+            }
         }
 
         private void AddRepoToConfig(Repository repo)

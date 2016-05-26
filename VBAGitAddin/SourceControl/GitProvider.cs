@@ -122,10 +122,12 @@ namespace VBAGitAddin.SourceControl
             try
             {
                 var workingDir = (bare) ? string.Empty : directory;
+                var path = (bare) ? directory + Repository.BareExt : directory;
+                var repoName = (bare) ? this.Project.Name + Repository.BareExt : this.Project.Name;                          
 
-                LibGit2Sharp.Repository.Init(directory, bare);
+                LibGit2Sharp.Repository.Init(path, bare);
 
-                return new Repository(this.Project.Name, workingDir, directory);
+                return new Repository(repoName, workingDir, path);
             }
             catch (LibGit2SharpException ex)
             {

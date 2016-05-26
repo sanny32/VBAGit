@@ -283,17 +283,14 @@
   <data name="SourceControl_DeleteBranchTitleLable" xml:space="preserve">
     <value>Delete branch</value>
   </data>
-  <data name="CancelButtonText" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
   <data name="Offline" xml:space="preserve">
     <value>Offline</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="OK_AllCaps" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
@@ -370,7 +367,67 @@
   <data name="VBAGitMenu_ShowLog" xml:space="preserve">
     <value>Show log</value>
   </data>
-  <data name="InitFoem_LabelInfo" xml:space="preserve">
+  <data name="CommitForm_AddSignedoffby" xml:space="preserve">
+    <value>Add Signed-off-by</value>
+  </data>
+  <data name="CommitForm_CheckAdded" xml:space="preserve">
+    <value>Added</value>
+  </data>
+  <data name="CommitForm_CheckAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="CommitForm_CheckDeleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="CommitForm_CheckModified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="CommitForm_CheckNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="CommitForm_CheckUnversioned" xml:space="preserve">
+    <value>Unversioned</value>
+  </data>
+  <data name="CommitForm_CheckVersioned" xml:space="preserve">
+    <value>Versioned</value>
+  </data>
+  <data name="CommitForm_Commit" xml:space="preserve">
+    <value>Commit</value>
+  </data>
+  <data name="CommitForm_GroupChanges" xml:space="preserve">
+    <value>Changes made (double-click on file for diff): </value>
+  </data>
+  <data name="CommitForm_GroupMessage" xml:space="preserve">
+    <value>Message: </value>
+  </data>
+  <data name="CommitForm_LabelCheck" xml:space="preserve">
+    <value>Check: </value>
+  </data>
+  <data name="CommitForm_LabelCommit" xml:space="preserve">
+    <value>Commit to: </value>
+  </data>
+  <data name="CommitForm_LabelSelected" xml:space="preserve">
+    <value>{0} selected, {1} total</value>
+  </data>
+  <data name="CommitForm_MessageOnly" xml:space="preserve">
+    <value>Message only</value>
+  </data>
+  <data name="CommitForm_NewBranch" xml:space="preserve">
+    <value>new branch</value>
+  </data>
+  <data name="CommitForm_SetAuthor" xml:space="preserve">
+    <value>Set author</value>
+  </data>
+  <data name="CommitForm_SetAuthorDate" xml:space="preserve">
+    <value>Set author date</value>
+  </data>
+  <data name="CommitForm_ShowUnversionedFiles" xml:space="preserve">
+    <value>Show Unversioned Files</value>
+  </data>
+  <data name="CommitForm_Text" xml:space="preserve">
+    <value>{0} - Commit - VBAGit</value>
+  </data>
+  <data name="InitForm_LabelInfo" xml:space="preserve">
     <value>If you plan to work inside this project, leave this unchecked. Typically a bare repo can only have changes 'pushed' to it. (By convention, a bare repo folder will have a name that ends whith '.git')</value>
   </data>
   <data name="InitForm_MakeBare" xml:space="preserve">

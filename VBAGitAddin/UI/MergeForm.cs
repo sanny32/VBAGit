@@ -20,7 +20,7 @@ namespace VBAGitAddin.UI
             DestinationLabel.Text = VBAGitUI.SourceControl_DestinationLabel;
             OkButton.Text = VBAGitUI.OK;
             OkButton.Click += OnConfirm;
-            CancelButton.Text = VBAGitUI.CancelButtonText;
+            CancelButton.Text = VBAGitUI.Cancel;
             CancelButton.Click += OnCancel;
         }
 

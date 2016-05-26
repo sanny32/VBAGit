@@ -14,9 +14,9 @@ namespace VBAGitAddin.UI
             Text = VBAGitUI.SourceControl_CreateNewBranchCaption;
             TitleLabel.Text = VBAGitUI.SourceControl_CreateNewBranchTitle;
             InstructionsLabel.Text = VBAGitUI.SourceControl_CreateNewBranchInstructions;
-            OkButton.Text = VBAGitUI.OK_AllCaps;
+            OkButton.Text = VBAGitUI.Cancel;
             OkButton.Click += OkButton_Click;
-            CancelButton.Text = VBAGitUI.CancelButtonText;
+            CancelButton.Text = VBAGitUI.Cancel;
             CancelButton.Click += CancelButton_Click;
         }
 

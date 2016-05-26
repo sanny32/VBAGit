@@ -9,6 +9,8 @@ namespace VBAGitAddin.SourceControl
     [ClassInterface(ClassInterfaceType.None)]
     public class Repository : IRepository
     {
+        public const string BareExt = ".git";
+
         public string Name { get; set; }
         public string LocalLocation { get; set; }
         public string RemoteLocation { get;  set; }
@@ -22,7 +24,7 @@ namespace VBAGitAddin.SourceControl
             LocalLocation = localDirectory;
             RemoteLocation = remotePathOrUrl;
         }
-
+        
         public bool IsEqual(Repository repo)
         {
             return (Name == repo.Name &&

@@ -119,7 +119,14 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCommit(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-
+            try
+            {
+                _app.Commit();                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void OnSourceControlPull(CommandBarButton Ctrl, ref bool CancelDefault)

@@ -63,9 +63,189 @@ namespace VBAGitAddin.UI {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string CancelButtonText {
+        internal static string Cancel {
             get {
-                return ResourceManager.GetString("CancelButtonText", resourceCulture);
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Signed-off-by.
+        /// </summary>
+        internal static string CommitForm_AddSignedoffby {
+            get {
+                return ResourceManager.GetString("CommitForm_AddSignedoffby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added.
+        /// </summary>
+        internal static string CommitForm_CheckAdded {
+            get {
+                return ResourceManager.GetString("CommitForm_CheckAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string CommitForm_CheckAll {
+            get {
+                return ResourceManager.GetString("CommitForm_CheckAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        internal static string CommitForm_CheckDeleted {
+            get {
+                return ResourceManager.GetString("CommitForm_CheckDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified.
+        /// </summary>
+        internal static string CommitForm_CheckModified {
+            get {
+                return ResourceManager.GetString("CommitForm_CheckModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string CommitForm_CheckNone {
+            get {
+                return ResourceManager.GetString("CommitForm_CheckNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unversioned.
+        /// </summary>
+        internal static string CommitForm_CheckUnversioned {
+            get {
+                return ResourceManager.GetString("CommitForm_CheckUnversioned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versioned.
+        /// </summary>
+        internal static string CommitForm_CheckVersioned {
+            get {
+                return ResourceManager.GetString("CommitForm_CheckVersioned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commit.
+        /// </summary>
+        internal static string CommitForm_Commit {
+            get {
+                return ResourceManager.GetString("CommitForm_Commit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes made (double-click on file for diff): .
+        /// </summary>
+        internal static string CommitForm_GroupChanges {
+            get {
+                return ResourceManager.GetString("CommitForm_GroupChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message: .
+        /// </summary>
+        internal static string CommitForm_GroupMessage {
+            get {
+                return ResourceManager.GetString("CommitForm_GroupMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check: .
+        /// </summary>
+        internal static string CommitForm_LabelCheck {
+            get {
+                return ResourceManager.GetString("CommitForm_LabelCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commit to: .
+        /// </summary>
+        internal static string CommitForm_LabelCommit {
+            get {
+                return ResourceManager.GetString("CommitForm_LabelCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} selected, {1} total.
+        /// </summary>
+        internal static string CommitForm_LabelSelected {
+            get {
+                return ResourceManager.GetString("CommitForm_LabelSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message only.
+        /// </summary>
+        internal static string CommitForm_MessageOnly {
+            get {
+                return ResourceManager.GetString("CommitForm_MessageOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to new branch.
+        /// </summary>
+        internal static string CommitForm_NewBranch {
+            get {
+                return ResourceManager.GetString("CommitForm_NewBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set author.
+        /// </summary>
+        internal static string CommitForm_SetAuthor {
+            get {
+                return ResourceManager.GetString("CommitForm_SetAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set author date.
+        /// </summary>
+        internal static string CommitForm_SetAuthorDate {
+            get {
+                return ResourceManager.GetString("CommitForm_SetAuthorDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Unversioned Files.
+        /// </summary>
+        internal static string CommitForm_ShowUnversionedFiles {
+            get {
+                return ResourceManager.GetString("CommitForm_ShowUnversionedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Commit - VBAGit.
+        /// </summary>
+        internal static string CommitForm_Text {
+            get {
+                return ResourceManager.GetString("CommitForm_Text", resourceCulture);
             }
         }
         
@@ -82,9 +262,9 @@ namespace VBAGitAddin.UI {
         /// <summary>
         ///   Looks up a localized string similar to If you plan to work inside this project, leave this unchecked. Typically a bare repo can only have changes &apos;pushed&apos; to it. (By convention, a bare repo folder will have a name that ends whith &apos;.git&apos;).
         /// </summary>
-        internal static string InitFoem_LabelInfo {
+        internal static string InitForm_LabelInfo {
             get {
-                return ResourceManager.GetString("InitFoem_LabelInfo", resourceCulture);
+                return ResourceManager.GetString("InitForm_LabelInfo", resourceCulture);
             }
         }
         
@@ -116,20 +296,11 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ok.
+        ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OK.
-        /// </summary>
-        internal static string OK_AllCaps {
-            get {
-                return ResourceManager.GetString("OK_AllCaps", resourceCulture);
             }
         }
         

@@ -17,10 +17,10 @@ namespace VBAGitAddin.UI
             Text = VBAGitUI.SourceControl_DeleteBranchCaption;
             TitleLabel.Text = VBAGitUI.SourceControl_DeleteBranchTitleLable;
             InstructionsLabel.Text = VBAGitUI.SourceControl_DeleteBranchInstructionsLabel;
-            OkButton.Text = VBAGitUI.OK_AllCaps;
+            OkButton.Text = VBAGitUI.Cancel;
 
             OkButton.Click += OkButton_Click;
-            CancelButton.Text = VBAGitUI.CancelButtonText;
+            CancelButton.Text = VBAGitUI.Cancel;
             CancelButton.Click += CancelButton_Click;
             BranchList.SelectedValueChanged += BranchList_SelectedValueChanged;
         }

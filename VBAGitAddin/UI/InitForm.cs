@@ -8,8 +8,11 @@ namespace VBAGitAddin.UI
         public InitForm()
         {
             InitializeComponent();
+
+            OK.Text = VBAGitUI.OK;
+            Cancel.Text = VBAGitUI.Cancel;
             MakeBare.Text = VBAGitUI.InitForm_MakeBare;
-            LabelInfo.Text = VBAGitUI.InitFoem_LabelInfo;
+            LabelInfo.Text = VBAGitUI.InitForm_LabelInfo;
         }      
         
         public bool Bare
