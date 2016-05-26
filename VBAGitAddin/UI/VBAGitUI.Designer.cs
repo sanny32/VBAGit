@@ -80,6 +80,33 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you plan to work inside this project, leave this unchecked. Typically a bare repo can only have changes &apos;pushed&apos; to it. (By convention, a bare repo folder will have a name that ends whith &apos;.git&apos;).
+        /// </summary>
+        internal static string InitFoem_LabelInfo {
+            get {
+                return ResourceManager.GetString("InitFoem_LabelInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make it Bare (No working directories).
+        /// </summary>
+        internal static string InitForm_MakeBare {
+            get {
+                return ResourceManager.GetString("InitForm_MakeBare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Git Init - VBAGit.
+        /// </summary>
+        internal static string InitForm_Text {
+            get {
+                return ResourceManager.GetString("InitForm_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline.
         /// </summary>
         internal static string Offline {

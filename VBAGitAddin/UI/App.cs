@@ -1,5 +1,6 @@
 ﻿using Microsoft.Vbe.Interop;
 using System.IO;
+using System.Windows.Forms;
 using VBAGitAddin.SourceControl;
 using VBAGitAddin.Settings;
 
@@ -26,25 +27,45 @@ namespace VBAGitAddin.UI
             get
             {
                 var project = _vbe.ActiveVBProject;
-                return _config.Repositories.Exists((Repository r) => r.Name == project.Name);                
+                return _config.Repositories.Exists((Repository r) => r.Name == project.Name && Directory.Exists(r.LocalLocation));                
             }
         }
 
-        public void CreateNewRepo()
+        public bool CreateNewRepo()
         {
-            var project = _vbe.ActiveVBProject;
-            var providerFactory = new SourceControlProviderFactory();
-            var provider = providerFactory.CreateProvider(project);
-            var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
-            var repo = provider.Init(Path.Combine(pathVBAGit, project.Name));
+            using (var initForm = new InitForm())
+            {
+                var project = _vbe.ActiveVBProject;
+                var providerFactory = new SourceControlProviderFactory();
+                var provider = providerFactory.CreateProvider(project);
+                var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
+                var pathRepo = Path.Combine(pathVBAGit, project.Name);
 
-            AddRepoToConfig((Repository)repo);
+                if (initForm.ShowDialog(pathRepo) == DialogResult.OK)
+                {
+                    bool bare = initForm.Bare;
+                    if (bare)
+                    {
+                        pathRepo += ".git";
+                    }
+
+                    var repo = (Repository)provider.Init(pathRepo, bare);
+                    AddRepoToConfig(repo);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void AddRepoToConfig(Repository repo)
         {
-            _config.Repositories.Add(repo);
-            _configService.SaveConfiguration(_config);
+            if (!_config.Repositories.Exists((Repository r) => r.IsEqual(repo)))
+            {
+                _config.Repositories.Add(repo);
+                _configService.SaveConfiguration(_config);
+            }
         }
 
     }

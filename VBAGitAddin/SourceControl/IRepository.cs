@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace VBAGitAddin.SourceControl
@@ -8,7 +9,7 @@ namespace VBAGitAddin.SourceControl
     public interface IRepository
     {
         [DispId(0)]
-        string Name { get; }
+        string Name { get; }       
 
         [DispId(1)]
         [Description("FilePath of local repository.")]
@@ -16,6 +17,6 @@ namespace VBAGitAddin.SourceControl
 
         [DispId(2)]
         [Description("FilePath or URL of remote repository.")]
-        string RemoteLocation { get; }
+        string RemoteLocation { get; }        
     }
 }

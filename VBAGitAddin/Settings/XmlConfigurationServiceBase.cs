@@ -19,7 +19,7 @@ namespace VBAGitAddin.Settings
         /// <summary>
         /// Defines the root path where all Rubberduck Configuration files are stored.
         /// </summary>
-        protected readonly string rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Rubberduck");
+        protected readonly string rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VBAGit");
 
         /// <summary>
         /// Implementation of this should combine the rootPath with the xml file name of the object to be serialized.

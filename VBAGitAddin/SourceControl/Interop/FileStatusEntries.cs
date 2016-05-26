@@ -7,7 +7,7 @@ namespace VBAGitAddin.SourceControl.Interop
 {
     [ComVisible(true)]
     [Guid("8156FBA2-AD35-48F1-B6DA-C6154EC920BB")]
-    [ProgId("VBAGit.SourceControl.FileStatusEntries")]
+    [ProgId("VBAGit.FileStatusEntries")]
     [ClassInterface(ClassInterfaceType.None)]
     [Description("Collection of IFileEntries representing the status of the repository files.")]
     public class FileStatusEntries : IEnumerable

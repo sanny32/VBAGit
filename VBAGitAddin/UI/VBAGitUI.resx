@@ -370,4 +370,13 @@
   <data name="VBAGitMenu_ShowLog" xml:space="preserve">
     <value>Show log</value>
   </data>
+  <data name="InitFoem_LabelInfo" xml:space="preserve">
+    <value>If you plan to work inside this project, leave this unchecked. Typically a bare repo can only have changes 'pushed' to it. (By convention, a bare repo folder will have a name that ends whith '.git')</value>
+  </data>
+  <data name="InitForm_MakeBare" xml:space="preserve">
+    <value>Make it Bare (No working directories)</value>
+  </data>
+  <data name="InitForm_Text" xml:space="preserve">
+    <value>{0} - Git Init - VBAGit</value>
+  </data>
 </root>

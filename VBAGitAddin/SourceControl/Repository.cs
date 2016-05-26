@@ -1,10 +1,11 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace VBAGitAddin.SourceControl
 {
     [ComVisible(true)]
     [Guid("8032591E-E75D-48E4-90CB-D71F98335E7D")]
-    [ProgId("VBEGit.Repository")]
+    [ProgId("VBAGit.Repository")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Repository : IRepository
     {
@@ -20,6 +21,13 @@ namespace VBAGitAddin.SourceControl
             Name = name;
             LocalLocation = localDirectory;
             RemoteLocation = remotePathOrUrl;
+        }
+
+        public bool IsEqual(Repository repo)
+        {
+            return (Name == repo.Name &&
+                    LocalLocation == repo.LocalLocation &&
+                    RemoteLocation == repo.RemoteLocation);
         }
     }
 }

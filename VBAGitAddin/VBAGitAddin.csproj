@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
@@ -141,6 +142,12 @@
     <Compile Include="UI\ICreateBranchView.cs" />
     <Compile Include="UI\IDeleteBranchView.cs" />
     <Compile Include="UI\IMergeView.cs" />
+    <Compile Include="UI\InitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InitForm.Designer.cs">
+      <DependentUpon>InitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\IRefreshableView.cs" />
     <Compile Include="UI\ISettingsView.cs" />
     <Compile Include="UI\ISourceControlView.cs" />
@@ -227,6 +234,9 @@
     <EmbeddedResource Include="UI\FailedActionControl.resx">
       <DependentUpon>FailedActionControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\InitForm.resx">
+      <DependentUpon>InitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +291,7 @@
     <Content Include="Resources\arrow-step.png" />
     <Content Include="Resources\arrow.png" />
     <Content Include="Resources\arrow1.png" />
+    <None Include="Resources\VBAGit.png" />
     <None Include="Resources\VBAGit-checkout-mask.png" />
     <None Include="Resources\VBAGit-checkout.png" />
     <None Include="Resources\VBAGit-about-mask.png" />

@@ -141,11 +141,11 @@ namespace VBAGitAddin.UI
         {
             try
             {
-                _app.CreateNewRepo();
-
-                RecreateMenu();
-
-                MessageBox.Show(VBAGitUI.SourceControl_SuccessfulCreateNewRepo, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (_app.CreateNewRepo())
+                {
+                    RecreateMenu();
+                    MessageBox.Show(VBAGitUI.SourceControl_SuccessfulCreateNewRepo, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch(Exception ex)
             {

@@ -9,7 +9,7 @@ namespace VBAGitAddin.SourceControl.Interop
 {
     [ComVisible(true)]
     [Guid("DFEF2151-6FE7-4172-B55D-36DC35F04991")]
-    [ProgId("VBAGit.SourceControl.GitProvider")]
+    [ProgId("VBAGit.GitProvider")]
     [ClassInterface(ClassInterfaceType.None)]
     [Description("VBA Editor integrated access to Git.")]
     class GitProvider : VBAGitAddin.SourceControl.GitProvider, ISourceControlProvider

@@ -17,7 +17,7 @@ namespace VBAGitAddin.SourceControl
 
     [ComVisible(true)]
     [Guid("2F004FFB-B368-46D5-85A7-C6DEB28CB9FB")]
-    [ProgId("VBEGit.FileStatus")]
+    [ProgId("VBAGit.FileStatus")]
     [ClassInterface(ClassInterfaceType.AutoDual)]
     public class FileStatusEntry : IFileStatusEntry
     {

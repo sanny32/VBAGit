@@ -8,7 +8,7 @@ namespace VBAGitAddin.Settings
 
         protected override string ConfigFile
         {
-            get { return Path.Combine(this.rootPath, "SourceControl.VBAGitAddin"); }
+            get { return Path.Combine(this.rootPath, "VBAGitAddin.cfg"); }
         }
 
         public override SourceControlConfiguration LoadConfiguration()

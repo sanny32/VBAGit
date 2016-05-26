@@ -12,7 +12,7 @@ namespace VBAGitAddin.SourceControl.Interop
 
     [ComVisible(true)]
     [Guid("8E63F81E-C01F-4C51-92C2-34F8CC658601")]
-    [ProgId("VBAGit.SourceControl.Credentials")]
+    [ProgId("VBAGit.Credentials")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Credentials : ICredentials
     {

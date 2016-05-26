@@ -74,6 +74,11 @@ namespace VBAGitAddin
                 _menu.Dispose();
             }
 
+            if(_sink != null)
+            {
+                _sink.ProjectActivated -= _sink_ProjectActivated;
+            }
+
             if (_projectsEventsConnectionPoint != null)
             {
                 _projectsEventsConnectionPoint.Unadvise(_projectsEventsCookie);
