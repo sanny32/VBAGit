@@ -88,5 +88,10 @@ namespace VBAGitAddin.UI
         {
             CommitBranch.ReadOnly = !NewBranch.Checked;
         }
+
+        private void CommitMessage_TextChanged(object sender, System.EventArgs e)
+        {
+            Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text);
+        }
     }
 }

@@ -185,8 +185,9 @@
             this.CommitMessage.Location = new System.Drawing.Point(6, 19);
             this.CommitMessage.Multiline = true;
             this.CommitMessage.Name = "CommitMessage";
-            this.CommitMessage.Size = new System.Drawing.Size(584, 104);
+            this.CommitMessage.Size = new System.Drawing.Size(584, 108);
             this.CommitMessage.TabIndex = 0;
+            this.CommitMessage.TextChanged += new System.EventHandler(this.CommitMessage_TextChanged);
             // 
             // NewBranch
             // 
@@ -247,6 +248,7 @@
             // Commit
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Commit.Enabled = false;
             this.Commit.Location = new System.Drawing.Point(449, 244);
             this.Commit.Name = "Commit";
             this.Commit.Size = new System.Drawing.Size(75, 23);
@@ -307,9 +309,9 @@
             this.ColumnName,
             this.ColumnExtension,
             this.ColumnStatus});
-            this.CommitList.Location = new System.Drawing.Point(6, 34);
+            this.CommitList.Location = new System.Drawing.Point(6, 40);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(584, 167);
+            this.CommitList.Size = new System.Drawing.Size(584, 161);
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
             this.CommitList.View = System.Windows.Forms.View.List;
@@ -331,7 +333,7 @@
             this.CheckModified.AutoSize = true;
             this.CheckModified.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CheckModified.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckModified.Location = new System.Drawing.Point(386, 18);
+            this.CheckModified.Location = new System.Drawing.Point(386, 21);
             this.CheckModified.Name = "CheckModified";
             this.CheckModified.Size = new System.Drawing.Size(55, 13);
             this.CheckModified.TabIndex = 7;
@@ -343,7 +345,7 @@
             this.CheckDeleted.AutoSize = true;
             this.CheckDeleted.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CheckDeleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckDeleted.Location = new System.Drawing.Point(329, 18);
+            this.CheckDeleted.Location = new System.Drawing.Point(329, 21);
             this.CheckDeleted.Name = "CheckDeleted";
             this.CheckDeleted.Size = new System.Drawing.Size(51, 13);
             this.CheckDeleted.TabIndex = 6;
@@ -355,7 +357,7 @@
             this.CheckAdded.AutoSize = true;
             this.CheckAdded.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CheckAdded.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckAdded.Location = new System.Drawing.Point(280, 18);
+            this.CheckAdded.Location = new System.Drawing.Point(280, 21);
             this.CheckAdded.Name = "CheckAdded";
             this.CheckAdded.Size = new System.Drawing.Size(43, 13);
             this.CheckAdded.TabIndex = 5;
@@ -367,7 +369,7 @@
             this.CheckVersioned.AutoSize = true;
             this.CheckVersioned.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CheckVersioned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckVersioned.Location = new System.Drawing.Point(211, 18);
+            this.CheckVersioned.Location = new System.Drawing.Point(211, 21);
             this.CheckVersioned.Name = "CheckVersioned";
             this.CheckVersioned.Size = new System.Drawing.Size(63, 13);
             this.CheckVersioned.TabIndex = 4;
@@ -379,7 +381,7 @@
             this.CheckUnversioned.AutoSize = true;
             this.CheckUnversioned.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CheckUnversioned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckUnversioned.Location = new System.Drawing.Point(127, 18);
+            this.CheckUnversioned.Location = new System.Drawing.Point(127, 21);
             this.CheckUnversioned.Name = "CheckUnversioned";
             this.CheckUnversioned.Size = new System.Drawing.Size(78, 13);
             this.CheckUnversioned.TabIndex = 3;
@@ -391,7 +393,7 @@
             this.CheckNone.AutoSize = true;
             this.CheckNone.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckNone.Location = new System.Drawing.Point(84, 18);
+            this.CheckNone.Location = new System.Drawing.Point(84, 21);
             this.CheckNone.Name = "CheckNone";
             this.CheckNone.Size = new System.Drawing.Size(37, 13);
             this.CheckNone.TabIndex = 2;
@@ -403,7 +405,7 @@
             this.CheckAll.AutoSize = true;
             this.CheckAll.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CheckAll.Location = new System.Drawing.Point(57, 18);
+            this.CheckAll.Location = new System.Drawing.Point(57, 21);
             this.CheckAll.Name = "CheckAll";
             this.CheckAll.Size = new System.Drawing.Size(21, 13);
             this.CheckAll.TabIndex = 1;
@@ -413,7 +415,7 @@
             // LabelCheck
             // 
             this.LabelCheck.AutoSize = true;
-            this.LabelCheck.Location = new System.Drawing.Point(7, 18);
+            this.LabelCheck.Location = new System.Drawing.Point(7, 21);
             this.LabelCheck.Name = "LabelCheck";
             this.LabelCheck.Size = new System.Drawing.Size(44, 13);
             this.LabelCheck.TabIndex = 0;

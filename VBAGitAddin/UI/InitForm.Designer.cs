@@ -47,6 +47,7 @@
             // 
             // MakeBare
             // 
+            this.MakeBare.AutoCheck = false;
             this.MakeBare.AutoSize = true;
             this.MakeBare.Location = new System.Drawing.Point(22, 27);
             this.MakeBare.Name = "MakeBare";

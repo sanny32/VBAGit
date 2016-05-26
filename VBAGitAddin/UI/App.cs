@@ -45,7 +45,7 @@ namespace VBAGitAddin.UI
                 {
                     var providerFactory = new SourceControlProviderFactory();
                     var provider = providerFactory.CreateProvider(project);
-                    var repo = (Repository)provider.Init(pathRepo, initForm.Bare);
+                    var repo = (Repository)provider.Init(pathRepo, false);
                     AddRepoToConfig(repo);
 
                     return true;
