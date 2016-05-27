@@ -6,6 +6,7 @@ using System.Security;
 using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using Microsoft.Vbe.Interop;
+using System.IO;
 
 namespace VBAGitAddin.SourceControl
 {
@@ -121,13 +122,25 @@ namespace VBAGitAddin.SourceControl
         {
             try
             {
-                var workingDir = (bare) ? string.Empty : directory;
-                var path = (bare) ? directory + Repository.BareExt : directory;
-                var repoName = (bare) ? this.Project.Name + Repository.BareExt : this.Project.Name;                          
+                string localPath;
+                string remotePath;
+                string repoName;
+                if(bare)
+                {
+                    localPath = string.Empty;
+                    repoName = this.Project.Name + Repository.BareExt;
+                    remotePath = (Path.GetExtension(directory) != Repository.BareExt) ? directory + Repository.BareExt : directory;
+                }
+                else
+                {
+                    localPath = directory;
+                    remotePath = directory;
+                    repoName = this.Project.Name;
+                }                              
 
-                LibGit2Sharp.Repository.Init(path, bare);
+                LibGit2Sharp.Repository.Init(remotePath, bare);
 
-                return new Repository(repoName, workingDir, path);
+                return new Repository(repoName, localPath, remotePath);
             }
             catch (LibGit2SharpException ex)
             {

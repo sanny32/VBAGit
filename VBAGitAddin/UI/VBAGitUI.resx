@@ -316,8 +316,8 @@
   <data name="VBAGitMenu_VBAGit" xml:space="preserve">
     <value>VBAGit</value>
   </data>
-  <data name="SourceControl_SuccessfulCreateNewRepo" xml:space="preserve">
-    <value>Repository created successfully!</value>
+  <data name="SourceControl_SuccessfulInitEmptyRepo" xml:space="preserve">
+    <value>Initialized empty Git repository in {0}</value>
   </data>
   <data name="VBAGitCaption" xml:space="preserve">
     <value>VBAGit</value>

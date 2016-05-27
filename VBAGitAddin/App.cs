@@ -11,7 +11,6 @@ namespace VBAGitAddin
     {
         private readonly VBE _vbe;
         private readonly AddIn _addIn;        
-        private readonly SourceControlConfiguration _config;
 
         private VBAGitAddinMenu _menu;
         private VBProjectsEventsSink _sink;

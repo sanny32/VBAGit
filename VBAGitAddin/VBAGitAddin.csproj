@@ -93,7 +93,9 @@
     <Compile Include="SourceControl\Repository.cs" />
     <Compile Include="SourceControl\SourceControlException.cs" />
     <Compile Include="SourceControl\SourceControlProviderBase.cs" />
-    <Compile Include="UI\App.cs" />
+    <Compile Include="UI\ExceptionMessageBox.cs" />
+    <Compile Include="UI\InformationMessageBox.cs" />
+    <Compile Include="UI\UIApp.cs" />
     <Compile Include="UI\CommitForm.cs">
       <SubType>Form</SubType>
     </Compile>

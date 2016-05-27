@@ -4,8 +4,12 @@ namespace VBAGitAddin.UI
 {
     public partial class CommitForm : Form
     {
-        public CommitForm()
+        private readonly UIApp _app;
+
+        public CommitForm(UIApp app)
         {
+            _app = app;
+
             InitializeComponent();
 
             LabelCommit.Text = VBAGitUI.CommitForm_LabelCommit;

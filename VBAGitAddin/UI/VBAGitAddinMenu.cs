@@ -8,7 +8,7 @@ namespace VBAGitAddin.UI
     internal class VBAGitAddinMenu : Menu
     {       
         private readonly AddIn _addIn;
-        private App _app;
+        private readonly UIApp _app;
 
         private CommandBarPopup _menu;
 
@@ -40,8 +40,16 @@ namespace VBAGitAddin.UI
             : base(vbe, addIn)
         {
             _addIn = addIn;
-            _app = new App(vbe, addIn);
-        }       
+            _app = new UIApp(vbe, addIn);
+            _app.NewRepositoryCreated += _app_NewRepositoryCreated;
+        }
+
+        private void _app_NewRepositoryCreated(object sender, RepositoryEventArgs e)
+        {
+            RecreateMenu();
+            string msg = string.Format(VBAGitUI.SourceControl_SuccessfulInitEmptyRepo, e.Repository.LocalLocation);
+            new InformationMessageBox(msg).Show();
+        }
 
         public void Initialize()
         {
@@ -119,14 +127,7 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCommit(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            try
-            {
-                _app.Commit();                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            new CommitForm(_app).ShowDialog();
         }
 
         private void OnSourceControlPull(CommandBarButton Ctrl, ref bool CancelDefault)
@@ -148,15 +149,11 @@ namespace VBAGitAddin.UI
         {
             try
             {
-                if (_app.CreateNewRepo())
-                {
-                    RecreateMenu();
-                    MessageBox.Show(VBAGitUI.SourceControl_SuccessfulCreateNewRepo, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                _app.CreateNewRepo(false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                new ExceptionMessageBox(ex).Show();
             }
         }
 

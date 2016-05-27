@@ -701,11 +701,11 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Repository created successfully!.
+        ///   Looks up a localized string similar to Initialized empty Git repository in {0}.
         /// </summary>
-        internal static string SourceControl_SuccessfulCreateNewRepo {
+        internal static string SourceControl_SuccessfulInitEmptyRepo {
             get {
-                return ResourceManager.GetString("SourceControl_SuccessfulCreateNewRepo", resourceCulture);
+                return ResourceManager.GetString("SourceControl_SuccessfulInitEmptyRepo", resourceCulture);
             }
         }
         
