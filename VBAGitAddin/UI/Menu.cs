@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 using Microsoft.Office.Core;
 using Microsoft.Vbe.Interop;
 using stdole;
 using CommandBarButtonClickEvent = Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler;
+
 
 namespace VBAGitAddin.UI
 {
@@ -28,7 +30,7 @@ namespace VBAGitAddin.UI
         private readonly VBE _vbe;
         protected readonly AddIn AddIn;
 
-        protected VBE IDE { get { return this._vbe; } }
+        protected VBE IDE { get { return this._vbe; } }     
 
         protected Menu(VBE vbe, AddIn addIn)
         {
@@ -125,6 +127,6 @@ namespace VBAGitAddin.UI
 
         protected virtual void Dispose(bool disposing)
         {
-        }
+        }       
     }
 }

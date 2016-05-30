@@ -427,13 +427,10 @@
   <data name="CommitForm_Text" xml:space="preserve">
     <value>{0} - Commit - VBAGit</value>
   </data>
-  <data name="InitForm_LabelInfo" xml:space="preserve">
-    <value>If you plan to work inside this project, leave this unchecked. Typically a bare repo can only have changes 'pushed' to it. (By convention, a bare repo folder will have a name that ends whith '.git')</value>
+  <data name="ProgressForm_Text" xml:space="preserve">
+    <value>{0} - VBAGit</value>
   </data>
-  <data name="InitForm_MakeBare" xml:space="preserve">
-    <value>Make it Bare (No working directories)</value>
-  </data>
-  <data name="InitForm_Text" xml:space="preserve">
-    <value>{0} - Git Init - VBAGit</value>
+  <data name="ProgressInfo_ExportingFiles" xml:space="preserve">
+    <value>Exporting files...</value>
   </data>
 </root>

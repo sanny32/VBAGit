@@ -19,7 +19,6 @@ namespace VBAGitAddin.VBEditor
     public class DispatcherRenamedEventArgs<T> : DispatcherEventArgs<T>
     where T : class
     {
-        private readonly T _item;
         private readonly string _oldName;
 
         public DispatcherRenamedEventArgs(T item, string oldName)

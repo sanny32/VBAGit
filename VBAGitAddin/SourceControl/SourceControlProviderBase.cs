@@ -37,25 +37,7 @@ namespace VBAGitAddin.SourceControl
         public abstract void DeleteBranch(string branch);
         public abstract IRepository Init(string directory, bool bare = false);
         public abstract void Commit(string message);
-
-        public virtual IRepository InitVBAProject(string directory)
-        {
-            var projectName = GetProjectNameFromDirectory(directory);
-            if (projectName != string.Empty && projectName != this.Project.Name)
-            {
-                directory = Path.Combine(directory, Project.Name);
-            }
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            this.Project.ExportSourceFiles(directory);
-            this.CurrentRepository = new Repository(Project.Name, directory, directory);
-            return this.CurrentRepository;
-        }
-
+      
         public virtual void Pull()
         {
             Refresh();

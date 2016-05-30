@@ -1,15 +1,12 @@
-﻿using System.Windows.Forms;
+﻿using Microsoft.Vbe.Interop;
+using System.Windows.Forms;
 
 namespace VBAGitAddin.UI
 {
     public partial class CommitForm : Form
     {
-        private readonly UIApp _app;
-
-        public CommitForm(UIApp app)
+        public CommitForm()
         {
-            _app = app;
-
             InitializeComponent();
 
             LabelCommit.Text = VBAGitUI.CommitForm_LabelCommit;
@@ -36,10 +33,42 @@ namespace VBAGitAddin.UI
             Cancel.Text = VBAGitUI.Cancel;
         }
 
-        public DialogResult ShowDialog(string repoPath)
+        public new DialogResult ShowDialog()
         {
-            Text = string.Format(VBAGitUI.CommitForm_Text, repoPath);
-            return ShowDialog();
+            //Text = string.Format(VBAGitUI.CommitForm_Text, _app.ActiveProjectRepoPath);
+            //foreach(VBComponent component in _app.IDE.ActiveVBProject.VBComponents)
+            //{
+            //    ListViewItem item = new ListViewItem();
+            //    item.Name = component.Name;
+            //    item.Text = component.Name;
+               
+            //    switch (component.Type)
+            //    {
+            //        case vbext_ComponentType.vbext_ct_Document:
+            //            item.ImageIndex = 2;
+            //            item.Group = CommitList.Groups["VBDocuments"];
+            //        break;
+
+            //        case vbext_ComponentType.vbext_ct_MSForm:
+            //            item.ImageIndex = 0;
+            //            item.Group = CommitList.Groups["VBForms"];
+            //        break;
+
+            //        case vbext_ComponentType.vbext_ct_StdModule:
+            //            item.ImageIndex = 1;
+            //            item.Group = CommitList.Groups["VBModules"];
+            //        break;
+
+            //        case vbext_ComponentType.vbext_ct_ClassModule:
+            //            item.ImageIndex = 2;
+            //            item.Group = CommitList.Groups["VBClassModules"];
+            //       break;
+            //    }
+
+            //    CommitList.Items.Add(item);           
+            //}
+
+            return base.ShowDialog();
         }
 
         private void CheckAll_Click(object sender, System.EventArgs e)

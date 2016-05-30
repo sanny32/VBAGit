@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Documents", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Forms", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Modules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Class Modules", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommitForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.GroupMessage = new System.Windows.Forms.GroupBox();
@@ -51,6 +56,7 @@
             this.ColumnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnExtension = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.VBComponentsImageList = new System.Windows.Forms.ImageList(this.components);
             this.CheckModified = new System.Windows.Forms.Label();
             this.CheckDeleted = new System.Windows.Forms.Label();
             this.CheckAdded = new System.Windows.Forms.Label();
@@ -90,7 +96,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.GroupChanges);
             this.splitContainer1.Panel2MinSize = 200;
             this.splitContainer1.Size = new System.Drawing.Size(617, 511);
-            this.splitContainer1.SplitterDistance = 229;
+            this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 5;
             // 
             // GroupMessage
@@ -107,7 +113,7 @@
             this.GroupMessage.Controls.Add(this.CommitMessage);
             this.GroupMessage.Location = new System.Drawing.Point(11, 32);
             this.GroupMessage.Name = "GroupMessage";
-            this.GroupMessage.Size = new System.Drawing.Size(597, 194);
+            this.GroupMessage.Size = new System.Drawing.Size(597, 165);
             this.GroupMessage.TabIndex = 7;
             this.GroupMessage.TabStop = false;
             this.GroupMessage.Text = "Message: ";
@@ -115,7 +121,7 @@
             // AddSignedoffby
             // 
             this.AddSignedoffby.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddSignedoffby.Location = new System.Drawing.Point(469, 163);
+            this.AddSignedoffby.Location = new System.Drawing.Point(469, 134);
             this.AddSignedoffby.Name = "AddSignedoffby";
             this.AddSignedoffby.Size = new System.Drawing.Size(121, 23);
             this.AddSignedoffby.TabIndex = 6;
@@ -126,7 +132,7 @@
             // 
             this.Author.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Author.Location = new System.Drawing.Point(152, 165);
+            this.Author.Location = new System.Drawing.Point(152, 136);
             this.Author.Name = "Author";
             this.Author.Size = new System.Drawing.Size(284, 20);
             this.Author.TabIndex = 5;
@@ -136,7 +142,7 @@
             // 
             this.SetAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SetAuthor.AutoSize = true;
-            this.SetAuthor.Location = new System.Drawing.Point(6, 167);
+            this.SetAuthor.Location = new System.Drawing.Point(6, 138);
             this.SetAuthor.Name = "SetAuthor";
             this.SetAuthor.Size = new System.Drawing.Size(75, 17);
             this.SetAuthor.TabIndex = 4;
@@ -148,7 +154,7 @@
             // 
             this.AuthorTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AuthorTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.AuthorTime.Location = new System.Drawing.Point(254, 139);
+            this.AuthorTime.Location = new System.Drawing.Point(254, 110);
             this.AuthorTime.Name = "AuthorTime";
             this.AuthorTime.ShowUpDown = true;
             this.AuthorTime.Size = new System.Drawing.Size(80, 20);
@@ -159,7 +165,7 @@
             // 
             this.AuthorDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AuthorDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.AuthorDate.Location = new System.Drawing.Point(152, 139);
+            this.AuthorDate.Location = new System.Drawing.Point(152, 110);
             this.AuthorDate.Name = "AuthorDate";
             this.AuthorDate.Size = new System.Drawing.Size(96, 20);
             this.AuthorDate.TabIndex = 2;
@@ -169,7 +175,7 @@
             // 
             this.SetAuthorDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SetAuthorDate.AutoSize = true;
-            this.SetAuthorDate.Location = new System.Drawing.Point(6, 141);
+            this.SetAuthorDate.Location = new System.Drawing.Point(6, 112);
             this.SetAuthorDate.Name = "SetAuthorDate";
             this.SetAuthorDate.Size = new System.Drawing.Size(99, 17);
             this.SetAuthorDate.TabIndex = 1;
@@ -185,7 +191,7 @@
             this.CommitMessage.Location = new System.Drawing.Point(6, 19);
             this.CommitMessage.Multiline = true;
             this.CommitMessage.Name = "CommitMessage";
-            this.CommitMessage.Size = new System.Drawing.Size(584, 108);
+            this.CommitMessage.Size = new System.Drawing.Size(584, 79);
             this.CommitMessage.TabIndex = 0;
             this.CommitMessage.TextChanged += new System.EventHandler(this.CommitMessage_TextChanged);
             // 
@@ -227,7 +233,7 @@
             // 
             this.MessageOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MessageOnly.AutoSize = true;
-            this.MessageOnly.Location = new System.Drawing.Point(17, 248);
+            this.MessageOnly.Location = new System.Drawing.Point(17, 277);
             this.MessageOnly.Name = "MessageOnly";
             this.MessageOnly.Size = new System.Drawing.Size(91, 17);
             this.MessageOnly.TabIndex = 3;
@@ -238,7 +244,7 @@
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(530, 244);
+            this.Cancel.Location = new System.Drawing.Point(530, 273);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
             this.Cancel.TabIndex = 2;
@@ -249,7 +255,7 @@
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Commit.Enabled = false;
-            this.Commit.Location = new System.Drawing.Point(449, 244);
+            this.Commit.Location = new System.Drawing.Point(449, 273);
             this.Commit.Name = "Commit";
             this.Commit.Size = new System.Drawing.Size(75, 23);
             this.Commit.TabIndex = 1;
@@ -274,7 +280,7 @@
             this.GroupChanges.Controls.Add(this.LabelCheck);
             this.GroupChanges.Location = new System.Drawing.Point(11, 3);
             this.GroupChanges.Name = "GroupChanges";
-            this.GroupChanges.Size = new System.Drawing.Size(597, 235);
+            this.GroupChanges.Size = new System.Drawing.Size(597, 264);
             this.GroupChanges.TabIndex = 0;
             this.GroupChanges.TabStop = false;
             this.GroupChanges.Text = "Changes made (double-click on file for diff): ";
@@ -283,7 +289,7 @@
             // 
             this.LabelSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LabelSelected.AutoSize = true;
-            this.LabelSelected.Location = new System.Drawing.Point(499, 204);
+            this.LabelSelected.Location = new System.Drawing.Point(499, 233);
             this.LabelSelected.Name = "LabelSelected";
             this.LabelSelected.Size = new System.Drawing.Size(91, 13);
             this.LabelSelected.TabIndex = 11;
@@ -293,7 +299,7 @@
             // 
             this.ShowUnversionedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowUnversionedFiles.AutoSize = true;
-            this.ShowUnversionedFiles.Location = new System.Drawing.Point(6, 212);
+            this.ShowUnversionedFiles.Location = new System.Drawing.Point(6, 241);
             this.ShowUnversionedFiles.Name = "ShowUnversionedFiles";
             this.ShowUnversionedFiles.Size = new System.Drawing.Size(135, 17);
             this.ShowUnversionedFiles.TabIndex = 10;
@@ -305,28 +311,55 @@
             this.CommitList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.CommitList.CheckBoxes = true;
             this.CommitList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnName,
             this.ColumnExtension,
             this.ColumnStatus});
+            this.CommitList.FullRowSelect = true;
+            listViewGroup1.Header = "Documents";
+            listViewGroup1.Name = "VBDocuments";
+            listViewGroup2.Header = "Forms";
+            listViewGroup2.Name = "VBForms";
+            listViewGroup3.Header = "Modules";
+            listViewGroup3.Name = "VBModules";
+            listViewGroup4.Header = "Class Modules";
+            listViewGroup4.Name = "VBClassModules";
+            this.CommitList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3,
+            listViewGroup4});
             this.CommitList.Location = new System.Drawing.Point(6, 40);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(584, 161);
+            this.CommitList.Size = new System.Drawing.Size(584, 190);
+            this.CommitList.SmallImageList = this.VBComponentsImageList;
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
-            this.CommitList.View = System.Windows.Forms.View.List;
+            this.CommitList.View = System.Windows.Forms.View.Details;
             // 
             // ColumnName
             // 
             this.ColumnName.Text = "Name";
+            this.ColumnName.Width = 332;
             // 
             // ColumnExtension
             // 
             this.ColumnExtension.Text = "Extension";
+            this.ColumnExtension.Width = 87;
             // 
             // ColumnStatus
             // 
             this.ColumnStatus.Text = "Status";
+            this.ColumnStatus.Width = 132;
+            // 
+            // VBComponentsImageList
+            // 
+            this.VBComponentsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("VBComponentsImageList.ImageStream")));
+            this.VBComponentsImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.VBComponentsImageList.Images.SetKeyName(0, "VBForm.png");
+            this.VBComponentsImageList.Images.SetKeyName(1, "VBModule.png");
+            this.VBComponentsImageList.Images.SetKeyName(2, "VBClassModule.png");
             // 
             // CheckModified
             // 
@@ -479,5 +512,6 @@
         private System.Windows.Forms.ColumnHeader ColumnName;
         private System.Windows.Forms.ColumnHeader ColumnExtension;
         private System.Windows.Forms.ColumnHeader ColumnStatus;
+        private System.Windows.Forms.ImageList VBComponentsImageList;
     }
 }

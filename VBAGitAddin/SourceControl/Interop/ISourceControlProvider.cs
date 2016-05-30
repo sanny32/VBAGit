@@ -26,38 +26,34 @@ namespace VBAGitAddin.SourceControl.Interop
         IRepository Init(string directory, bool bare = false);
 
         [DispId(5)]
-        [Description("Creates a new repository and sets the CurrentRepository property from the VBProject passed to the ISourceControlProvider upon creation.")]
-        IRepository InitVBAProject(string directory);
-
-        [DispId(6)]
         [Description("Pushes commits in the CurrentBranch of the Local repo to the Remote.")]
         void Push();
 
-        [DispId(7)]
+        [DispId(6)]
         [Description("Fetches the specified remote for tracking.\n If argument is not supplied, returns a default remote defined by implementation.")]
         void Fetch([Optional] string remoteName);
 
-        [DispId(8)]
+        [DispId(7)]
         [Description("Fetches the currently tracking remote and merges it into the CurrentBranch.")]
         void Pull();
 
-        [DispId(9)]
+        [DispId(8)]
         [Description("Stages and Commits all modified files to the CurrentBranch.")]
         void Commit(string message);
 
-        [DispId(10)]
+        [DispId(9)]
         [Description("Merges the source branch into the desitnation.")]
         void Merge(string sourceBranch, string destinationBranch);
 
-        [DispId(11)]
+        [DispId(10)]
         [Description("Checks out the target branch.")]
         void Checkout(string branch);
 
-        [DispId(12)]
+        [DispId(11)]
         [Description("Creates and checks out a new branch.")]
         void CreateBranch(string branch);
 
-        [DispId(18)]
+        [DispId(12)]
         [Description("Deletes the specified branch from the local repository.")]
         void DeleteBranch(string branch);
 

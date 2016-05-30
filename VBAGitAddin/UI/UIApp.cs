@@ -1,30 +1,20 @@
 ﻿using Microsoft.Vbe.Interop;
 using System;
 using System.IO;
-using System.Windows.Forms;
+using System.ComponentModel;
 using VBAGitAddin.SourceControl;
 using VBAGitAddin.Settings;
+using VBAGitAddin.UI.Commands;
+using VBAGitAddin.UI.Extensions;
 
 namespace VBAGitAddin.UI
-{ 
-    public class RepositoryEventArgs: EventArgs
-    {
-        public RepositoryEventArgs(IRepository repo)
-        {
-            Repository = repo;
-        }
-
-        public IRepository Repository { get; private set; }
-    }
-    
+{         
     public sealed class UIApp
     {       
         private readonly VBE _vbe;
         private readonly AddIn _addIn;
         private readonly IConfigurationService<SourceControlConfiguration> _configService;
         private readonly SourceControlConfiguration _config;
-
-        public event EventHandler<RepositoryEventArgs> NewRepositoryCreated;
         
         internal UIApp(VBE vbe, AddIn addIn)
         {
@@ -34,16 +24,24 @@ namespace VBAGitAddin.UI
             _configService = new SourceControlConfigurationService();
             _config = _configService.LoadConfiguration();
         }
-
+       
         public bool IsActiveProjectHasRepo
         {
             get
             {
                 var project = _vbe.ActiveVBProject;
+                var projectRepoPath = GetVBProjectRepoPath(project);
                 return _config.Repositories.Exists(
-                    (Repository r) => (r.Name == project.Name && Directory.Exists(r.LocalLocation)) ||
-                                      (r.Name == project.Name + Repository.BareExt && Directory.Exists(r.RemoteLocation)));                
+                    (Repository r) => (r.Name == project.Name && 
+                                       r.LocalLocation == projectRepoPath && 
+                                       Directory.Exists(r.LocalLocation)));                
             }
+        }
+
+        public static string GetVBProjectRepoPath(VBProject project)
+        {
+            var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
+            return Path.Combine(pathVBAGit, project.Name);
         }
 
         public void AddRepoToConfig(Repository repo)
@@ -55,27 +53,17 @@ namespace VBAGitAddin.UI
             }
         }
 
-        public void CreateNewRepo(bool bare)
+        public void CreateNewRepo()
         {
-            var project = _vbe.ActiveVBProject;
-            var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
-            var pathRepo = Path.Combine(pathVBAGit, project.Name);
+            var task = new InitCommand(_vbe.ActiveVBProject);                      
+            task.Execute();
 
-            var providerFactory = new SourceControlProviderFactory();
-            var provider = providerFactory.CreateProvider(project);
-            var repo = (Repository)provider.Init(pathRepo, bare);
-            AddRepoToConfig(repo);
-
-            NewRepositoryCreated?.Invoke(this, new RepositoryEventArgs(repo));
+            AddRepoToConfig((Repository)task.Repository);
         }
 
-        public void Commit(string message)
+        public void Commit()
         {
-            var project = _vbe.ActiveVBProject;
-            var providerFactory = new SourceControlProviderFactory();
-            var provider = providerFactory.CreateProvider(project);
-            provider.Commit(message);
-        }      
-
+            new CommitForm().ShowDialog();    
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Vbe.Interop;
+using VBAGitAddin.Diagnostics;
 
 namespace VBAGitAddin.VBEditor.Extensions
 {
@@ -9,7 +10,11 @@ namespace VBAGitAddin.VBEditor.Extensions
         internal const string FormExtension = ".frm";
         internal const string StandardExtension = ".bas";
         internal const string FormBinaryExtension = ".frx";
-        internal const string DocClassExtension = ".doccls";
+        internal const string DocClassExtension = ".cls";
+
+        internal const string Module = "module";
+        internal const string Form = "form";
+        internal const string ClassModule = "class module";        
 
         /// <summary>
         /// Exports the component to the directoryPath. The file is name matches the component name and file extension is based on the component's type.
@@ -18,7 +23,9 @@ namespace VBAGitAddin.VBEditor.Extensions
         /// <param name="directoryPath">Destination Path for the resulting source file.</param>
         public static void ExportAsSourceFile(this VBComponent component, string directoryPath)
         {
-            string filePath = Path.Combine(directoryPath, component.Name + component.Type.FileExtension());
+            Trace.TraceInformation("Exporting {0}... {1}", component.Type.GetName(), component.Name);
+
+            string filePath = Path.Combine(directoryPath, component.Name + component.Type.GetFileExtension());
             if (component.Type == vbext_ComponentType.vbext_ct_Document)
             {
                 int lineCount = component.CodeModule.CountOfLines;
@@ -36,12 +43,10 @@ namespace VBAGitAddin.VBEditor.Extensions
 
         /// <summary>
         /// Returns the proper file extension for the Component Type.
-        /// </summary>
-        /// <remarks>Document classes should properly have a ".cls" file extension.
-        /// However, because they cannot be removed and imported like other component types, we need to make a distinction.</remarks>
+        /// </summary>        
         /// <param name="componentType"></param>
         /// <returns>File extension that includes a preceeding "dot" (.) </returns>
-        public static string FileExtension(this vbext_ComponentType componentType)
+        public static string GetFileExtension(this vbext_ComponentType componentType)
         {
             switch (componentType)
             {
@@ -51,9 +56,31 @@ namespace VBAGitAddin.VBEditor.Extensions
                     return FormExtension;
                 case vbext_ComponentType.vbext_ct_StdModule:
                     return StandardExtension;
-                case vbext_ComponentType.vbext_ct_Document:
-                    // documents should technically be a ".cls", but we need to be able to tell them apart.
+                case vbext_ComponentType.vbext_ct_Document:                    
                     return DocClassExtension;
+                case vbext_ComponentType.vbext_ct_ActiveXDesigner:
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Returns component type name
+        /// </summary>
+        /// <param name="componentType"></param>
+        /// <returns>The string represents component type name</returns>
+        public static string GetName(this vbext_ComponentType componentType)
+        {
+            switch (componentType)
+            {
+                case vbext_ComponentType.vbext_ct_ClassModule:
+                    return ClassModule;
+                case vbext_ComponentType.vbext_ct_MSForm:
+                    return Form;
+                case vbext_ComponentType.vbext_ct_StdModule:
+                    return Module;
+                case vbext_ComponentType.vbext_ct_Document:
+                    return Module;
                 case vbext_ComponentType.vbext_ct_ActiveXDesigner:
                 default:
                     return string.Empty;

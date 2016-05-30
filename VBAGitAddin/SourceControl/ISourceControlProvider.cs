@@ -24,15 +24,7 @@ namespace VBAGitAddin.SourceControl
         /// <param name="bare">Specifies whether or not the new repository will be intialized as a bare repo.</param>
         /// <returns>Newly created repository.</returns>
         IRepository Init(string directory, bool bare = false);
-
-        /// <summary>
-        /// Creates a new repository and sets the CurrentRepository property from the VBProject passed to the ISourceControlProvider upon creation.
-        /// </summary>
-        /// <param name="directory"></param>
-        /// <returns>Newly created Repository.</returns>
-        // ReSharper disable once InconsistentNaming : Changing this now will break the COM interface.
-        IRepository InitVBAProject(string directory);
-
+        
         /// <summary>
         /// Pushes commits in the CurrentBranch of the Local repo to the Remote.
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -6,7 +7,7 @@ using System.Security;
 using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using Microsoft.Vbe.Interop;
-using System.IO;
+using VBAGitAddin.Diagnostics;
 
 namespace VBAGitAddin.SourceControl
 {
@@ -37,6 +38,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (RepositoryNotFoundException ex)
             {
+                Trace.TraceError("Repository not found: {0}", ex.Message);
                 throw new SourceControlException("Repository not found.", ex);
             }
         }
@@ -114,6 +116,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Failed to clone remote repository: {0}", ex.Message);
                 throw new SourceControlException("Failed to clone remote repository.", ex);
             }
         }
@@ -125,6 +128,7 @@ namespace VBAGitAddin.SourceControl
                 string localPath;
                 string remotePath;
                 string repoName;
+
                 if(bare)
                 {
                     localPath = string.Empty;
@@ -136,14 +140,16 @@ namespace VBAGitAddin.SourceControl
                     localPath = directory;
                     remotePath = directory;
                     repoName = this.Project.Name;
-                }                              
+                }                                       
 
                 LibGit2Sharp.Repository.Init(remotePath, bare);
+                Trace.TraceInformation("Init Git repository in {0}", remotePath);
 
                 return new Repository(repoName, localPath, remotePath);
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Unable to initialize repository: {0}", ex.Message);
                 throw new SourceControlException("Unable to initialize repository.", ex);
             }
         }
@@ -153,25 +159,25 @@ namespace VBAGitAddin.SourceControl
         /// </summary>
         /// <param name="directory">Local file path of the directory where the new repository will be created.</param>
         /// <returns>Newly initialized repository.</returns>
-        public override IRepository InitVBAProject(string directory)
-        {
-            var repository = base.InitVBAProject(directory);
-            Init(repository.LocalLocation);
+        //public override IRepository InitVBAProject(string directory)
+        //{
+        //    var repository = base.InitVBAProject(directory);
+        //    Init(repository.LocalLocation);
 
-            //add a master branch to newly created repo
-            using (var repo = new LibGit2Sharp.Repository(repository.LocalLocation))
-            {
-                var status = repo.RetrieveStatus(new StatusOptions());
-                foreach (var stat in status.Untracked)
-                {
-                    repo.Stage(stat.FilePath);
-                }
+        //    //add a master branch to newly created repo
+        //    using (var repo = new LibGit2Sharp.Repository(repository.LocalLocation))
+        //    {
+        //        var status = repo.RetrieveStatus(new StatusOptions());
+        //        foreach (var stat in status.Untracked)
+        //        {
+        //            repo.Stage(stat.FilePath);
+        //        }
 
-                repo.Commit("Intial Commit");
-            }
+        //        repo.Commit("Intial Commit");
+        //    }
 
-            return repository;
-        }
+        //    return repository;
+        //}
 
         public override void Push()
         {
@@ -194,6 +200,8 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+
+                Trace.TraceError("Push Failed: {0}", ex.Message);
                 throw new SourceControlException("Push Failed.", ex);
             }
         }
@@ -218,6 +226,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Fetch failed: {0}", ex.Message);
                 throw new SourceControlException("Fetch failed.", ex);
             }
         }
@@ -243,6 +252,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Pull failed: {0}", ex.Message);
                 throw new SourceControlException("Pull Failed.", ex);
             }
         }
@@ -255,6 +265,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Commit failed: {0}", ex.Message);
                 throw new SourceControlException("Commit Failed.", ex);
             }
         }
@@ -267,6 +278,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Failed to stage file: {0}", ex.Message);
                 throw  new SourceControlException("Failed to stage file.", ex);
             }
         }
@@ -279,6 +291,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Failed to stage file: {0}", ex.Message);
                 throw new SourceControlException("Failed to stage file.", ex);
             }
         }
@@ -317,6 +330,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Checkout failed: {0}", ex.Message);
                 throw new SourceControlException("Checkout failed.", ex);
             }
         }
@@ -332,6 +346,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Branch creation failed: {0}", ex.Message);
                 throw new SourceControlException("Branch creation failed.", ex);
             }
         }
@@ -344,6 +359,7 @@ namespace VBAGitAddin.SourceControl
 
                 if (results.Status == RevertStatus.Conflicts)
                 {
+                    Trace.TraceError("Revert resulted in conflicts. Revert failed.");
                     throw new SourceControlException("Revert resulted in conflicts. Revert failed.");
                 }
 
@@ -351,6 +367,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Revert failed: {0}", ex.Message);
                 throw new SourceControlException("Revert failed.", ex);
             }
         }
@@ -364,6 +381,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Failed to stage file {0}: {1}", filePath, ex.Message);
                 throw new SourceControlException(string.Format("Failed to stage file {0}", filePath), ex);
             }
         }
@@ -380,6 +398,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Failed to remove file {0} from staging area: {1}", filePath, ex.Message);
                 throw new SourceControlException(string.Format("Failed to remove file {0} from staging area.", filePath), ex);
             }
         }
@@ -393,6 +412,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Failed to retrieve repository status: {0}", ex.Message);
                 throw new SourceControlException("Failed to retrieve repository status.", ex);
             }
         }
@@ -406,6 +426,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
+                Trace.TraceError("Undo failed: {0}", ex.Message);
                 throw new SourceControlException("Undo failed.", ex);
             }
         }
@@ -422,6 +443,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch(LibGit2SharpException ex)
             {
+                Trace.TraceError("Branch deletion failed: {0}", ex.Message);
                 throw new SourceControlException("Branch deletion failed.", ex);
             }
         }

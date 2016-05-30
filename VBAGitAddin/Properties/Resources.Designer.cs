@@ -241,6 +241,15 @@ namespace VBAGitAddin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only TraceListeners can be added to a TraceListenerCollection..
+        /// </summary>
+        internal static string Diagonostics_MustAddListener {
+            get {
+                return ResourceManager.GetString("Diagonostics_MustAddListener", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap document_copy {

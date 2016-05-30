@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Office.Core;
 using Microsoft.Vbe.Interop;
-using System.Windows.Forms;
+using VBAGitAddin.UI.Commands;
 
 namespace VBAGitAddin.UI
 {
@@ -41,16 +41,8 @@ namespace VBAGitAddin.UI
         {
             _addIn = addIn;
             _app = new UIApp(vbe, addIn);
-            _app.NewRepositoryCreated += _app_NewRepositoryCreated;
         }
-
-        private void _app_NewRepositoryCreated(object sender, RepositoryEventArgs e)
-        {
-            RecreateMenu();
-            string msg = string.Format(VBAGitUI.SourceControl_SuccessfulInitEmptyRepo, e.Repository.LocalLocation);
-            new InformationMessageBox(msg).Show();
-        }
-
+        
         public void Initialize()
         {
             RecreateMenu();
@@ -127,7 +119,7 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCommit(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            new CommitForm(_app).ShowDialog();
+            _app.Commit();            
         }
 
         private void OnSourceControlPull(CommandBarButton Ctrl, ref bool CancelDefault)
@@ -147,14 +139,8 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCreate(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            try
-            {
-                _app.CreateNewRepo(false);
-            }
-            catch (Exception ex)
-            {
-                new ExceptionMessageBox(ex).Show();
-            }
+            _app.CreateNewRepo();
+            RecreateMenu();
         }
 
         private void OnSourceControlDiff(CommandBarButton Ctrl, ref bool CancelDefault)

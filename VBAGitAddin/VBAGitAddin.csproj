@@ -25,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RegisterForComInterop>true</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -57,13 +59,16 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Diagnostics\DiagnosticsConfiguration.cs" />
+    <Compile Include="Diagnostics\Trace.cs" />
+    <Compile Include="Diagnostics\TraceInternal.cs" />
+    <Compile Include="Diagnostics\TraceListenerCollection.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -94,7 +99,18 @@
     <Compile Include="SourceControl\SourceControlException.cs" />
     <Compile Include="SourceControl\SourceControlProviderBase.cs" />
     <Compile Include="UI\ExceptionMessageBox.cs" />
+    <Compile Include="UI\Extensions\EventExtensions.cs" />
+    <Compile Include="UI\Extensions\RichTextBoxExtensions.cs" />
     <Compile Include="UI\InformationMessageBox.cs" />
+    <Compile Include="UI\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Commands\InitCommand.cs" />
+    <Compile Include="UI\Commands\ISourceControlCommand.cs" />
+    <Compile Include="UI\RichTextBoxTraceListener.cs" />
     <Compile Include="UI\UIApp.cs" />
     <Compile Include="UI\CommitForm.cs">
       <SubType>Form</SubType>
@@ -102,100 +118,10 @@
     <Compile Include="UI\CommitForm.Designer.cs">
       <DependentUpon>CommitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\DockablePresenterBase.cs" />
-    <Compile Include="UI\DockableWindowHost.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\DockableWindowHost.Designer.cs">
-      <DependentUpon>DockableWindowHost.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\FileBrowserDialogFactory.cs" />
     <Compile Include="UI\FolderBrowser.cs" />
-    <Compile Include="UI\IDockableUserControl.cs" />
-    <Compile Include="UI\ActionFailedEventArgs.cs" />
-    <Compile Include="UI\BranchesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\BranchesControl.Designer.cs">
-      <DependentUpon>BranchesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\BranchesPresenter.cs" />
-    <Compile Include="UI\ChangesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\ChangesControl.Designer.cs">
-      <DependentUpon>ChangesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ChangesPresenter.cs" />
-    <Compile Include="UI\CreateBranchForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\CreateBranchForm.Designer.cs">
-      <DependentUpon>CreateBranchForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\DeleteBranchForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DeleteBranchForm.Designer.cs">
-      <DependentUpon>DeleteBranchForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FailedActionControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\FailedActionControl.Designer.cs">
-      <DependentUpon>FailedActionControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\IBranchesView.cs" />
-    <Compile Include="UI\IChangesView.cs" />
-    <Compile Include="UI\ICreateBranchView.cs" />
-    <Compile Include="UI\IDeleteBranchView.cs" />
-    <Compile Include="UI\IMergeView.cs" />
-    <Compile Include="UI\InitForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\InitForm.Designer.cs">
-      <DependentUpon>InitForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\IRefreshableView.cs" />
-    <Compile Include="UI\ISettingsView.cs" />
-    <Compile Include="UI\ISourceControlView.cs" />
-    <Compile Include="UI\IUnSyncedCommitsView.cs" />
-    <Compile Include="UI\LoginControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\LoginControl.Designer.cs">
-      <DependentUpon>LoginControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Menu.cs" />
-    <Compile Include="UI\MergeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\MergeForm.Designer.cs">
-      <DependentUpon>MergeForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ProviderPresenter.cs" />
-    <Compile Include="UI\SettingsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\SettingsControl.Designer.cs">
-      <DependentUpon>SettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SettingsPresenter.cs" />
-    <Compile Include="UI\SourceControlPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\SourceControlPanel.Designer.cs">
-      <DependentUpon>SourceControlPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SourceControlPresenter.cs" />
     <Compile Include="UI\SourceControlProviderFactory.cs" />
-    <Compile Include="UI\UnSyncedCommitsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\UnSyncedCommitsControl.Designer.cs">
-      <DependentUpon>UnSyncedCommitsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UnsyncedCommitsPresenter.cs" />
     <Compile Include="UI\VBAGitAddinMenu.cs" />
     <Compile Include="UI\VBAGitUI.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -227,41 +153,11 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\BranchesControl.resx">
-      <DependentUpon>BranchesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ChangesControl.resx">
-      <DependentUpon>ChangesControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\CommitForm.resx">
       <DependentUpon>CommitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\CreateBranchForm.resx">
-      <DependentUpon>CreateBranchForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\DeleteBranchForm.resx">
-      <DependentUpon>DeleteBranchForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\FailedActionControl.resx">
-      <DependentUpon>FailedActionControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\InitForm.resx">
-      <DependentUpon>InitForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\LoginControl.resx">
-      <DependentUpon>LoginControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MergeForm.resx">
-      <DependentUpon>MergeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingsControl.resx">
-      <DependentUpon>SettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SourceControlPanel.resx">
-      <DependentUpon>SourceControlPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\UnSyncedCommitsControl.resx">
-      <DependentUpon>UnSyncedCommitsControl.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\VBAGitUI.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -369,6 +265,7 @@
     <Content Include="Resources\tick-circle.png" />
     <Content Include="Resources\tick.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
