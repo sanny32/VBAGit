@@ -8,6 +8,7 @@ namespace VBAGitAddin.UI
     public partial class ProgressForm : Form
     {
         private ISourceControlCommand _scCommand;
+        private RichTextBoxTraceListener _tracer;
 
         public ProgressForm(ISourceControlCommand command)
         {
@@ -19,23 +20,38 @@ namespace VBAGitAddin.UI
             _scCommand.CommandAborted += _scCommand_CommandAborted;
             _scCommand.CommandFailed += _scCommand_CommandFailed;
 
-            this.Text = string.Format(VBAGitUI.ProgressForm_Text, _scCommand.Name);
-
+            Animation.AnimatedImage = _scCommand.ProgressImage;
+            Text = string.Format(VBAGitUI.ProgressForm_Text, _scCommand.Name);
+            
+            _tracer = new RichTextBoxTraceListener(LogBox);
             Trace.AutoFlush = true;
-            Trace.Listeners.Add(new RichTextBoxTraceListener(LogBox));            
+            Trace.Listeners.Add(_tracer);            
         }
 
         public new void ShowDialog()
         {
             Close.Enabled = false;
 
+            Animation.AnimateImage();
+
             base.ShowDialog();
         }
 
-        private void SetProgress(int progress)
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            ProgressBar.Value = progress;
-        }       
+            Trace.Listeners.Remove(_tracer);
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
 
         private void _scCommand_CommandAborted(object sender, EventArgs e)
         {
@@ -46,6 +62,7 @@ namespace VBAGitAddin.UI
         {
             Abort.Enabled = false;
             Close.Enabled = true;
+            Animation.StopAnimate();
 
             Trace.TraceOperationStop("Success ({0} ms @ {1})", 
                 Convert.ToInt64(_scCommand.LastExecutionDuration.TotalMilliseconds), DateTime.Now);                               
@@ -55,6 +72,7 @@ namespace VBAGitAddin.UI
         {
             Abort.Enabled = false;
             Close.Enabled = true;
+            Animation.StopAnimate();
 
             Trace.TraceError(e.Error.Message);
         }

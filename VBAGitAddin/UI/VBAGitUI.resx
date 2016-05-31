@@ -132,10 +132,6 @@
   <data name="SourceControl_OpenWorkingDirectory" xml:space="preserve">
     <value>Open Working Directory</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Ducky" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ducky.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SourceControlPanel_Caption" xml:space="preserve">
     <value>Source Control</value>
   </data>

@@ -1,11 +1,8 @@
 ﻿using Microsoft.Vbe.Interop;
-using System;
 using System.IO;
-using System.ComponentModel;
-using VBAGitAddin.SourceControl;
 using VBAGitAddin.Settings;
+using VBAGitAddin.SourceControl;
 using VBAGitAddin.UI.Commands;
-using VBAGitAddin.UI.Extensions;
 
 namespace VBAGitAddin.UI
 {         
@@ -55,10 +52,11 @@ namespace VBAGitAddin.UI
 
         public void CreateNewRepo()
         {
-            var task = new InitCommand(_vbe.ActiveVBProject);                      
-            task.Execute();
-
-            AddRepoToConfig((Repository)task.Repository);
+            using (var task = new InitCommand(_vbe.ActiveVBProject))
+            {
+                task.Execute();
+                AddRepoToConfig((Repository)task.Repository);
+            }           
         }
 
         public void Commit()

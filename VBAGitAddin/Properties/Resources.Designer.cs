@@ -532,6 +532,16 @@ namespace VBAGitAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap tshell32_160 {
+            get {
+                object obj = ResourceManager.GetObject("tshell32_160", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VBAGit_about {
             get {
                 object obj = ResourceManager.GetObject("VBAGit_about", resourceCulture);

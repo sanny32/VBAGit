@@ -5,10 +5,11 @@ using System.Diagnostics;
 using VBAGitAddin.SourceControl;
 using VBAGitAddin.UI.Extensions;
 using VBAGitAddin.VBEditor.Extensions;
+using System.Drawing;
 
 namespace VBAGitAddin.UI.Commands
 {
-    public class InitCommand : ISourceControlCommand
+    public class InitCommand : ISourceControlCommand, IDisposable
     {
         private readonly VBProject _project;
         private BackgroundWorker _bgw;
@@ -18,13 +19,16 @@ namespace VBAGitAddin.UI.Commands
         {
             _project = project;
 
-            _bgw = new BackgroundWorker();
+            _bgw = new BackgroundWorker();            
             _bgw.DoWork += _bgw_DoWork;
+            _bgw.ProgressChanged += _bgw_ProgressChanged;
             _bgw.RunWorkerCompleted += _bgw_RunWorkerCompleted;
+            _bgw.WorkerReportsProgress = true;
+            _bgw.WorkerSupportsCancellation = true;
 
             _watch = new Stopwatch();
         }
-
+      
         public IRepository Repository
         {
             get;
@@ -44,6 +48,14 @@ namespace VBAGitAddin.UI.Commands
             get
             {
                 return "Git Init";
+            }
+        }
+
+        public Bitmap ProgressImage
+        {
+            get
+            {
+                return Properties.Resources.tshell32_160;
             }
         }
 
@@ -81,33 +93,48 @@ namespace VBAGitAddin.UI.Commands
             int count = _project.VBComponents.Count;
             foreach (VBComponent component in _project.VBComponents)
             {
-                if (e.Cancel)
+                if (_bgw.CancellationPending)
                 {
-                    _watch.Stop();
-                    CommandAborted?.Raise(this, new EventArgs());
+                    e.Cancel = true;              
                     return;
                 }
 
-                CommandProgress?.Raise(this, new ProgressEventArgs(100 * ++progress / count, VBAGitUI.ProgressInfo_ExportingFiles));
-
                 component.ExportAsSourceFile(path);
-            }
 
-            CommandProgress?.Raise(this, new ProgressEventArgs(100, string.Empty));
+                _bgw.ReportProgress(100 * ++progress / count);
+            }
+        }
+
+        private void _bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            CommandProgress?.Raise(this, new ProgressEventArgs(e.ProgressPercentage, VBAGitUI.ProgressInfo_ExportingFiles));
         }
 
 
         private void _bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _watch.Stop();
-            if (e.Error != null)
+
+            if (e.Cancelled)
             {
-                CommandFailed?.Raise(this, new ErrorEventArgs(e.Error));
+                CommandAborted?.Raise(this, new EventArgs());
             }
             else
             {
-                CommandSuccess?.Raise(this, new EventArgs());
+                if (e.Error != null)
+                {
+                    CommandFailed?.Raise(this, new ErrorEventArgs(e.Error));
+                }
+                else
+                {
+                    CommandSuccess?.Raise(this, new EventArgs());
+                }
             }
+        }
+
+        public void Dispose()
+        {
+            _bgw.Dispose();
         }
     }
 }

@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
@@ -98,6 +99,12 @@
     <Compile Include="SourceControl\Repository.cs" />
     <Compile Include="SourceControl\SourceControlException.cs" />
     <Compile Include="SourceControl\SourceControlProviderBase.cs" />
+    <Compile Include="UI\AnimationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AnimationControl.Designer.cs">
+      <DependentUpon>AnimationControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ExceptionMessageBox.cs" />
     <Compile Include="UI\Extensions\EventExtensions.cs" />
     <Compile Include="UI\Extensions\RichTextBoxExtensions.cs" />
@@ -198,6 +205,7 @@
     <Content Include="Resources\arrow-step.png" />
     <Content Include="Resources\arrow.png" />
     <Content Include="Resources\arrow1.png" />
+    <None Include="Resources\tshell32_160.gif" />
     <None Include="Resources\VBAGit.png" />
     <None Include="Resources\VBAGit-checkout-mask.png" />
     <None Include="Resources\VBAGit-checkout.png" />

@@ -250,16 +250,6 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon Ducky {
-            get {
-                object obj = ResourceManager.GetObject("Ducky", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Offline.
         /// </summary>
         internal static string Offline {

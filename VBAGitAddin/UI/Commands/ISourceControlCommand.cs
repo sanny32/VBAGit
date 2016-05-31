@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using VBAGitAddin.SourceControl;
 
 namespace VBAGitAddin.UI.Commands
@@ -43,6 +44,7 @@ namespace VBAGitAddin.UI.Commands
         string Name { get; }
         IRepository Repository { get; }
         TimeSpan LastExecutionDuration { get; }
+        Bitmap ProgressImage { get; }
 
         event EventHandler<ProgressEventArgs> CommandProgress;
         event EventHandler CommandAborted;
