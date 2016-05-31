@@ -9,14 +9,12 @@ namespace VBAGitAddin.UI
     public sealed class UIApp
     {       
         private readonly VBE _vbe;
-        private readonly AddIn _addIn;
         private readonly IConfigurationService<SourceControlConfiguration> _configService;
         private readonly SourceControlConfiguration _config;
         
-        internal UIApp(VBE vbe, AddIn addIn)
+        internal UIApp(VBE vbe)
         {
             _vbe = vbe;
-            _addIn = addIn;
 
             _configService = new SourceControlConfigurationService();
             _config = _configService.LoadConfiguration();
@@ -52,16 +50,19 @@ namespace VBAGitAddin.UI
 
         public void CreateNewRepo()
         {
-            using (var task = new InitCommand(_vbe.ActiveVBProject))
+            using (var initCommand = new InitCommand(_vbe.ActiveVBProject))
             {
-                task.Execute();
-                AddRepoToConfig((Repository)task.Repository);
+                initCommand.Execute();
+                AddRepoToConfig((Repository)initCommand.Repository);
             }           
         }
 
         public void Commit()
         {
-            new CommitForm().ShowDialog();    
+            using(var commitCommand = new CommitCommand())
+            {
+                commitCommand.Execute();
+            }   
         }
     }
 }

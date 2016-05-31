@@ -1,13 +1,19 @@
 ﻿using Microsoft.Vbe.Interop;
+using System;
 using System.Windows.Forms;
+using VBAGitAddin.UI.Commands;
 
 namespace VBAGitAddin.UI
 {
     public partial class CommitForm : Form
     {
-        public CommitForm()
+        private CommitCommand _scCommand;
+
+        public CommitForm(CommitCommand scCommand)
         {
             InitializeComponent();
+
+            _scCommand = scCommand;
 
             LabelCommit.Text = VBAGitUI.CommitForm_LabelCommit;
             NewBranch.Text = VBAGitUI.CommitForm_NewBranch;
@@ -71,60 +77,68 @@ namespace VBAGitAddin.UI
             return base.ShowDialog();
         }
 
-        private void CheckAll_Click(object sender, System.EventArgs e)
+        private void CheckAll_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void CheckNone_Click(object sender, System.EventArgs e)
+        private void CheckNone_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void CheckUnversioned_Click(object sender, System.EventArgs e)
+        private void CheckUnversioned_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void CheckVersioned_Click(object sender, System.EventArgs e)
+        private void CheckVersioned_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void CheckAdded_Click(object sender, System.EventArgs e)
+        private void CheckAdded_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void CheckDeleted_Click(object sender, System.EventArgs e)
+        private void CheckDeleted_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void CheckModified_Click(object sender, System.EventArgs e)
+        private void CheckModified_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void SetAuthorDate_CheckedChanged(object sender, System.EventArgs e)
+        private void SetAuthorDate_CheckedChanged(object sender, EventArgs e)
         {
             AuthorDate.Visible = SetAuthorDate.Checked;
             AuthorTime.Visible = SetAuthorDate.Checked;
         }
 
-        private void SetAuthor_CheckedChanged(object sender, System.EventArgs e)
+        private void SetAuthor_CheckedChanged(object sender, EventArgs e)
         {
             Author.Visible = SetAuthor.Checked;
         }
 
-        private void NewBranch_CheckedChanged(object sender, System.EventArgs e)
-        {
+        private void NewBranch_CheckedChanged(object sender, EventArgs e)
+        {            
             CommitBranch.ReadOnly = !NewBranch.Checked;
+            CommitBranch.BorderStyle = (NewBranch.Checked) ? BorderStyle.Fixed3D : BorderStyle.None;
+            CommitBranch.Top += (NewBranch.Checked) ? -3: 3;
+            CommitBranch.Left += (NewBranch.Checked) ? -3 : 3;
         }
 
-        private void CommitMessage_TextChanged(object sender, System.EventArgs e)
+        private void CommitMessage_TextChanged(object sender, EventArgs e)
         {
             Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text);
+        }
+
+        private void Commit_Click(object sender, EventArgs e)
+        {
+            _scCommand.Commit(CommitMessage.Text);
         }
     }
 }

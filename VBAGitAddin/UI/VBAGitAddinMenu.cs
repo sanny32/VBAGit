@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.Office.Core;
+﻿using Microsoft.Office.Core;
 using Microsoft.Vbe.Interop;
-using VBAGitAddin.UI.Commands;
 
 namespace VBAGitAddin.UI
 {
@@ -40,7 +38,7 @@ namespace VBAGitAddin.UI
             : base(vbe, addIn)
         {
             _addIn = addIn;
-            _app = new UIApp(vbe, addIn);
+            _app = new UIApp(vbe);
         }
         
         public void Initialize()
