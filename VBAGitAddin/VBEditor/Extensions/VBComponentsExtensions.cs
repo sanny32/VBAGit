@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using Microsoft.Vbe.Interop;
 
-// todo: untangle this mess
-
 namespace VBAGitAddin.VBEditor.Extensions
 {
     public static class VBComponentsExtensions
@@ -30,6 +28,19 @@ namespace VBAGitAddin.VBEditor.Extensions
                 default:
                     break;
             }
+        }
+
+        public static VBComponent Find(this VBComponents components, string name)
+        {
+            foreach(VBComponent component in components)
+            {
+                if(component.Name == name)
+                {
+                    return component;
+                }
+            }
+
+            return null;
         }
 
         public static void ImportSourceFile(this VBComponents components, string filePath)

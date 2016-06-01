@@ -65,6 +65,7 @@
             this.CheckNone = new System.Windows.Forms.Label();
             this.CheckAll = new System.Windows.Forms.Label();
             this.LabelCheck = new System.Windows.Forms.Label();
+            this._backgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -455,6 +456,11 @@
             this.LabelCheck.TabIndex = 0;
             this.LabelCheck.Text = "Check: ";
             // 
+            // _backgroundWorker
+            // 
+            this._backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this._backgroundWorker_DoWork);
+            this._backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this._backgroundWorker_RunWorkerCompleted);
+            // 
             // CommitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -514,5 +520,6 @@
         private System.Windows.Forms.ColumnHeader ColumnExtension;
         private System.Windows.Forms.ColumnHeader ColumnStatus;
         private System.Windows.Forms.ImageList VBComponentsImageList;
+        private System.ComponentModel.BackgroundWorker _backgroundWorker;
     }
 }

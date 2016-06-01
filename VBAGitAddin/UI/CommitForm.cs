@@ -1,7 +1,10 @@
 ﻿using Microsoft.Vbe.Interop;
 using System;
+using System.IO;
+using System.ComponentModel;
 using System.Windows.Forms;
 using VBAGitAddin.UI.Commands;
+using VBAGitAddin.VBEditor.Extensions;
 
 namespace VBAGitAddin.UI
 {
@@ -39,7 +42,7 @@ namespace VBAGitAddin.UI
             Cancel.Text = VBAGitUI.Cancel;
         }
 
-        public new DialogResult ShowDialog()
+        public new void ShowDialog()
         {
             //Text = string.Format(VBAGitUI.CommitForm_Text, _app.ActiveProjectRepoPath);
             //foreach(VBComponent component in _app.IDE.ActiveVBProject.VBComponents)
@@ -47,7 +50,7 @@ namespace VBAGitAddin.UI
             //    ListViewItem item = new ListViewItem();
             //    item.Name = component.Name;
             //    item.Text = component.Name;
-               
+
             //    switch (component.Type)
             //    {
             //        case vbext_ComponentType.vbext_ct_Document:
@@ -74,7 +77,10 @@ namespace VBAGitAddin.UI
             //    CommitList.Items.Add(item);           
             //}
 
-            return base.ShowDialog();
+            UseWaitCursor = true;
+            _backgroundWorker.RunWorkerAsync();
+
+            base.ShowDialog();
         }
 
         private void CheckAll_Click(object sender, EventArgs e)
@@ -139,6 +145,67 @@ namespace VBAGitAddin.UI
         private void Commit_Click(object sender, EventArgs e)
         {
             _scCommand.Commit(CommitMessage.Text);
+        }
+       
+        private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var fileStats = _scCommand.FileList;
+            foreach (var stat in fileStats)
+            {
+                ListViewItem item = new ListViewItem();
+
+                var ext = Path.GetExtension(stat.FilePath);
+                var componentName =  Path.GetFileNameWithoutExtension(stat.FilePath);
+                var component = _scCommand.VBProject.VBComponents.Find(componentName);
+
+                switch(ext)
+                {
+                    case VBComponentExtensions.ClassExtesnion:
+                        item.ImageIndex = 2;
+                        item.Group = CommitList.Groups["VBClassModules"];
+                        break;
+
+                    case VBComponentExtensions.FormExtension:
+                    case VBComponentExtensions.FormBinaryExtension:
+                        ext = string.Format("{0}, {1}", VBComponentExtensions.FormExtension, VBComponentExtensions.FormBinaryExtension);
+                        item.ImageIndex = 0;
+                        item.Group = CommitList.Groups["VBForms"];
+                        break;
+
+                    case VBComponentExtensions.StandardExtension:
+                        item.ImageIndex = 1;
+                        item.Group = CommitList.Groups["VBModules"];
+                        break;
+                }
+
+                if (!CommitList.Items.ContainsKey(componentName))
+                {
+                    item.Name = componentName;
+                    item.Text = componentName;
+                    item.SubItems.Add(ext);
+                    item.SubItems.Add(stat.FileStatus.ToString());
+
+                    Action append = delegate ()
+                    {
+                        CommitList.Items.Add(item);
+                    };
+
+                    if (CommitList.InvokeRequired)
+                    {
+                        var result = CommitList.BeginInvoke(append);
+                        CommitList.EndInvoke(result);
+                    }
+                    else
+                    {
+                        append();
+                    }
+                }
+            }
+        }
+
+        private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            UseWaitCursor = false;
         }
     }
 }

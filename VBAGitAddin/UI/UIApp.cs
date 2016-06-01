@@ -24,15 +24,19 @@ namespace VBAGitAddin.UI
         {
             get
             {
-                var project = _vbe.ActiveVBProject;
-                var projectRepoPath = GetVBProjectRepoPath(project);
-                return _config.Repositories.Exists(
-                    (Repository r) => (r.Name == project.Name && 
-                                       r.LocalLocation == projectRepoPath && 
-                                       Directory.Exists(r.LocalLocation)));                
+                return GetVBProjectRepository(_vbe.ActiveVBProject) != null;
             }
         }
 
+        public IRepository GetVBProjectRepository(VBProject project)
+        {
+            var projectRepoPath = GetVBProjectRepoPath(project);
+            return (IRepository) _config.Repositories.Find(
+                                       (Repository r) => (r.Name == project.Name &&
+                                                          r.LocalLocation == projectRepoPath &&
+                                                          Directory.Exists(r.LocalLocation)));
+        }
+         
         public static string GetVBProjectRepoPath(VBProject project)
         {
             var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
@@ -59,7 +63,8 @@ namespace VBAGitAddin.UI
 
         public void Commit()
         {
-            using(var commitCommand = new CommitCommand())
+            var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
+            using (var commitCommand = new CommitCommand(_vbe.ActiveVBProject, repo))
             {
                 commitCommand.Execute();
             }   
