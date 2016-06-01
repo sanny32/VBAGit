@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Collections.Generic;
 using VBAGitAddin.SourceControl;
 
-
 namespace VBAGitAddin.UI.Commands
 {
     public class CommitCommand : ISourceControlCommand, IDisposable
@@ -44,7 +43,7 @@ namespace VBAGitAddin.UI.Commands
         {
 
         }
-
+        
         public TimeSpan LastExecutionDuration
         {
             get

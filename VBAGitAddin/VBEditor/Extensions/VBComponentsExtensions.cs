@@ -17,6 +17,7 @@ namespace VBAGitAddin.VBEditor.Extensions
             switch (component.Type)
             {
                 case vbext_ComponentType.vbext_ct_ClassModule:
+
                 case vbext_ComponentType.vbext_ct_StdModule:
                 case vbext_ComponentType.vbext_ct_MSForm:
                     components.Remove(component);
@@ -42,7 +43,7 @@ namespace VBAGitAddin.VBEditor.Extensions
 
             return null;
         }
-
+                
         public static void ImportSourceFile(this VBComponents components, string filePath)
         {
             var ext = Path.GetExtension(filePath);

@@ -51,7 +51,7 @@ namespace VBAGitAddin.SourceControl
         /// <summary>
         /// The deletion of a file has been promoted from the working directory to the Index. A previous version exists in the Head.
         /// </summary>
-        Removed = (1 << 2), /* GIT_STATUS_INDEX_DELETED */
+        Deleted = (1 << 2), /* GIT_STATUS_INDEX_DELETED */
 
         /// <summary>
         /// The renaming of a file has been promoted from the working directory to the Index. A previous version exists in the Head.
@@ -66,7 +66,7 @@ namespace VBAGitAddin.SourceControl
         /// <summary>
         /// New file in the working directory, unknown from the Index and the Head.
         /// </summary>
-        Untracked = (1 << 7), /* GIT_STATUS_WT_NEW */
+        Unversioned = (1 << 7), /* GIT_STATUS_WT_NEW */
 
         /// <summary>
         /// The file has been updated in the working directory. A previous version exists in the Index.
@@ -94,7 +94,7 @@ namespace VBAGitAddin.SourceControl
         Unreadable = (1 << 12), /* GIT_STATUS_WT_UNREADABLE */
 
         /// <summary>
-        /// The file is <see cref="Untracked"/> but its name and/or path matches an exclude pattern in a <c>gitignore</c> file.
+        /// The file is <see cref="Unversioned"/> but its name and/or path matches an exclude pattern in a <c>gitignore</c> file.
         /// </summary>
         Ignored = (1 << 14), /* GIT_STATUS_IGNORED */
     }

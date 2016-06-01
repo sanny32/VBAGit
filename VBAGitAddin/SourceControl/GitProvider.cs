@@ -150,32 +150,7 @@ namespace VBAGitAddin.SourceControl
                 throw new SourceControlException("Unable to initialize repository.", ex);
             }
         }
-
-        /// <summary>
-        /// Exports files from VBProject to the file system, initalizes the repository, and creates an inital commit of those files to the repo.
-        /// </summary>
-        /// <param name="directory">Local file path of the directory where the new repository will be created.</param>
-        /// <returns>Newly initialized repository.</returns>
-        //public override IRepository InitVBAProject(string directory)
-        //{
-        //    var repository = base.InitVBAProject(directory);
-        //    Init(repository.LocalLocation);
-
-        //    //add a master branch to newly created repo
-        //    using (var repo = new LibGit2Sharp.Repository(repository.LocalLocation))
-        //    {
-        //        var status = repo.RetrieveStatus(new StatusOptions());
-        //        foreach (var stat in status.Untracked)
-        //        {
-        //            repo.Stage(stat.FilePath);
-        //        }
-
-        //        repo.Commit("Intial Commit");
-        //    }
-
-        //    return repository;
-        //}
-
+        
         public override void Push()
         {
             try
