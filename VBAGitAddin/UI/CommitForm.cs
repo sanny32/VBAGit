@@ -168,6 +168,11 @@ namespace VBAGitAddin.UI
             var fileStats = _scCommand.FileList;
             foreach (var stat in fileStats)
             {
+                if(stat.FileStatus == FileStatus.Ignored)
+                {
+                    continue;
+                }
+
                 ListViewItem item = new ListViewItem();
 
                 var ext = Path.GetExtension(stat.FilePath);

@@ -21,11 +21,9 @@ namespace VBAGitAddin.VBEditor.Extensions
         /// <param name="project">The <see cref="VBProject"/> to be exported to source files.</param>
         /// <param name="directoryPath">The destination directory path.</param>
         public static void ExportSourceFiles(this VBProject project, string directoryPath)
-        {
-            foreach (VBComponent component in project.VBComponents)
-            {
-                component.ExportAsSourceFile(directoryPath);
-            }
+        {            
+            IEnumerable<VBComponent> components = project.VBComponents.Cast<VBComponent>();
+            components.AsParallel().ForAll(component => component.ExportAsSourceFile(directoryPath));
         }
 
         /// <summary>
@@ -38,17 +36,15 @@ namespace VBAGitAddin.VBEditor.Extensions
         /// <param name="project"></param>
         public static void RemoveAllComponents(this VBProject project)
         {
-            foreach (VBComponent component in project.VBComponents)
-            {
-                project.VBComponents.RemoveSafely(component);
-            }
+            IEnumerable<VBComponent> components = project.VBComponents.Cast<VBComponent>();
+            components.AsParallel().ForAll(component => project.VBComponents.RemoveSafely(component));            
         }
 
         /// <summary>
         /// Imports all source code files from target directory into project.
         /// </summary>
         /// <remarks>
-        /// Only files with extensions "cls", "bas, "frm", and "doccls" are imported.
+        /// Only files with extensions "cls", "bas, "frm" are imported.
         /// It is the callers responsibility to remove any existing components prior to importing.
         /// </remarks>
         /// <param name="project"></param>
@@ -63,10 +59,8 @@ namespace VBAGitAddin.VBEditor.Extensions
                                             f.Extension == VBComponentExtensions.DocClassExtension ||
                                             f.Extension == VBComponentExtensions.FormExtension
                                             );
-            foreach (var file in files)
-            {
-                project.VBComponents.ImportSourceFile(file.FullName);
-            }
+
+            files.AsParallel().ForAll(file => project.VBComponents.ImportSourceFile(file.FullName));            
         }
     }
 }
