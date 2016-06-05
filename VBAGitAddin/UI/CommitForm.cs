@@ -9,14 +9,43 @@ using VBAGitAddin.UI.Commands;
 using VBAGitAddin.SourceControl;
 using VBAGitAddin.VBEditor.Extensions;
 
-
 namespace VBAGitAddin.UI
 {
     public partial class CommitForm : Form
     {
+        internal class ListViewItemTag
+        {
+            public ListViewItemTag()
+            {
+                Files = new List<string>();
+            }
+
+           
+            public List<string> Files
+            {
+                get;
+                private set;
+            }
+          
+            public FileStatus FileStatus
+            {
+                get;
+                set;
+            }
+
+            public ListViewGroup Group
+            {
+                get;
+                set;
+            }
+        }
+
         private readonly CommitCommand _scCommand;
         private readonly VBProject _project;
         private readonly IRepository _repository;
+
+        private List<ListViewItem> _items;
+        private List<ListViewGroup> _groups;
 
         public CommitForm(CommitCommand scCommand)
         {
@@ -25,6 +54,15 @@ namespace VBAGitAddin.UI
             _scCommand = scCommand;
             _project = _scCommand.VBProject;
             _repository = _scCommand.Repository;
+            _items = new List<ListViewItem>();
+            _groups = new List<ListViewGroup>()
+            {
+                new ListViewGroup("VBDocuments", "Documents"),
+                new ListViewGroup("VBForms", "Forms"),
+                new ListViewGroup("VBModules", "Modules"),
+                new ListViewGroup("VBClassModules", "Class Modules")
+            };
+            CommitList.Groups.AddRange(_groups.ToArray());
 
             LabelCommit.Text = VBAGitUI.CommitForm_LabelCommit;
             NewBranch.Text = VBAGitUI.CommitForm_NewBranch;
@@ -45,6 +83,7 @@ namespace VBAGitAddin.UI
             ShowUnversionedFiles.Text = VBAGitUI.CommitForm_ShowUnversionedFiles;
             LabelSelected.Text = string.Format(VBAGitUI.CommitForm_LabelSelected, 0, 0);
             MessageOnly.Text = VBAGitUI.CommitForm_MessageOnly;
+            EmptyCommitList.Text = VBAGitUI.CommitForm_WaitForUpdate;
 
             Commit.Text = VBAGitUI.CommitForm_Commit;
             Cancel.Text = VBAGitUI.Cancel;
@@ -56,9 +95,54 @@ namespace VBAGitAddin.UI
             
             UseWaitCursor = true;
 
-            _backgroundWorker.RunWorkerAsync();
-
             base.ShowDialog();
+        }
+
+        private void CommitForm_Shown(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.DoEvents();
+            _backgroundWorker.RunWorkerAsync();
+        }
+
+        private void AddItems()
+        {
+            Action append = delegate ()
+            {
+                CommitList.Items.Clear();
+
+                if (ShowUnversionedFiles.Checked)
+                {
+                    _items.ForEach(item => item.Group = (item.Tag as ListViewItemTag)?.Group);
+                    CommitList.Items.AddRange(_items.ToArray());                   
+                }
+                else
+                {
+                    var versionedItems = _items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus != FileStatus.Unversioned);
+                    versionedItems.AsParallel().ForAll(item => item.Group = (item.Tag as ListViewItemTag)?.Group);
+                    CommitList.Items.AddRange(versionedItems.ToArray());
+                }
+
+                EmptyCommitList.Text = VBAGitUI.CommitForm_EmptyCommitList;
+                EmptyCommitList.Visible = (CommitList.Items.Count == 0);
+                UpdateLabelSelectedText();
+            };
+
+            if (CommitList.InvokeRequired)
+            {
+                CommitList.BeginInvoke(append);
+            }
+            else
+            {
+                append();
+            }
+
+        }
+
+        private void UpdateLabelSelectedText()
+        {
+            IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
+            var checkedItems = items.Where(item => item.Checked == true).Count();
+            LabelSelected.Text = string.Format(VBAGitUI.CommitForm_LabelSelected, checkedItems, items.Count());
         }
 
         private void CommitForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -66,12 +150,18 @@ namespace VBAGitAddin.UI
             e.Cancel = _backgroundWorker.IsBusy;
         }
 
+        private void CommitList_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            UpdateLabelSelectedText();
+        }
+
         private void CheckAll_Click(object sender, EventArgs e)
         {
             if(!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-                items.AsParallel().ForAll(item => item.Checked = true);                
+                items.ToList().ForEach(item => item.Checked = true);
+                UpdateLabelSelectedText();
             }
         }
 
@@ -80,7 +170,8 @@ namespace VBAGitAddin.UI
             if (!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-                items.AsParallel().ForAll(item => item.Checked = false);
+                items.ToList().ForEach(item => item.Checked = false);
+                UpdateLabelSelectedText();
             }
         }
 
@@ -89,8 +180,9 @@ namespace VBAGitAddin.UI
             if (!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-                items.AsParallel().ForAll(item => item.Checked = false);
-                items.AsParallel().Where(item => item.Tag.Equals(FileStatus.Unversioned)).ForAll(item => item.Checked = true);
+                items.ToList().ForEach(item => item.Checked = false);
+                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
+                UpdateLabelSelectedText();
             }
         }
 
@@ -99,8 +191,9 @@ namespace VBAGitAddin.UI
             if (!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-                items.AsParallel().ForAll(item => item.Checked = false);
-                items.AsParallel().Where(item => !item.Tag.Equals(FileStatus.Unversioned)).ForAll(item => item.Checked = true);
+                items.ToList().ForEach(item => item.Checked = false);
+                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus != FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
+                UpdateLabelSelectedText();
             }
         }
 
@@ -109,8 +202,9 @@ namespace VBAGitAddin.UI
             if (!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-                items.AsParallel().ForAll(item => item.Checked = false);
-                items.AsParallel().Where(item => item.Tag.Equals(FileStatus.Added)).ForAll(item => item.Checked = true);
+                items.ToList().ForEach(item => item.Checked = false);
+                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Added).ToList().ForEach(item => item.Checked = true);
+                UpdateLabelSelectedText();
             }
         }
 
@@ -119,8 +213,9 @@ namespace VBAGitAddin.UI
             if (!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-                items.AsParallel().ForAll(item => item.Checked = false);
-                items.AsParallel().Where(item => item.Tag.Equals(FileStatus.Deleted)).ForAll(item => item.Checked = true);
+                items.ToList().ForEach(item => item.Checked = false);
+                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Deleted).ToList().ForEach(item => item.Checked = true);
+                UpdateLabelSelectedText();
             }
         }
 
@@ -129,8 +224,17 @@ namespace VBAGitAddin.UI
             if (!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-                items.AsParallel().ForAll(item => item.Checked = false);
-                items.AsParallel().Where(item => item.Tag.Equals(FileStatus.Modified)).ForAll(item => item.Checked = true);
+                items.ToList().ForEach(item => item.Checked = false);
+                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Modified).ToList().ForEach(item => item.Checked = true);
+                UpdateLabelSelectedText();
+            }
+        }
+
+        private void ShowUnversionedFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_backgroundWorker.IsBusy)
+            {
+                AddItems();
             }
         }
 
@@ -155,79 +259,90 @@ namespace VBAGitAddin.UI
 
         private void CommitMessage_TextChanged(object sender, EventArgs e)
         {
-            Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text);
+            Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text) && CommitList.Items.Count > 0;
         }
 
         private void Commit_Click(object sender, EventArgs e)
         {
-            _scCommand.Commit(CommitMessage.Text);
+            IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
+            var checkedItems = items.ToList().Where(item => item.Checked);
+
+            List<string> files = new List<string>();
+            foreach(var item in checkedItems)
+            {
+                var itemTag = item.Tag as ListViewItemTag;
+                if (itemTag != null)
+                {
+                    files.AddRange(itemTag.Files);
+                }
+            }
+
+            _scCommand.Commit(CommitMessage.Text, files);
+
+            Close();
         }
        
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {                       
-            var fileStats = _scCommand.FileList;
-            foreach (var stat in fileStats)
+        {
+            e.Result = _scCommand.FileList;                         
+        }
+
+        private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            foreach (var stat in e.Result as IList<IFileStatusEntry>)
             {
-                if(stat.FileStatus == FileStatus.Ignored)
+                if (stat.FileStatus == FileStatus.Ignored)
                 {
                     continue;
                 }
 
                 ListViewItem item = new ListViewItem();
+                ListViewItemTag itemTag = new ListViewItemTag();
 
                 var ext = Path.GetExtension(stat.FilePath);
-                var componentName =  Path.GetFileNameWithoutExtension(stat.FilePath);
-                var component = _scCommand.VBProject.VBComponents.Find(componentName);
+                var componentName = Path.GetFileNameWithoutExtension(stat.FilePath);
 
-                switch(ext)
+                switch (ext)
                 {
                     case VBComponentExtensions.ClassExtesnion:
                         item.ImageIndex = 2;
-                        item.Group = CommitList.Groups["VBClassModules"];
+                        item.Group = _groups.ElementAt(3);
+                        itemTag.Files.Add(stat.FilePath);
                         break;
 
                     case VBComponentExtensions.FormExtension:
                     case VBComponentExtensions.FormBinaryExtension:
                         ext = string.Format("{0}, {1}", VBComponentExtensions.FormExtension, VBComponentExtensions.FormBinaryExtension);
                         item.ImageIndex = 0;
-                        item.Group = CommitList.Groups["VBForms"];
+                        item.Group = _groups.ElementAt(1);
+                        itemTag.Files.Add(componentName + VBComponentExtensions.FormExtension);
+                        itemTag.Files.Add(componentName + VBComponentExtensions.FormBinaryExtension);
                         break;
 
                     case VBComponentExtensions.StandardExtension:
                         item.ImageIndex = 1;
-                        item.Group = CommitList.Groups["VBModules"];
+                        item.Group = _groups.ElementAt(2);
+                        itemTag.Files.Add(stat.FilePath);
                         break;
                 }
 
-                if (!CommitList.Items.ContainsKey(componentName))
+                if (!_items.Exists(_item => _item.Name == componentName))
                 {
                     item.Name = componentName;
-                    item.Text = componentName;
-                    item.Tag = stat.FileStatus;
+                    item.Text = componentName;                                
                     item.SubItems.Add(ext);
                     item.SubItems.Add(stat.FileStatus.ToString());
 
-                    Action append = delegate ()
-                    {
-                        CommitList.Items.Add(item);
-                    };
+                    itemTag.Group = item.Group;
+                    itemTag.FileStatus = stat.FileStatus;
+                    item.Tag = itemTag;
 
-                    if (CommitList.InvokeRequired)
-                    {
-                        var result = CommitList.BeginInvoke(append);
-                        CommitList.EndInvoke(result);
-                    }
-                    else
-                    {
-                        append();
-                    }
-                }                
+                    _items.Add(item);
+                 }
             }
-        }
 
-        private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
+            AddItems();
             UseWaitCursor = false;
-        }       
+        }
     }
 }

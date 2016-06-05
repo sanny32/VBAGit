@@ -60,9 +60,10 @@ namespace VBAGitAddin.UI
 
         private void _scCommand_CommandSuccess(object sender, EventArgs e)
         {
+            ProgressBar.Value = 100;
             Abort.Enabled = false;
             Close.Enabled = true;
-            Animation.StopAnimate();
+            Animation.StopAnimate();            
 
             Trace.TraceOperationStop("Success ({0} ms @ {1})", 
                 Convert.ToInt64(_scCommand.LastExecutionDuration.TotalMilliseconds), DateTime.Now);                               
@@ -74,7 +75,14 @@ namespace VBAGitAddin.UI
             Close.Enabled = true;
             Animation.StopAnimate();
 
-            Trace.TraceError(e.Error.Message);
+            if (e.Error.InnerException != null)
+            {
+                Trace.TraceError("{0} ({1})", e.Error.Message, e.Error.InnerException.Message);
+            }
+            else
+            {
+                Trace.TraceError(e.Error.Message);
+            }
         }
 
         private void _scCommand_CommandProgress(object sender, ProgressEventArgs e)

@@ -2,8 +2,10 @@
 using System;
 using System.Linq;
 using System.Drawing;
+using System.Diagnostics;
 using System.Collections.Generic;
 using VBAGitAddin.SourceControl;
+using VBAGitAddin.UI.Extensions;
 
 namespace VBAGitAddin.UI.Commands
 {
@@ -12,6 +14,7 @@ namespace VBAGitAddin.UI.Commands
         private readonly VBProject _project;
         private readonly IRepository _repository;
         private readonly ISourceControlProvider _provider;
+        private Stopwatch _watch;
 
         public CommitCommand(VBProject project, IRepository repo)
         {
@@ -39,16 +42,46 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        public void Commit(string message)
+        public void Commit(string message, IEnumerable<string> files)
         {
+            using (var progressForm = new ProgressForm(this))
+            {
+                progressForm.Shown += delegate (object sender, EventArgs e)
+                {
+                    _watch = Stopwatch.StartNew();
 
-        }
-        
+                    Exception error = null;
+                    try
+                    {
+                        _provider.Stage(files);
+                        _provider.Commit(message);
+                    }
+                    catch(Exception ex)
+                    {
+                        error = ex;
+                    }
+
+                    _watch.Stop();
+
+                    if (error != null)
+                    {
+                        CommandFailed?.Raise(this, new ErrorEventArgs(error));
+                    }
+                    else
+                    {
+                        CommandSuccess?.Raise(this, new EventArgs());
+                    }
+                };
+
+                progressForm.ShowDialog();
+            };
+        }  
+
         public TimeSpan LastExecutionDuration
         {
             get
             {
-                throw new NotImplementedException();
+                return _watch.Elapsed;
             }
         }
 
@@ -56,7 +89,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                throw new NotImplementedException();
+                return "Git Commit";
             }
         }
 
@@ -64,7 +97,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                throw new NotImplementedException();
+                return null;
             }
         }
 

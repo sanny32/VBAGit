@@ -70,13 +70,17 @@ namespace VBAGitAddin.UI.Commands
         }
 
         public void Execute()
-        {
-            _bgw.RunWorkerAsync();
-
+        {            
             using (var progressForm = new ProgressForm(this))
             {
+                progressForm.Shown += ProgressForm_Shown;
                 progressForm.ShowDialog();
             };
+        }
+
+        private void ProgressForm_Shown(object sender, EventArgs e)
+        {
+            _bgw.RunWorkerAsync();
         }
 
         private void _bgw_DoWork(object sender, DoWorkEventArgs e)

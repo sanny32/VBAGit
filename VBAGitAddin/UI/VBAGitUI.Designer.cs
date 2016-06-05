@@ -151,6 +151,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No files were changed or added  since the last commit.
+        /// </summary>
+        internal static string CommitForm_EmptyCommitList {
+            get {
+                return ResourceManager.GetString("CommitForm_EmptyCommitList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changes made (double-click on file for diff): .
         /// </summary>
         internal static string CommitForm_GroupChanges {
@@ -246,6 +255,15 @@ namespace VBAGitAddin.UI {
         internal static string CommitForm_Text {
             get {
                 return ResourceManager.GetString("CommitForm_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please wait while updating files status....
+        /// </summary>
+        internal static string CommitForm_WaitForUpdate {
+            get {
+                return ResourceManager.GetString("CommitForm_WaitForUpdate", resourceCulture);
             }
         }
         

@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Documents", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Forms", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Modules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Class Modules", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommitForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.GroupMessage = new System.Windows.Forms.GroupBox();
@@ -50,6 +46,7 @@
             this.Cancel = new System.Windows.Forms.Button();
             this.Commit = new System.Windows.Forms.Button();
             this.GroupChanges = new System.Windows.Forms.GroupBox();
+            this.EmptyCommitList = new System.Windows.Forms.Label();
             this.LabelSelected = new System.Windows.Forms.Label();
             this.ShowUnversionedFiles = new System.Windows.Forms.CheckBox();
             this.CommitList = new System.Windows.Forms.ListView();
@@ -96,7 +93,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.Commit);
             this.splitContainer1.Panel2.Controls.Add(this.GroupChanges);
             this.splitContainer1.Panel2MinSize = 200;
-            this.splitContainer1.Size = new System.Drawing.Size(661, 511);
+            this.splitContainer1.Size = new System.Drawing.Size(617, 511);
             this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -114,7 +111,7 @@
             this.GroupMessage.Controls.Add(this.CommitMessage);
             this.GroupMessage.Location = new System.Drawing.Point(11, 32);
             this.GroupMessage.Name = "GroupMessage";
-            this.GroupMessage.Size = new System.Drawing.Size(641, 165);
+            this.GroupMessage.Size = new System.Drawing.Size(597, 165);
             this.GroupMessage.TabIndex = 7;
             this.GroupMessage.TabStop = false;
             this.GroupMessage.Text = "Message: ";
@@ -122,7 +119,7 @@
             // AddSignedoffby
             // 
             this.AddSignedoffby.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddSignedoffby.Location = new System.Drawing.Point(513, 134);
+            this.AddSignedoffby.Location = new System.Drawing.Point(469, 134);
             this.AddSignedoffby.Name = "AddSignedoffby";
             this.AddSignedoffby.Size = new System.Drawing.Size(121, 23);
             this.AddSignedoffby.TabIndex = 6;
@@ -135,7 +132,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Author.Location = new System.Drawing.Point(152, 136);
             this.Author.Name = "Author";
-            this.Author.Size = new System.Drawing.Size(328, 20);
+            this.Author.Size = new System.Drawing.Size(284, 20);
             this.Author.TabIndex = 5;
             this.Author.Visible = false;
             // 
@@ -192,7 +189,7 @@
             this.CommitMessage.Location = new System.Drawing.Point(6, 19);
             this.CommitMessage.Multiline = true;
             this.CommitMessage.Name = "CommitMessage";
-            this.CommitMessage.Size = new System.Drawing.Size(628, 79);
+            this.CommitMessage.Size = new System.Drawing.Size(584, 79);
             this.CommitMessage.TabIndex = 0;
             this.CommitMessage.TextChanged += new System.EventHandler(this.CommitMessage_TextChanged);
             // 
@@ -200,7 +197,7 @@
             // 
             this.NewBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.NewBranch.AutoSize = true;
-            this.NewBranch.Location = new System.Drawing.Point(402, 9);
+            this.NewBranch.Location = new System.Drawing.Point(358, 9);
             this.NewBranch.Name = "NewBranch";
             this.NewBranch.Size = new System.Drawing.Size(82, 17);
             this.NewBranch.TabIndex = 6;
@@ -216,7 +213,7 @@
             this.CommitBranch.Location = new System.Drawing.Point(70, 10);
             this.CommitBranch.Name = "CommitBranch";
             this.CommitBranch.ReadOnly = true;
-            this.CommitBranch.Size = new System.Drawing.Size(326, 13);
+            this.CommitBranch.Size = new System.Drawing.Size(282, 13);
             this.CommitBranch.TabIndex = 5;
             this.CommitBranch.TabStop = false;
             this.CommitBranch.Text = "master";
@@ -245,7 +242,7 @@
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(574, 273);
+            this.Cancel.Location = new System.Drawing.Point(530, 273);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
             this.Cancel.TabIndex = 2;
@@ -256,7 +253,7 @@
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Commit.Enabled = false;
-            this.Commit.Location = new System.Drawing.Point(493, 273);
+            this.Commit.Location = new System.Drawing.Point(449, 273);
             this.Commit.Name = "Commit";
             this.Commit.Size = new System.Drawing.Size(75, 23);
             this.Commit.TabIndex = 1;
@@ -269,6 +266,7 @@
             this.GroupChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupChanges.Controls.Add(this.EmptyCommitList);
             this.GroupChanges.Controls.Add(this.LabelSelected);
             this.GroupChanges.Controls.Add(this.ShowUnversionedFiles);
             this.GroupChanges.Controls.Add(this.CommitList);
@@ -282,31 +280,45 @@
             this.GroupChanges.Controls.Add(this.LabelCheck);
             this.GroupChanges.Location = new System.Drawing.Point(11, 3);
             this.GroupChanges.Name = "GroupChanges";
-            this.GroupChanges.Size = new System.Drawing.Size(641, 264);
+            this.GroupChanges.Size = new System.Drawing.Size(597, 264);
             this.GroupChanges.TabIndex = 0;
             this.GroupChanges.TabStop = false;
             this.GroupChanges.Text = "Changes made (double-click on file for diff): ";
             // 
+            // EmptyCommitList
+            // 
+            this.EmptyCommitList.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.EmptyCommitList.BackColor = System.Drawing.SystemColors.Window;
+            this.EmptyCommitList.Location = new System.Drawing.Point(200, 76);
+            this.EmptyCommitList.Name = "EmptyCommitList";
+            this.EmptyCommitList.Size = new System.Drawing.Size(197, 33);
+            this.EmptyCommitList.TabIndex = 12;
+            this.EmptyCommitList.Text = "Please wait while updating files status...";
+            this.EmptyCommitList.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // LabelSelected
             // 
             this.LabelSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelSelected.AutoSize = true;
-            this.LabelSelected.Location = new System.Drawing.Point(543, 233);
+            this.LabelSelected.Location = new System.Drawing.Point(375, 233);
             this.LabelSelected.Name = "LabelSelected";
-            this.LabelSelected.Size = new System.Drawing.Size(91, 13);
+            this.LabelSelected.Size = new System.Drawing.Size(217, 13);
             this.LabelSelected.TabIndex = 11;
             this.LabelSelected.Text = "0 selected, 0 total";
+            this.LabelSelected.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ShowUnversionedFiles
             // 
             this.ShowUnversionedFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ShowUnversionedFiles.AutoSize = true;
+            this.ShowUnversionedFiles.Checked = true;
+            this.ShowUnversionedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ShowUnversionedFiles.Location = new System.Drawing.Point(6, 241);
             this.ShowUnversionedFiles.Name = "ShowUnversionedFiles";
             this.ShowUnversionedFiles.Size = new System.Drawing.Size(135, 17);
             this.ShowUnversionedFiles.TabIndex = 10;
             this.ShowUnversionedFiles.Text = "Show Unverioned Files";
             this.ShowUnversionedFiles.UseVisualStyleBackColor = true;
+            this.ShowUnversionedFiles.CheckedChanged += new System.EventHandler(this.ShowUnversionedFiles_CheckedChanged);
             // 
             // CommitList
             // 
@@ -319,26 +331,14 @@
             this.ColumnExtension,
             this.ColumnStatus});
             this.CommitList.FullRowSelect = true;
-            listViewGroup1.Header = "Documents";
-            listViewGroup1.Name = "VBDocuments";
-            listViewGroup2.Header = "Forms";
-            listViewGroup2.Name = "VBForms";
-            listViewGroup3.Header = "Modules";
-            listViewGroup3.Name = "VBModules";
-            listViewGroup4.Header = "Class Modules";
-            listViewGroup4.Name = "VBClassModules";
-            this.CommitList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3,
-            listViewGroup4});
             this.CommitList.Location = new System.Drawing.Point(6, 40);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(628, 190);
+            this.CommitList.Size = new System.Drawing.Size(584, 190);
             this.CommitList.SmallImageList = this.VBComponentsImageList;
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
             this.CommitList.View = System.Windows.Forms.View.Details;
+            this.CommitList.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.CommitList_ItemChecked);
             // 
             // ColumnName
             // 
@@ -465,7 +465,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 511);
+            this.ClientSize = new System.Drawing.Size(617, 511);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(633, 550);
@@ -474,6 +474,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Commit - VBAGit";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommitForm_FormClosing);
+            this.Shown += new System.EventHandler(this.CommitForm_Shown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -522,5 +523,6 @@
         private System.Windows.Forms.ColumnHeader ColumnStatus;
         private System.Windows.Forms.ImageList VBComponentsImageList;
         private System.ComponentModel.BackgroundWorker _backgroundWorker;
+        private System.Windows.Forms.Label EmptyCommitList;
     }
 }

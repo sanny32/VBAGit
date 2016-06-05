@@ -123,27 +123,13 @@ namespace VBAGitAddin.SourceControl
         {
             try
             {
-                string localPath;
-                string remotePath;
-                string repoName;
-
-                if(bare)
-                {
-                    localPath = string.Empty;
-                    repoName = this.Project.Name + Repository.BareExt;
-                    remotePath = (Path.GetExtension(directory) != Repository.BareExt) ? directory + Repository.BareExt : directory;
-                }
-                else
-                {
-                    localPath = directory;
-                    remotePath = directory;
-                    repoName = this.Project.Name;
-                }                                       
+                string localPath = (bare) ? string.Empty : directory;
+                string remotePath = directory;
 
                 LibGit2Sharp.Repository.Init(remotePath, bare);
                 Trace.TraceInformation("Init Git repository in {0}", remotePath);
 
-                return new Repository(repoName, localPath, remotePath);
+                return new Repository(this.Project.Name, localPath, remotePath);
             }
             catch (LibGit2SharpException ex)
             {
@@ -230,11 +216,11 @@ namespace VBAGitAddin.SourceControl
         {
             try
             {
-                _repo.Commit(message);
+               var commit = _repo.Commit(message);
+               Trace.TraceInformation("[{0} {1}]", _repo.Head.FriendlyName, commit.Sha);               
             }
             catch (LibGit2SharpException ex)
             {
-                Trace.TraceError("Commit failed: {0}", ex.Message);
                 throw new SourceControlException("Commit Failed.", ex);
             }
         }

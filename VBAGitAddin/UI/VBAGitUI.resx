@@ -429,4 +429,10 @@
   <data name="ProgressInfo_ExportingFiles" xml:space="preserve">
     <value>Exporting files...</value>
   </data>
+  <data name="CommitForm_EmptyCommitList" xml:space="preserve">
+    <value>No files were changed or added  since the last commit</value>
+  </data>
+  <data name="CommitForm_WaitForUpdate" xml:space="preserve">
+    <value>Please wait while updating files status...</value>
+  </data>
 </root>
