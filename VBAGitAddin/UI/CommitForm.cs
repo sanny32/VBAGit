@@ -141,8 +141,15 @@ namespace VBAGitAddin.UI
         private void UpdateLabelSelectedText()
         {
             IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-            var checkedItems = items.Where(item => item.Checked == true).Count();
+            var checkedItems = items.Where(item => item?.Checked == true).Count();
             LabelSelected.Text = string.Format(VBAGitUI.CommitForm_LabelSelected, checkedItems, items.Count());
+        }
+
+        private void UpdateCommitButtonState()
+        {
+            IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
+            var checkedItemsCount = items.Where(item => item?.Checked == true).Count();
+            Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text) && checkedItemsCount > 0;
         }
 
         private void CommitForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -153,6 +160,7 @@ namespace VBAGitAddin.UI
         private void CommitList_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             UpdateLabelSelectedText();
+            UpdateCommitButtonState();
         }
 
         private void CheckAll_Click(object sender, EventArgs e)
@@ -259,7 +267,7 @@ namespace VBAGitAddin.UI
 
         private void CommitMessage_TextChanged(object sender, EventArgs e)
         {
-            Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text) && CommitList.Items.Count > 0;
+            UpdateCommitButtonState();
         }
 
         private void Commit_Click(object sender, EventArgs e)
@@ -277,7 +285,7 @@ namespace VBAGitAddin.UI
                 }
             }
 
-            _scCommand.Commit(CommitMessage.Text, files);
+            _scCommand.Commit(CommitMessage.Text, null, files);
 
             Close();
         }

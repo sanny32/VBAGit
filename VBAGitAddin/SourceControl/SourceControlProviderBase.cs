@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Vbe.Interop;
-using VBAGitAddin.VBEditor;
 using VBAGitAddin.VBEditor.Extensions;
 
 namespace VBAGitAddin.SourceControl
@@ -36,7 +35,7 @@ namespace VBAGitAddin.SourceControl
         public abstract void CreateBranch(string branch);
         public abstract void DeleteBranch(string branch);
         public abstract IRepository Init(string directory, bool bare = false);
-        public abstract void Commit(string message);
+        public abstract void Commit(string message, Signature author, CommitOptions options);
       
         public virtual void Pull()
         {

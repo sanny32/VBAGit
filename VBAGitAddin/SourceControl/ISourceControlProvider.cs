@@ -46,7 +46,9 @@ namespace VBAGitAddin.SourceControl
         /// Stages all modified files and commits to CurrentBranch.
         /// </summary>
         /// <param name="message">Commit message.</param>
-        void Commit(string message);
+        /// <param name="autor">The <see cref="Signature"/> of who made the change.</param>
+        /// <param name="options">Commit options.</param>
+        void Commit(string message, Signature autor, CommitOptions options);
 
         /// <summary>
         /// Merges the source branch into the desitnation.

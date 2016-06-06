@@ -42,7 +42,7 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        public void Commit(string message, IEnumerable<string> files)
+        public void Commit(string message, Signature author, IEnumerable<string> files)
         {
             using (var progressForm = new ProgressForm(this))
             {
@@ -53,8 +53,15 @@ namespace VBAGitAddin.UI.Commands
                     Exception error = null;
                     try
                     {
-                        _provider.Stage(files);
-                        _provider.Commit(message);
+                        var options = new CommitOptions();
+
+                        if (files?.Count() > 0)
+                        {
+                            options.AllowEmptyCommit = true;
+                            _provider.Stage(files);
+                        }
+
+                        _provider.Commit(message, author, options);
                     }
                     catch(Exception ex)
                     {

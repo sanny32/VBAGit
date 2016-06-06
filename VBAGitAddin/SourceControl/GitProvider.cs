@@ -212,12 +212,18 @@ namespace VBAGitAddin.SourceControl
             }
         }
 
-        public override void Commit(string message)
+        public override void Commit(string message, Signature author, CommitOptions options)
         {
             try
             {
-               var commit = _repo.Commit(message);
-               Trace.TraceInformation("[{0} {1}]", _repo.Head.FriendlyName, commit.Sha);               
+                var signature = (author == null) ? GetSignature() : author;                
+                var commit = _repo.Commit(message, signature, signature, options);
+
+               Trace.TraceInformation("[{0} ({1}) {2}] {3}", 
+                   _repo.Head.FriendlyName, 
+                   _repo.Head.CanonicalName,
+                   commit.Id.ToString(7), 
+                   commit.MessageShort);               
             }
             catch (LibGit2SharpException ex)
             {
@@ -392,7 +398,7 @@ namespace VBAGitAddin.SourceControl
             }
         }
 
-        private Signature GetSignature()
+        private LibGit2Sharp.Signature GetSignature()
         {
             return _repo.Config.BuildSignature(DateTimeOffset.Now);
         }
