@@ -237,6 +237,7 @@
             this.MessageOnly.TabIndex = 3;
             this.MessageOnly.Text = "Message only";
             this.MessageOnly.UseVisualStyleBackColor = true;
+            this.MessageOnly.CheckedChanged += new System.EventHandler(this.MessageOnly_CheckedChanged);
             // 
             // Cancel
             // 

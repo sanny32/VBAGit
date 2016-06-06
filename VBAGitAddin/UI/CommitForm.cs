@@ -149,7 +149,7 @@ namespace VBAGitAddin.UI
         {
             IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
             var checkedItemsCount = items.Where(item => item?.Checked == true).Count();
-            Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text) && checkedItemsCount > 0;
+            Commit.Enabled = !string.IsNullOrEmpty(CommitMessage.Text) && (checkedItemsCount > 0 || MessageOnly.Checked);
         }
 
         private void CommitForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -270,19 +270,20 @@ namespace VBAGitAddin.UI
             UpdateCommitButtonState();
         }
 
-        private void Commit_Click(object sender, EventArgs e)
+        private void MessageOnly_CheckedChanged(object sender, EventArgs e)
         {
-            IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
-            var checkedItems = items.ToList().Where(item => item.Checked);
+            CommitList.Enabled = !MessageOnly.Checked;
+            UpdateCommitButtonState();
+        }
 
+        private void Commit_Click(object sender, EventArgs e)
+        { 
             List<string> files = new List<string>();
-            foreach(var item in checkedItems)
+            if (!MessageOnly.Checked)
             {
-                var itemTag = item.Tag as ListViewItemTag;
-                if (itemTag != null)
-                {
-                    files.AddRange(itemTag.Files);
-                }
+                IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
+                var checkedItems = items.ToList().Where(item => item.Checked);
+                checkedItems.ToList().ForEach(item => files.AddRange((item.Tag as ListViewItemTag).Files));               
             }
 
             _scCommand.Commit(CommitMessage.Text, null, files);

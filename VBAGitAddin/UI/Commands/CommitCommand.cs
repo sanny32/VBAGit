@@ -6,15 +6,22 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using VBAGitAddin.SourceControl;
 using VBAGitAddin.UI.Extensions;
+using System.ComponentModel;
 
 namespace VBAGitAddin.UI.Commands
 {
-    public class CommitCommand : ISourceControlCommand, IDisposable
+    public class CommitCommand : CommandBase
     {
+        private class CommitInfo
+        {
+            public string message;
+            public Signature author;
+            public IEnumerable<string> files;
+        }
+
         private readonly VBProject _project;
         private readonly IRepository _repository;
         private readonly ISourceControlProvider _provider;
-        private Stopwatch _watch;
 
         public CommitCommand(VBProject project, IRepository repo)
         {
@@ -48,51 +55,36 @@ namespace VBAGitAddin.UI.Commands
             {
                 progressForm.Shown += delegate (object sender, EventArgs e)
                 {
-                    _watch = Stopwatch.StartNew();
+                    var commitInfo = new CommitInfo();
+                    commitInfo.message = message;
+                    commitInfo.author = author;
+                    commitInfo.files = files;
 
-                    Exception error = null;
-                    try
-                    {
-                        var options = new CommitOptions();
-
-                        if (files?.Count() > 0)
-                        {
-                            options.AllowEmptyCommit = true;
-                            _provider.Stage(files);
-                        }
-
-                        _provider.Commit(message, author, options);
-                    }
-                    catch(Exception ex)
-                    {
-                        error = ex;
-                    }
-
-                    _watch.Stop();
-
-                    if (error != null)
-                    {
-                        CommandFailed?.Raise(this, new ErrorEventArgs(error));
-                    }
-                    else
-                    {
-                        CommandSuccess?.Raise(this, new EventArgs());
-                    }
+                    RunCommandAsync(commitInfo);
                 };
-
                 progressForm.ShowDialog();
             };
-        }  
+        }
+       
 
-        public TimeSpan LastExecutionDuration
+        protected override void OnExectute(DoWorkEventArgs e)
         {
-            get
+            var commitInfo = e.Argument as CommitInfo;
+
+            var options = new CommitOptions();
+            options.AllowEmptyCommit = true;
+
+            if (commitInfo.files?.Count() > 0)
             {
-                return _watch.Elapsed;
+                options.AllowEmptyCommit = false;
+                _provider.Stage(commitInfo.files);
             }
+
+            _provider.Commit(commitInfo.message, commitInfo.author, options);
         }
 
-        public string Name
+
+        public override string Name
         {
             get
             {
@@ -100,7 +92,7 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        public Bitmap ProgressImage
+        public override Bitmap ProgressImage
         {
             get
             {
@@ -108,36 +100,20 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        public IRepository Repository
+        public override IRepository Repository
         {
             get
             {
                 return _repository;
             }
-        }
-
-        public event EventHandler CommandAborted;
-        public event EventHandler<ErrorEventArgs> CommandFailed;
-        public event EventHandler<ProgressEventArgs> CommandProgress;
-        public event EventHandler CommandSuccess;
-
-        public void Abort()
-        {
-            throw new NotImplementedException();
-        }
+        }          
        
-        public void Execute()
+        public override void Execute()
         {
             using (var commitForm = new CommitForm(this))
             {
                 commitForm.ShowDialog();
             }
-        }
-
-        public void Dispose()
-        {
-            
-        }
-
+        }      
     }
 }
