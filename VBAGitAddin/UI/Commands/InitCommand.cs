@@ -37,7 +37,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                return Properties.Resources.tshell32_160;
+                return null;
             }
         }
        

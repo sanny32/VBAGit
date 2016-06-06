@@ -54,13 +54,13 @@
             this.ColumnExtension = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.VBComponentsImageList = new System.Windows.Forms.ImageList(this.components);
-            this.CheckModified = new System.Windows.Forms.Label();
-            this.CheckDeleted = new System.Windows.Forms.Label();
-            this.CheckAdded = new System.Windows.Forms.Label();
-            this.CheckVersioned = new System.Windows.Forms.Label();
-            this.CheckUnversioned = new System.Windows.Forms.Label();
-            this.CheckNone = new System.Windows.Forms.Label();
-            this.CheckAll = new System.Windows.Forms.Label();
+            this.CheckModified = new System.Windows.Forms.LinkLabel();
+            this.CheckDeleted = new System.Windows.Forms.LinkLabel();
+            this.CheckAdded = new System.Windows.Forms.LinkLabel();
+            this.CheckVersioned = new System.Windows.Forms.LinkLabel();
+            this.CheckUnversioned = new System.Windows.Forms.LinkLabel();
+            this.CheckNone = new System.Windows.Forms.LinkLabel();
+            this.CheckAll = new System.Windows.Forms.LinkLabel();
             this.LabelCheck = new System.Windows.Forms.Label();
             this._backgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -366,86 +366,128 @@
             // 
             // CheckModified
             // 
+            this.CheckModified.ActiveLinkColor = System.Drawing.Color.Black;
             this.CheckModified.AutoSize = true;
             this.CheckModified.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckModified.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CheckModified.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckModified.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.CheckModified.LinkColor = System.Drawing.Color.Black;
             this.CheckModified.Location = new System.Drawing.Point(386, 21);
             this.CheckModified.Name = "CheckModified";
             this.CheckModified.Size = new System.Drawing.Size(55, 13);
             this.CheckModified.TabIndex = 7;
+            this.CheckModified.TabStop = true;
             this.CheckModified.Text = "Modified";
+            this.CheckModified.VisitedLinkColor = System.Drawing.Color.Black;
             this.CheckModified.Click += new System.EventHandler(this.CheckModified_Click);
             // 
             // CheckDeleted
             // 
+            this.CheckDeleted.ActiveLinkColor = System.Drawing.Color.Black;
             this.CheckDeleted.AutoSize = true;
             this.CheckDeleted.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckDeleted.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CheckDeleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckDeleted.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.CheckDeleted.LinkColor = System.Drawing.Color.Black;
             this.CheckDeleted.Location = new System.Drawing.Point(329, 21);
             this.CheckDeleted.Name = "CheckDeleted";
             this.CheckDeleted.Size = new System.Drawing.Size(51, 13);
             this.CheckDeleted.TabIndex = 6;
+            this.CheckDeleted.TabStop = true;
             this.CheckDeleted.Text = "Deleted";
+            this.CheckDeleted.VisitedLinkColor = System.Drawing.Color.Black;
             this.CheckDeleted.Click += new System.EventHandler(this.CheckDeleted_Click);
             // 
             // CheckAdded
             // 
+            this.CheckAdded.ActiveLinkColor = System.Drawing.Color.Black;
             this.CheckAdded.AutoSize = true;
             this.CheckAdded.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckAdded.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CheckAdded.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckAdded.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.CheckAdded.LinkColor = System.Drawing.Color.Black;
             this.CheckAdded.Location = new System.Drawing.Point(280, 21);
             this.CheckAdded.Name = "CheckAdded";
             this.CheckAdded.Size = new System.Drawing.Size(43, 13);
             this.CheckAdded.TabIndex = 5;
+            this.CheckAdded.TabStop = true;
             this.CheckAdded.Text = "Added";
+            this.CheckAdded.VisitedLinkColor = System.Drawing.Color.Black;
             this.CheckAdded.Click += new System.EventHandler(this.CheckAdded_Click);
             // 
             // CheckVersioned
             // 
+            this.CheckVersioned.ActiveLinkColor = System.Drawing.Color.Black;
             this.CheckVersioned.AutoSize = true;
             this.CheckVersioned.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckVersioned.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CheckVersioned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckVersioned.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.CheckVersioned.LinkColor = System.Drawing.Color.Black;
             this.CheckVersioned.Location = new System.Drawing.Point(211, 21);
             this.CheckVersioned.Name = "CheckVersioned";
             this.CheckVersioned.Size = new System.Drawing.Size(63, 13);
             this.CheckVersioned.TabIndex = 4;
+            this.CheckVersioned.TabStop = true;
             this.CheckVersioned.Text = "Versioned";
+            this.CheckVersioned.VisitedLinkColor = System.Drawing.Color.Black;
             this.CheckVersioned.Click += new System.EventHandler(this.CheckVersioned_Click);
             // 
             // CheckUnversioned
             // 
+            this.CheckUnversioned.ActiveLinkColor = System.Drawing.Color.Black;
             this.CheckUnversioned.AutoSize = true;
             this.CheckUnversioned.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckUnversioned.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CheckUnversioned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckUnversioned.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.CheckUnversioned.LinkColor = System.Drawing.Color.Black;
             this.CheckUnversioned.Location = new System.Drawing.Point(127, 21);
             this.CheckUnversioned.Name = "CheckUnversioned";
             this.CheckUnversioned.Size = new System.Drawing.Size(78, 13);
             this.CheckUnversioned.TabIndex = 3;
+            this.CheckUnversioned.TabStop = true;
             this.CheckUnversioned.Text = "Unversioned";
+            this.CheckUnversioned.VisitedLinkColor = System.Drawing.Color.Black;
             this.CheckUnversioned.Click += new System.EventHandler(this.CheckUnversioned_Click);
             // 
             // CheckNone
             // 
+            this.CheckNone.ActiveLinkColor = System.Drawing.Color.Black;
             this.CheckNone.AutoSize = true;
             this.CheckNone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckNone.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckNone.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.CheckNone.LinkColor = System.Drawing.Color.Black;
             this.CheckNone.Location = new System.Drawing.Point(84, 21);
             this.CheckNone.Name = "CheckNone";
             this.CheckNone.Size = new System.Drawing.Size(37, 13);
             this.CheckNone.TabIndex = 2;
+            this.CheckNone.TabStop = true;
             this.CheckNone.Text = "None";
+            this.CheckNone.VisitedLinkColor = System.Drawing.Color.Black;
             this.CheckNone.Click += new System.EventHandler(this.CheckNone_Click);
             // 
             // CheckAll
             // 
+            this.CheckAll.ActiveLinkColor = System.Drawing.Color.Black;
             this.CheckAll.AutoSize = true;
             this.CheckAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckAll.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.CheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CheckAll.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.CheckAll.LinkColor = System.Drawing.Color.Black;
             this.CheckAll.Location = new System.Drawing.Point(57, 21);
             this.CheckAll.Name = "CheckAll";
             this.CheckAll.Size = new System.Drawing.Size(21, 13);
             this.CheckAll.TabIndex = 1;
+            this.CheckAll.TabStop = true;
             this.CheckAll.Text = "All";
+            this.CheckAll.VisitedLinkColor = System.Drawing.Color.Black;
             this.CheckAll.Click += new System.EventHandler(this.CheckAll_Click);
             // 
             // LabelCheck
@@ -510,13 +552,13 @@
         private System.Windows.Forms.GroupBox GroupChanges;
         private System.Windows.Forms.CheckBox ShowUnversionedFiles;
         private System.Windows.Forms.ListView CommitList;
-        private System.Windows.Forms.Label CheckModified;
-        private System.Windows.Forms.Label CheckDeleted;
-        private System.Windows.Forms.Label CheckAdded;
-        private System.Windows.Forms.Label CheckVersioned;
-        private System.Windows.Forms.Label CheckUnversioned;
-        private System.Windows.Forms.Label CheckNone;
-        private System.Windows.Forms.Label CheckAll;
+        private System.Windows.Forms.LinkLabel CheckModified;
+        private System.Windows.Forms.LinkLabel CheckDeleted;
+        private System.Windows.Forms.LinkLabel CheckAdded;
+        private System.Windows.Forms.LinkLabel CheckVersioned;
+        private System.Windows.Forms.LinkLabel CheckUnversioned;
+        private System.Windows.Forms.LinkLabel CheckNone;
+        private System.Windows.Forms.LinkLabel CheckAll;
         private System.Windows.Forms.Label LabelCheck;
         private System.Windows.Forms.Label LabelSelected;
         private System.Windows.Forms.ColumnHeader ColumnName;

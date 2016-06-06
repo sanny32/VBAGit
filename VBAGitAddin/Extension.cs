@@ -14,8 +14,8 @@ namespace VBAGitAddin
     [EditorBrowsable(EditorBrowsableState.Never)]    
     public class _Extension : IDTExtensibility2, IDisposable
     {
-        private const string ClassId = "C723A557-FD00-4C16-AE87-E8D31DC164F9";
-        private const string ProgId = "VBAGitAddin.Connect";
+        public const string ClassId = "C723A557-FD00-4C16-AE87-E8D31DC164F9";
+        public const string ProgId = "VBAGitAddin.Connect";
 
         private App _app;
 

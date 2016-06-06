@@ -11,16 +11,15 @@ using VBAGitAddin.VBEditor.Extensions;
 
 namespace VBAGitAddin.UI
 {
-    public partial class CommitForm : Form
+    public partial class CommitForm : PersistentForm
     {
-        internal class ListViewItemTag
+        internal class ListViewItemObject
         {
-            public ListViewItemTag()
+            public ListViewItemObject()
             {
                 Files = new List<string>();
             }
-
-           
+                       
             public List<string> Files
             {
                 get;
@@ -112,19 +111,25 @@ namespace VBAGitAddin.UI
 
                 if (ShowUnversionedFiles.Checked)
                 {
-                    _items.ForEach(item => item.Group = (item.Tag as ListViewItemTag)?.Group);
+                    _items.ForEach(item => item.Group = (item.Tag as ListViewItemObject)?.Group);
                     CommitList.Items.AddRange(_items.ToArray());                   
                 }
                 else
                 {
-                    var versionedItems = _items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus != FileStatus.Unversioned);
-                    versionedItems.AsParallel().ForAll(item => item.Group = (item.Tag as ListViewItemTag)?.Group);
+                    var versionedItems = _items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned);
+                    versionedItems.AsParallel().ForAll(item => item.Group = (item.Tag as ListViewItemObject)?.Group);
                     CommitList.Items.AddRange(versionedItems.ToArray());
                 }
 
                 EmptyCommitList.Text = VBAGitUI.CommitForm_EmptyCommitList;
                 EmptyCommitList.Visible = (CommitList.Items.Count == 0);
                 UpdateLabelSelectedText();
+
+                CheckUnversioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Unversioned);
+                CheckVersioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned);
+                CheckAdded.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Added);
+                CheckDeleted.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Deleted);
+                CheckModified.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Modified);
             };
 
             if (CommitList.InvokeRequired)
@@ -189,7 +194,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
                 UpdateLabelSelectedText();
             }
         }
@@ -200,7 +205,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus != FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
                 UpdateLabelSelectedText();
             }
         }
@@ -211,7 +216,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Added).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Added).ToList().ForEach(item => item.Checked = true);
                 UpdateLabelSelectedText();
             }
         }
@@ -222,7 +227,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Deleted).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Deleted).ToList().ForEach(item => item.Checked = true);
                 UpdateLabelSelectedText();
             }
         }
@@ -233,7 +238,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemTag)?.FileStatus == FileStatus.Modified).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Modified).ToList().ForEach(item => item.Checked = true);
                 UpdateLabelSelectedText();
             }
         }
@@ -283,7 +288,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 var checkedItems = items.ToList().Where(item => item.Checked);
-                checkedItems.ToList().ForEach(item => files.AddRange((item.Tag as ListViewItemTag).Files));               
+                checkedItems.ToList().ForEach(item => files.AddRange((item.Tag as ListViewItemObject).Files));               
             }
 
             _scCommand.Commit(CommitMessage.Text, null, files);
@@ -306,7 +311,7 @@ namespace VBAGitAddin.UI
                 }
 
                 ListViewItem item = new ListViewItem();
-                ListViewItemTag itemTag = new ListViewItemTag();
+                ListViewItemObject itemTag = new ListViewItemObject();
 
                 var ext = Path.GetExtension(stat.FilePath);
                 var componentName = Path.GetFileNameWithoutExtension(stat.FilePath);
@@ -352,6 +357,6 @@ namespace VBAGitAddin.UI
 
             AddItems();
             UseWaitCursor = false;
-        }
+        }             
     }
 }

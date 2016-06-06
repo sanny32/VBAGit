@@ -14,9 +14,15 @@ namespace VBAGitAddin.UI.Commands
     {
         private class CommitInfo
         {
-            public string message;
-            public Signature author;
-            public IEnumerable<string> files;
+            public CommitInfo(string message, Signature author, IEnumerable<string> files)
+            {
+                Message = message;
+                Author = author;
+                Files = files;
+            }
+            public string Message { get; private set;}
+            public Signature Author { get; private set; }
+            public IEnumerable<string> Files { get; private set; }
         }
 
         private readonly VBProject _project;
@@ -49,18 +55,21 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
+        //public string Author
+        //{
+        //    get
+        //    {
+        //        _provider.
+        //    }
+        //}
+
         public void Commit(string message, Signature author, IEnumerable<string> files)
         {
             using (var progressForm = new ProgressForm(this))
             {
                 progressForm.Shown += delegate (object sender, EventArgs e)
-                {
-                    var commitInfo = new CommitInfo();
-                    commitInfo.message = message;
-                    commitInfo.author = author;
-                    commitInfo.files = files;
-
-                    RunCommandAsync(commitInfo);
+                {                   
+                    RunCommandAsync(new CommitInfo(message, author, files));
                 };
                 progressForm.ShowDialog();
             };
@@ -74,13 +83,13 @@ namespace VBAGitAddin.UI.Commands
             var options = new CommitOptions();
             options.AllowEmptyCommit = true;
 
-            if (commitInfo.files?.Count() > 0)
+            if (commitInfo.Files?.Count() > 0)
             {
                 options.AllowEmptyCommit = false;
-                _provider.Stage(commitInfo.files);
+                _provider.Stage(commitInfo.Files);
             }
 
-            _provider.Commit(commitInfo.message, commitInfo.author, options);
+            _provider.Commit(commitInfo.Message, commitInfo.Author, options);
         }
 
 
@@ -88,7 +97,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                return "Git Commit";
+                return string.Format("{0} - Git Commit", _repository.LocalLocation);
             }
         }
 

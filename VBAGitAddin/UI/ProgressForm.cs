@@ -5,7 +5,7 @@ using VBAGitAddin.Diagnostics;
 
 namespace VBAGitAddin.UI
 {
-    public partial class ProgressForm : Form
+    public partial class ProgressForm : PersistentForm
     {
         private ISourceControlCommand _scCommand;
         private RichTextBoxTraceListener _tracer;
@@ -32,7 +32,7 @@ namespace VBAGitAddin.UI
         {
             Close.Enabled = false;
 
-            Animation.AnimateImage();
+            Animation.AnimateImage();           
 
             base.ShowDialog();
         }

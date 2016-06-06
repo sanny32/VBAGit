@@ -3,7 +3,6 @@ using Microsoft.Vbe.Interop;
 using VBAGitAddin.UI;
 using VBAGitAddin.VBEditor;
 using System.Runtime.InteropServices.ComTypes;
-using VBAGitAddin.Settings;
 
 namespace VBAGitAddin
 {

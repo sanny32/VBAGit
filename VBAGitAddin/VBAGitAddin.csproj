@@ -101,6 +101,9 @@
     <Compile Include="UI\AnimationControl.Designer.cs">
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\PersistentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\Commands\CommandBase.cs" />
     <Compile Include="UI\Commands\CommitCommand.cs" />
     <Compile Include="UI\ExceptionMessageBox.cs" />
@@ -160,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CommitForm.resx">
       <DependentUpon>CommitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PersistentForm.resx">
+      <DependentUpon>PersistentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
