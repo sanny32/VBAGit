@@ -247,6 +247,15 @@ namespace VBAGitAddin.UI
             }
         }
 
+        private void AddSignedoffby_Click(object sender, EventArgs e)
+        {
+            string signedOfBy = "Signed-off-by: " + _scCommand.Author;
+            if (!CommitMessage.Text.Contains(signedOfBy))
+            {
+                CommitMessage.Text += "\r\n\r\n" + signedOfBy;
+            }
+        }
+
         private void SetAuthorDate_CheckedChanged(object sender, EventArgs e)
         {
             AuthorDate.Value = DateTime.Now;
@@ -284,16 +293,25 @@ namespace VBAGitAddin.UI
                 checkedItems.ToList().ForEach(item => files.AddRange((item.Tag as ListViewItemObject).Files));               
             }
 
-            DateTime authorDateTime = DateTime.Now;
+            DateTime when = DateTime.Now;
             if (SetAuthorDate.Checked)
             {
-                authorDateTime = new DateTime(AuthorDate.Value.Year, AuthorDate.Value.Month, AuthorDate.Value.Day,
+                when = new DateTime(AuthorDate.Value.Year, AuthorDate.Value.Month, AuthorDate.Value.Day,
                                               AuthorTime.Value.Hour, AuthorTime.Value.Minute, AuthorTime.Value.Second);
             }
 
-            _scCommand.Commit(CommitMessage.Text, Author.Text, authorDateTime, files);
+            string author = _scCommand.Author;
+            if(SetAuthor.Checked)
+            {
+                author = Author.Text;
+            }
 
-            Close();
+            _scCommand.Commit(CommitMessage.Text, author, when, files);
+
+            if (_scCommand.Status == CommandStatus.Success)
+            {
+                Close();
+            }
         }
        
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -357,6 +375,6 @@ namespace VBAGitAddin.UI
 
             AddItems();
             UseWaitCursor = false;
-        }             
+        }
     }
 }

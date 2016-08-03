@@ -31,9 +31,9 @@ namespace VBAGitAddin.UI
             // 
             this.ProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ProgressBar.Location = new System.Drawing.Point(12, 89);
+            this.ProgressBar.Location = new System.Drawing.Point(16, 82);
             this.ProgressBar.Name = "ProgressBar";
-            this.ProgressBar.Size = new System.Drawing.Size(560, 23);
+            this.ProgressBar.Size = new System.Drawing.Size(456, 27);
             this.ProgressBar.TabIndex = 0;
             // 
             // LogBox
@@ -43,11 +43,10 @@ namespace VBAGitAddin.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LogBox.BackColor = System.Drawing.SystemColors.Window;
             this.LogBox.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.LogBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LogBox.Location = new System.Drawing.Point(12, 123);
+            this.LogBox.Location = new System.Drawing.Point(16, 115);
             this.LogBox.Name = "LogBox";
             this.LogBox.ReadOnly = true;
-            this.LogBox.Size = new System.Drawing.Size(560, 185);
+            this.LogBox.Size = new System.Drawing.Size(456, 101);
             this.LogBox.TabIndex = 1;
             this.LogBox.Text = "";
             // 
@@ -55,9 +54,9 @@ namespace VBAGitAddin.UI
             // 
             this.Close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close.Location = new System.Drawing.Point(416, 326);
+            this.Close.Location = new System.Drawing.Point(292, 222);
             this.Close.Name = "Close";
-            this.Close.Size = new System.Drawing.Size(75, 23);
+            this.Close.Size = new System.Drawing.Size(87, 27);
             this.Close.TabIndex = 2;
             this.Close.Text = "Close";
             this.Close.UseVisualStyleBackColor = true;
@@ -65,9 +64,9 @@ namespace VBAGitAddin.UI
             // Abort
             // 
             this.Abort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Abort.Location = new System.Drawing.Point(497, 326);
+            this.Abort.Location = new System.Drawing.Point(385, 222);
             this.Abort.Name = "Abort";
-            this.Abort.Size = new System.Drawing.Size(75, 23);
+            this.Abort.Size = new System.Drawing.Size(87, 27);
             this.Abort.TabIndex = 3;
             this.Abort.Text = "Abort";
             this.Abort.UseVisualStyleBackColor = true;
@@ -76,16 +75,17 @@ namespace VBAGitAddin.UI
             // ProgressInfo
             // 
             this.ProgressInfo.AutoSize = true;
-            this.ProgressInfo.Location = new System.Drawing.Point(9, 71);
+            this.ProgressInfo.Location = new System.Drawing.Point(10, 82);
             this.ProgressInfo.Name = "ProgressInfo";
-            this.ProgressInfo.Size = new System.Drawing.Size(0, 13);
+            this.ProgressInfo.Size = new System.Drawing.Size(0, 15);
             this.ProgressInfo.TabIndex = 4;
             // 
             // Action
             // 
-            this.Action.Location = new System.Drawing.Point(12, 323);
+            this.Action.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Action.Location = new System.Drawing.Point(16, 222);
             this.Action.Name = "Action";
-            this.Action.Size = new System.Drawing.Size(155, 23);
+            this.Action.Size = new System.Drawing.Size(181, 27);
             this.Action.TabIndex = 5;
             this.Action.Text = "Action";
             this.Action.UseVisualStyleBackColor = true;
@@ -93,17 +93,19 @@ namespace VBAGitAddin.UI
             // 
             // Animation
             // 
+            this.Animation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Animation.AnimatedImage = null;
-            this.Animation.Location = new System.Drawing.Point(12, 5);
+            this.Animation.Location = new System.Drawing.Point(14, 6);
             this.Animation.Name = "Animation";
-            this.Animation.Size = new System.Drawing.Size(570, 60);
+            this.Animation.Size = new System.Drawing.Size(456, 69);
             this.Animation.TabIndex = 6;
             // 
             // ProgressForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 361);
+            this.ClientSize = new System.Drawing.Size(484, 261);
             this.Controls.Add(this.Animation);
             this.Controls.Add(this.Action);
             this.Controls.Add(this.ProgressInfo);
@@ -111,8 +113,9 @@ namespace VBAGitAddin.UI
             this.Controls.Add(this.Close);
             this.Controls.Add(this.LogBox);
             this.Controls.Add(this.ProgressBar);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(600, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "ProgressForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

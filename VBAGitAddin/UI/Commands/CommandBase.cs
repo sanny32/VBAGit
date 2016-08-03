@@ -11,6 +11,7 @@ namespace VBAGitAddin.UI.Commands
     {
         private BackgroundWorker _bgw;
         private Stopwatch _watch;
+        private CommandStatus _status;
 
         public CommandBase()
         {
@@ -22,6 +23,8 @@ namespace VBAGitAddin.UI.Commands
             _bgw.WorkerSupportsCancellation = true;
 
             _watch = new Stopwatch();
+
+            _status = CommandStatus.NotExecuted;
         }
 
         public TimeSpan LastExecutionDuration
@@ -29,6 +32,14 @@ namespace VBAGitAddin.UI.Commands
             get
             {
                 return _watch.Elapsed;
+            }
+        }
+
+        public CommandStatus Status
+        {
+            get
+            {
+                return _status;
             }
         }
 
@@ -80,6 +91,7 @@ namespace VBAGitAddin.UI.Commands
                     
         private void _bgw_DoWork(object sender, DoWorkEventArgs e)
         {
+            _status = CommandStatus.InProgress;
             _watch = Stopwatch.StartNew();
             OnExectute(e);
         }
@@ -95,16 +107,19 @@ namespace VBAGitAddin.UI.Commands
 
             if (e.Cancelled)
             {
+                _status = CommandStatus.Aborted;
                 CommandAborted?.Raise(this, new EventArgs());
             }
             else
             {
                 if (e.Error != null)
                 {
+                    _status = CommandStatus.Error;
                     CommandFailed?.Raise(this, new ErrorEventArgs(e.Error));
                 }
                 else
                 {
+                    _status = CommandStatus.Success;
                     CommandSuccess?.Raise(this, new EventArgs());
                 }
             }

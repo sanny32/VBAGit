@@ -95,8 +95,9 @@
             this.splitContainer1.Panel2.Controls.Add(this.Commit);
             this.splitContainer1.Panel2.Controls.Add(this.GroupChanges);
             this.splitContainer1.Panel2MinSize = 200;
-            this.splitContainer1.Size = new System.Drawing.Size(617, 511);
-            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.Size = new System.Drawing.Size(684, 611);
+            this.splitContainer1.SplitterDistance = 237;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
             // GroupMessage
@@ -111,9 +112,9 @@
             this.GroupMessage.Controls.Add(this.AuthorDate);
             this.GroupMessage.Controls.Add(this.SetAuthorDate);
             this.GroupMessage.Controls.Add(this.CommitMessage);
-            this.GroupMessage.Location = new System.Drawing.Point(11, 32);
+            this.GroupMessage.Location = new System.Drawing.Point(13, 37);
             this.GroupMessage.Name = "GroupMessage";
-            this.GroupMessage.Size = new System.Drawing.Size(597, 165);
+            this.GroupMessage.Size = new System.Drawing.Size(660, 196);
             this.GroupMessage.TabIndex = 7;
             this.GroupMessage.TabStop = false;
             this.GroupMessage.Text = "Message: ";
@@ -121,20 +122,21 @@
             // AddSignedoffby
             // 
             this.AddSignedoffby.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddSignedoffby.Location = new System.Drawing.Point(469, 134);
+            this.AddSignedoffby.Location = new System.Drawing.Point(511, 161);
             this.AddSignedoffby.Name = "AddSignedoffby";
-            this.AddSignedoffby.Size = new System.Drawing.Size(121, 23);
+            this.AddSignedoffby.Size = new System.Drawing.Size(141, 27);
             this.AddSignedoffby.TabIndex = 6;
             this.AddSignedoffby.Text = "Add Signed-off-by";
             this.AddSignedoffby.UseVisualStyleBackColor = true;
+            this.AddSignedoffby.Click += new System.EventHandler(this.AddSignedoffby_Click);
             // 
             // Author
             // 
             this.Author.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Author.Location = new System.Drawing.Point(152, 136);
+            this.Author.Location = new System.Drawing.Point(177, 163);
             this.Author.Name = "Author";
-            this.Author.Size = new System.Drawing.Size(284, 20);
+            this.Author.Size = new System.Drawing.Size(295, 23);
             this.Author.TabIndex = 5;
             this.Author.Visible = false;
             // 
@@ -142,9 +144,9 @@
             // 
             this.SetAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SetAuthor.AutoSize = true;
-            this.SetAuthor.Location = new System.Drawing.Point(6, 138);
+            this.SetAuthor.Location = new System.Drawing.Point(7, 166);
             this.SetAuthor.Name = "SetAuthor";
-            this.SetAuthor.Size = new System.Drawing.Size(75, 17);
+            this.SetAuthor.Size = new System.Drawing.Size(80, 19);
             this.SetAuthor.TabIndex = 4;
             this.SetAuthor.Text = "Set author";
             this.SetAuthor.UseVisualStyleBackColor = true;
@@ -154,10 +156,10 @@
             // 
             this.AuthorTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AuthorTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.AuthorTime.Location = new System.Drawing.Point(254, 110);
+            this.AuthorTime.Location = new System.Drawing.Point(296, 133);
             this.AuthorTime.Name = "AuthorTime";
             this.AuthorTime.ShowUpDown = true;
-            this.AuthorTime.Size = new System.Drawing.Size(80, 20);
+            this.AuthorTime.Size = new System.Drawing.Size(93, 23);
             this.AuthorTime.TabIndex = 3;
             this.AuthorTime.Visible = false;
             // 
@@ -165,9 +167,9 @@
             // 
             this.AuthorDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AuthorDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.AuthorDate.Location = new System.Drawing.Point(152, 110);
+            this.AuthorDate.Location = new System.Drawing.Point(177, 133);
             this.AuthorDate.Name = "AuthorDate";
-            this.AuthorDate.Size = new System.Drawing.Size(96, 20);
+            this.AuthorDate.Size = new System.Drawing.Size(111, 23);
             this.AuthorDate.TabIndex = 2;
             this.AuthorDate.Visible = false;
             // 
@@ -175,9 +177,9 @@
             // 
             this.SetAuthorDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SetAuthorDate.AutoSize = true;
-            this.SetAuthorDate.Location = new System.Drawing.Point(6, 112);
+            this.SetAuthorDate.Location = new System.Drawing.Point(7, 136);
             this.SetAuthorDate.Name = "SetAuthorDate";
-            this.SetAuthorDate.Size = new System.Drawing.Size(99, 17);
+            this.SetAuthorDate.Size = new System.Drawing.Size(106, 19);
             this.SetAuthorDate.TabIndex = 1;
             this.SetAuthorDate.Text = "Set author date";
             this.SetAuthorDate.UseVisualStyleBackColor = true;
@@ -188,19 +190,19 @@
             this.CommitMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CommitMessage.Location = new System.Drawing.Point(6, 19);
+            this.CommitMessage.Location = new System.Drawing.Point(7, 22);
             this.CommitMessage.Multiline = true;
             this.CommitMessage.Name = "CommitMessage";
-            this.CommitMessage.Size = new System.Drawing.Size(584, 79);
+            this.CommitMessage.Size = new System.Drawing.Size(645, 97);
             this.CommitMessage.TabIndex = 0;
             // 
             // NewBranch
             // 
             this.NewBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.NewBranch.AutoSize = true;
-            this.NewBranch.Location = new System.Drawing.Point(358, 9);
+            this.NewBranch.Location = new System.Drawing.Point(390, 10);
             this.NewBranch.Name = "NewBranch";
-            this.NewBranch.Size = new System.Drawing.Size(82, 17);
+            this.NewBranch.Size = new System.Drawing.Size(88, 19);
             this.NewBranch.TabIndex = 6;
             this.NewBranch.Text = "new branch";
             this.NewBranch.UseVisualStyleBackColor = true;
@@ -211,10 +213,10 @@
             this.CommitBranch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CommitBranch.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.CommitBranch.Location = new System.Drawing.Point(70, 10);
+            this.CommitBranch.Location = new System.Drawing.Point(82, 12);
             this.CommitBranch.Name = "CommitBranch";
             this.CommitBranch.ReadOnly = true;
-            this.CommitBranch.Size = new System.Drawing.Size(282, 13);
+            this.CommitBranch.Size = new System.Drawing.Size(293, 16);
             this.CommitBranch.TabIndex = 5;
             this.CommitBranch.TabStop = false;
             this.CommitBranch.Text = "master";
@@ -222,9 +224,9 @@
             // LabelCommit
             // 
             this.LabelCommit.AutoSize = true;
-            this.LabelCommit.Location = new System.Drawing.Point(8, 10);
+            this.LabelCommit.Location = new System.Drawing.Point(9, 12);
             this.LabelCommit.Name = "LabelCommit";
-            this.LabelCommit.Size = new System.Drawing.Size(56, 13);
+            this.LabelCommit.Size = new System.Drawing.Size(68, 15);
             this.LabelCommit.TabIndex = 4;
             this.LabelCommit.Text = "Commit to:";
             // 
@@ -232,9 +234,9 @@
             // 
             this.MessageOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MessageOnly.AutoSize = true;
-            this.MessageOnly.Location = new System.Drawing.Point(17, 277);
+            this.MessageOnly.Location = new System.Drawing.Point(20, 333);
             this.MessageOnly.Name = "MessageOnly";
-            this.MessageOnly.Size = new System.Drawing.Size(91, 17);
+            this.MessageOnly.Size = new System.Drawing.Size(98, 19);
             this.MessageOnly.TabIndex = 3;
             this.MessageOnly.Text = "Message only";
             this.MessageOnly.UseVisualStyleBackColor = true;
@@ -244,9 +246,9 @@
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(530, 273);
+            this.Cancel.Location = new System.Drawing.Point(586, 328);
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.Size = new System.Drawing.Size(87, 27);
             this.Cancel.TabIndex = 2;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
@@ -255,9 +257,9 @@
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Commit.Enabled = false;
-            this.Commit.Location = new System.Drawing.Point(449, 273);
+            this.Commit.Location = new System.Drawing.Point(493, 329);
             this.Commit.Name = "Commit";
-            this.Commit.Size = new System.Drawing.Size(75, 23);
+            this.Commit.Size = new System.Drawing.Size(87, 27);
             this.Commit.TabIndex = 1;
             this.Commit.Text = "Commit";
             this.Commit.UseVisualStyleBackColor = true;
@@ -280,9 +282,9 @@
             this.GroupChanges.Controls.Add(this.CheckNone);
             this.GroupChanges.Controls.Add(this.CheckAll);
             this.GroupChanges.Controls.Add(this.LabelCheck);
-            this.GroupChanges.Location = new System.Drawing.Point(11, 3);
+            this.GroupChanges.Location = new System.Drawing.Point(13, 3);
             this.GroupChanges.Name = "GroupChanges";
-            this.GroupChanges.Size = new System.Drawing.Size(597, 264);
+            this.GroupChanges.Size = new System.Drawing.Size(660, 316);
             this.GroupChanges.TabIndex = 0;
             this.GroupChanges.TabStop = false;
             this.GroupChanges.Text = "Changes made (double-click on file for diff): ";
@@ -291,9 +293,9 @@
             // 
             this.EmptyCommitList.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.EmptyCommitList.BackColor = System.Drawing.SystemColors.Window;
-            this.EmptyCommitList.Location = new System.Drawing.Point(200, 76);
+            this.EmptyCommitList.Location = new System.Drawing.Point(215, 88);
             this.EmptyCommitList.Name = "EmptyCommitList";
-            this.EmptyCommitList.Size = new System.Drawing.Size(197, 33);
+            this.EmptyCommitList.Size = new System.Drawing.Size(230, 38);
             this.EmptyCommitList.TabIndex = 12;
             this.EmptyCommitList.Text = "Please wait while updating files status...";
             this.EmptyCommitList.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -301,9 +303,9 @@
             // LabelSelected
             // 
             this.LabelSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelSelected.Location = new System.Drawing.Point(375, 233);
+            this.LabelSelected.Location = new System.Drawing.Point(401, 280);
             this.LabelSelected.Name = "LabelSelected";
-            this.LabelSelected.Size = new System.Drawing.Size(217, 13);
+            this.LabelSelected.Size = new System.Drawing.Size(253, 15);
             this.LabelSelected.TabIndex = 11;
             this.LabelSelected.Text = "0 selected, 0 total";
             this.LabelSelected.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -314,9 +316,9 @@
             this.ShowUnversionedFiles.AutoSize = true;
             this.ShowUnversionedFiles.Checked = true;
             this.ShowUnversionedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowUnversionedFiles.Location = new System.Drawing.Point(6, 241);
+            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 290);
             this.ShowUnversionedFiles.Name = "ShowUnversionedFiles";
-            this.ShowUnversionedFiles.Size = new System.Drawing.Size(135, 17);
+            this.ShowUnversionedFiles.Size = new System.Drawing.Size(145, 19);
             this.ShowUnversionedFiles.TabIndex = 10;
             this.ShowUnversionedFiles.Text = "Show Unverioned Files";
             this.ShowUnversionedFiles.UseVisualStyleBackColor = true;
@@ -333,9 +335,9 @@
             this.ColumnExtension,
             this.ColumnStatus});
             this.CommitList.FullRowSelect = true;
-            this.CommitList.Location = new System.Drawing.Point(6, 40);
+            this.CommitList.Location = new System.Drawing.Point(7, 46);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(584, 190);
+            this.CommitList.Size = new System.Drawing.Size(645, 230);
             this.CommitList.SmallImageList = this.VBComponentsImageList;
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
@@ -373,7 +375,7 @@
             this.CheckModified.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CheckModified.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.CheckModified.LinkColor = System.Drawing.Color.Black;
-            this.CheckModified.Location = new System.Drawing.Point(386, 21);
+            this.CheckModified.Location = new System.Drawing.Point(450, 24);
             this.CheckModified.Name = "CheckModified";
             this.CheckModified.Size = new System.Drawing.Size(55, 13);
             this.CheckModified.TabIndex = 7;
@@ -391,7 +393,7 @@
             this.CheckDeleted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CheckDeleted.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.CheckDeleted.LinkColor = System.Drawing.Color.Black;
-            this.CheckDeleted.Location = new System.Drawing.Point(329, 21);
+            this.CheckDeleted.Location = new System.Drawing.Point(384, 24);
             this.CheckDeleted.Name = "CheckDeleted";
             this.CheckDeleted.Size = new System.Drawing.Size(51, 13);
             this.CheckDeleted.TabIndex = 6;
@@ -409,7 +411,7 @@
             this.CheckAdded.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CheckAdded.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.CheckAdded.LinkColor = System.Drawing.Color.Black;
-            this.CheckAdded.Location = new System.Drawing.Point(280, 21);
+            this.CheckAdded.Location = new System.Drawing.Point(327, 24);
             this.CheckAdded.Name = "CheckAdded";
             this.CheckAdded.Size = new System.Drawing.Size(43, 13);
             this.CheckAdded.TabIndex = 5;
@@ -427,7 +429,7 @@
             this.CheckVersioned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CheckVersioned.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.CheckVersioned.LinkColor = System.Drawing.Color.Black;
-            this.CheckVersioned.Location = new System.Drawing.Point(211, 21);
+            this.CheckVersioned.Location = new System.Drawing.Point(246, 24);
             this.CheckVersioned.Name = "CheckVersioned";
             this.CheckVersioned.Size = new System.Drawing.Size(63, 13);
             this.CheckVersioned.TabIndex = 4;
@@ -445,7 +447,7 @@
             this.CheckUnversioned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CheckUnversioned.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.CheckUnversioned.LinkColor = System.Drawing.Color.Black;
-            this.CheckUnversioned.Location = new System.Drawing.Point(127, 21);
+            this.CheckUnversioned.Location = new System.Drawing.Point(148, 24);
             this.CheckUnversioned.Name = "CheckUnversioned";
             this.CheckUnversioned.Size = new System.Drawing.Size(78, 13);
             this.CheckUnversioned.TabIndex = 3;
@@ -463,7 +465,7 @@
             this.CheckNone.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CheckNone.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.CheckNone.LinkColor = System.Drawing.Color.Black;
-            this.CheckNone.Location = new System.Drawing.Point(84, 21);
+            this.CheckNone.Location = new System.Drawing.Point(98, 24);
             this.CheckNone.Name = "CheckNone";
             this.CheckNone.Size = new System.Drawing.Size(37, 13);
             this.CheckNone.TabIndex = 2;
@@ -481,7 +483,7 @@
             this.CheckAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CheckAll.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.CheckAll.LinkColor = System.Drawing.Color.Black;
-            this.CheckAll.Location = new System.Drawing.Point(57, 21);
+            this.CheckAll.Location = new System.Drawing.Point(66, 24);
             this.CheckAll.Name = "CheckAll";
             this.CheckAll.Size = new System.Drawing.Size(21, 13);
             this.CheckAll.TabIndex = 1;
@@ -493,9 +495,9 @@
             // LabelCheck
             // 
             this.LabelCheck.AutoSize = true;
-            this.LabelCheck.Location = new System.Drawing.Point(7, 21);
+            this.LabelCheck.Location = new System.Drawing.Point(8, 24);
             this.LabelCheck.Name = "LabelCheck";
-            this.LabelCheck.Size = new System.Drawing.Size(44, 13);
+            this.LabelCheck.Size = new System.Drawing.Size(46, 15);
             this.LabelCheck.TabIndex = 0;
             this.LabelCheck.Text = "Check: ";
             // 
@@ -506,12 +508,13 @@
             // 
             // CommitForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 511);
+            this.ClientSize = new System.Drawing.Size(684, 611);
             this.Controls.Add(this.splitContainer1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(633, 550);
+            this.MinimumSize = new System.Drawing.Size(700, 650);
             this.Name = "CommitForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

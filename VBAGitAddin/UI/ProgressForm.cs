@@ -31,6 +31,7 @@ namespace VBAGitAddin.UI
         public new void ShowDialog()
         {
             Close.Enabled = false;
+            LogBox.Text = string.Empty;
 
             Animation.AnimateImage();           
 
@@ -44,6 +45,11 @@ namespace VBAGitAddin.UI
         protected override void Dispose(bool disposing)
         {
             Trace.Listeners.Remove(_tracer);
+
+            _scCommand.CommandProgress -= _scCommand_CommandProgress;
+            _scCommand.CommandSuccess -= _scCommand_CommandSuccess;
+            _scCommand.CommandAborted -= _scCommand_CommandAborted;
+            _scCommand.CommandFailed -= _scCommand_CommandFailed;
 
             if (disposing && (components != null))
             {

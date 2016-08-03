@@ -39,11 +39,21 @@ namespace VBAGitAddin.UI.Commands
         }
     }
 
+    public enum CommandStatus
+    {
+        Success = 0,
+        InProgress = 1,
+        Aborted = 2,
+        Error = 3,
+        NotExecuted = 4
+    }
+
     public interface ISourceControlCommand
     {
         string Name { get; }
         IRepository Repository { get; }
         TimeSpan LastExecutionDuration { get; }
+        CommandStatus Status { get; }
         Bitmap ProgressImage { get; }
 
         event EventHandler<ProgressEventArgs> CommandProgress;
