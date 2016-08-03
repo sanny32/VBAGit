@@ -95,6 +95,15 @@ namespace VBAGitAddin.SourceControl
             }
         }
 
+        public override string Author
+        {
+            get
+            {
+                var signature = GetSignature();
+                return string.Format("{0} <{1}>", signature.Name, signature.Email);
+            }
+        }
+
         public override IList<ICommit> UnsyncedLocalCommits
         {
             get { return _unsyncedLocalCommits; }
@@ -212,11 +221,11 @@ namespace VBAGitAddin.SourceControl
             }
         }
 
-        public override void Commit(string message, Signature author, CommitOptions options)
+        public override void Commit(string message, string author, DateTimeOffset when, CommitOptions options)
         {
             try
             {
-                var signature = (author == null) ? GetSignature() : author;                
+                var signature = string.IsNullOrEmpty(author)? _repo.Config.BuildSignature(when) : new Signature(author, when);               
                 var commit = _repo.Commit(message, signature, signature, options);
 
                Trace.TraceInformation("[{0} ({1}) {2}] {3}", 

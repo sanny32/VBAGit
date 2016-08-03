@@ -86,6 +86,16 @@ namespace VBAGitAddin.UI
 
             Commit.Text = VBAGitUI.CommitForm_Commit;
             Cancel.Text = VBAGitUI.Cancel;
+
+            Author.Text = _scCommand.Author;           
+
+            System.Windows.Forms.Application.Idle += Application_Idle;
+        }
+
+        private void Application_Idle(object sender, EventArgs e)
+        {
+            UpdateLabelSelectedText();
+            UpdateCommitButtonState();
         }
 
         public new void ShowDialog()
@@ -123,7 +133,6 @@ namespace VBAGitAddin.UI
 
                 EmptyCommitList.Text = VBAGitUI.CommitForm_EmptyCommitList;
                 EmptyCommitList.Visible = (CommitList.Items.Count == 0);
-                UpdateLabelSelectedText();
 
                 CheckUnversioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Unversioned);
                 CheckVersioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned);
@@ -162,19 +171,12 @@ namespace VBAGitAddin.UI
             e.Cancel = _backgroundWorker.IsBusy;
         }
 
-        private void CommitList_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            UpdateLabelSelectedText();
-            UpdateCommitButtonState();
-        }
-
         private void CheckAll_Click(object sender, EventArgs e)
         {
             if(!_backgroundWorker.IsBusy)
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = true);
-                UpdateLabelSelectedText();
             }
         }
 
@@ -184,7 +186,6 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                UpdateLabelSelectedText();
             }
         }
 
@@ -195,7 +196,6 @@ namespace VBAGitAddin.UI
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
                 items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
-                UpdateLabelSelectedText();
             }
         }
 
@@ -206,7 +206,6 @@ namespace VBAGitAddin.UI
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
                 items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
-                UpdateLabelSelectedText();
             }
         }
 
@@ -217,7 +216,6 @@ namespace VBAGitAddin.UI
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
                 items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Added).ToList().ForEach(item => item.Checked = true);
-                UpdateLabelSelectedText();
             }
         }
 
@@ -228,7 +226,6 @@ namespace VBAGitAddin.UI
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
                 items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Deleted).ToList().ForEach(item => item.Checked = true);
-                UpdateLabelSelectedText();
             }
         }
 
@@ -239,7 +236,6 @@ namespace VBAGitAddin.UI
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
                 items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Modified).ToList().ForEach(item => item.Checked = true);
-                UpdateLabelSelectedText();
             }
         }
 
@@ -253,6 +249,8 @@ namespace VBAGitAddin.UI
 
         private void SetAuthorDate_CheckedChanged(object sender, EventArgs e)
         {
+            AuthorDate.Value = DateTime.Now;
+            AuthorTime.Value = DateTime.Now;
             AuthorDate.Visible = SetAuthorDate.Checked;
             AuthorTime.Visible = SetAuthorDate.Checked;
         }
@@ -268,17 +266,12 @@ namespace VBAGitAddin.UI
             CommitBranch.BorderStyle = (NewBranch.Checked) ? BorderStyle.Fixed3D : BorderStyle.None;
             CommitBranch.Top += (NewBranch.Checked) ? -3: 3;
             CommitBranch.Left += (NewBranch.Checked) ? -3 : 3;
-        }
-
-        private void CommitMessage_TextChanged(object sender, EventArgs e)
-        {
-            UpdateCommitButtonState();
-        }
+        }     
 
         private void MessageOnly_CheckedChanged(object sender, EventArgs e)
         {
             CommitList.Enabled = !MessageOnly.Checked;
-            UpdateCommitButtonState();
+            EmptyCommitList.BackColor = (MessageOnly.Checked) ? System.Drawing.Color.Transparent : CommitList.BackColor;      
         }
 
         private void Commit_Click(object sender, EventArgs e)
@@ -291,7 +284,14 @@ namespace VBAGitAddin.UI
                 checkedItems.ToList().ForEach(item => files.AddRange((item.Tag as ListViewItemObject).Files));               
             }
 
-            _scCommand.Commit(CommitMessage.Text, null, files);
+            DateTime authorDateTime = DateTime.Now;
+            if (SetAuthorDate.Checked)
+            {
+                authorDateTime = new DateTime(AuthorDate.Value.Year, AuthorDate.Value.Month, AuthorDate.Value.Day,
+                                              AuthorTime.Value.Hour, AuthorTime.Value.Minute, AuthorTime.Value.Second);
+            }
+
+            _scCommand.Commit(CommitMessage.Text, Author.Text, authorDateTime, files);
 
             Close();
         }

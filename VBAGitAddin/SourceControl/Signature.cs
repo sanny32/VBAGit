@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 
 namespace VBAGitAddin.SourceControl
 {
@@ -8,6 +9,23 @@ namespace VBAGitAddin.SourceControl
         {
             Name = name;
             Email = email;
+            When = when;
+        }
+
+        public Signature(string mailAddress, DateTimeOffset when)
+        {
+            try
+            {
+                MailAddress email = new MailAddress(mailAddress);
+                Name = email.DisplayName;
+                Email = email.Address;
+            }
+            catch(FormatException)
+            {
+                string message = string.Format("author '{0}' is not 'Name <email>' and matches no existing author", mailAddress);
+                throw new FormatException(message);
+            }
+
             When = when;
         }
 

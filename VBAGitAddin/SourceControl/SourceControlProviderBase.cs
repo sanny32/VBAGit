@@ -25,6 +25,7 @@ namespace VBAGitAddin.SourceControl
         public IRepository CurrentRepository { get; private set; }
         public abstract IBranch CurrentBranch { get; }
         public abstract IEnumerable<IBranch> Branches { get; }
+        public abstract string Author { get; }
         public abstract IList<ICommit> UnsyncedLocalCommits { get; }
         public abstract IList<ICommit> UnsyncedRemoteCommits { get; }
         public abstract IRepository Clone(string remotePathOrUrl, string workingDirectory);
@@ -35,7 +36,7 @@ namespace VBAGitAddin.SourceControl
         public abstract void CreateBranch(string branch);
         public abstract void DeleteBranch(string branch);
         public abstract IRepository Init(string directory, bool bare = false);
-        public abstract void Commit(string message, Signature author, CommitOptions options);
+        public abstract void Commit(string message, string author, DateTimeOffset when, CommitOptions options);
       
         public virtual void Pull()
         {

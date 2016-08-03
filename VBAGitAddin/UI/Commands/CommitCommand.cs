@@ -14,14 +14,16 @@ namespace VBAGitAddin.UI.Commands
     {
         private class CommitInfo
         {
-            public CommitInfo(string message, Signature author, IEnumerable<string> files)
+            public CommitInfo(string message, string author, DateTimeOffset when, IEnumerable<string> files)
             {
                 Message = message;
                 Author = author;
+                When = when;
                 Files = files;
             }
             public string Message { get; private set;}
-            public Signature Author { get; private set; }
+            public string Author { get; private set; }
+            public DateTimeOffset When { get; private set; }
             public IEnumerable<string> Files { get; private set; }
         }
 
@@ -55,21 +57,21 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        //public string Author
-        //{
-        //    get
-        //    {
-        //        _provider.
-        //    }
-        //}
+        public string Author
+        {
+            get
+            {
+                return _provider.Author;
+            }
+        }
 
-        public void Commit(string message, Signature author, IEnumerable<string> files)
+        public void Commit(string message, string author, DateTimeOffset when, IEnumerable<string> files)
         {
             using (var progressForm = new ProgressForm(this))
             {
                 progressForm.Shown += delegate (object sender, EventArgs e)
                 {                   
-                    RunCommandAsync(new CommitInfo(message, author, files));
+                    RunCommandAsync(new CommitInfo(message, author, when, files));
                 };
                 progressForm.ShowDialog();
             };
@@ -89,7 +91,7 @@ namespace VBAGitAddin.UI.Commands
                 _provider.Stage(commitInfo.Files);
             }
 
-            _provider.Commit(commitInfo.Message, commitInfo.Author, options);
+            _provider.Commit(commitInfo.Message, commitInfo.Author, commitInfo.When, options);
         }
 
 

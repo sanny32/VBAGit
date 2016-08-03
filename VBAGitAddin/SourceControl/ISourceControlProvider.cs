@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace VBAGitAddin.SourceControl
@@ -8,6 +9,7 @@ namespace VBAGitAddin.SourceControl
         IRepository CurrentRepository { get; }
         IBranch CurrentBranch { get; }
         IEnumerable<IBranch> Branches { get; }
+        string Author { get; }
         IList<ICommit> UnsyncedLocalCommits { get; }
         IList<ICommit> UnsyncedRemoteCommits { get; }
 
@@ -46,9 +48,10 @@ namespace VBAGitAddin.SourceControl
         /// Stages all modified files and commits to CurrentBranch.
         /// </summary>
         /// <param name="message">Commit message.</param>
-        /// <param name="autor">The <see cref="Signature"/> of who made the change.</param>
+        /// <param name="author">The author of who made the change.</param>
+        /// <param name="when">Date and time when made the change.</param>
         /// <param name="options">Commit options.</param>
-        void Commit(string message, Signature autor, CommitOptions options);
+        void Commit(string message, string author, DateTimeOffset when, CommitOptions options);
 
         /// <summary>
         /// Merges the source branch into the desitnation.

@@ -13,6 +13,8 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            System.Windows.Forms.Application.Idle += Application_Idle;
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -191,7 +193,6 @@
             this.CommitMessage.Name = "CommitMessage";
             this.CommitMessage.Size = new System.Drawing.Size(584, 79);
             this.CommitMessage.TabIndex = 0;
-            this.CommitMessage.TextChanged += new System.EventHandler(this.CommitMessage_TextChanged);
             // 
             // NewBranch
             // 
@@ -339,7 +340,6 @@
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
             this.CommitList.View = System.Windows.Forms.View.Details;
-            this.CommitList.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.CommitList_ItemChecked);
             // 
             // ColumnName
             // 

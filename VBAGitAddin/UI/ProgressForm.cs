@@ -71,18 +71,22 @@ namespace VBAGitAddin.UI
 
         private void _scCommand_CommandFailed(object sender, ErrorEventArgs e)
         {
+            ProgressBar.Value = 100;
             Abort.Enabled = false;
             Close.Enabled = true;
-            Animation.StopAnimate();
+            Animation.StopAnimate();            
 
             if (e.Error.InnerException != null)
             {
-                Trace.TraceError("{0} ({1})", e.Error.Message, e.Error.InnerException.Message);
+                Trace.TraceInformation("fatal: --{0} ({1})", e.Error.Message, e.Error.InnerException.Message);
             }
             else
             {
-                Trace.TraceError(e.Error.Message);
+                Trace.TraceInformation("fatal: --{0}", e.Error.Message);
             }
+
+            Trace.TraceError("Failed ({0} ms @ {1})",
+                Convert.ToInt64(_scCommand.LastExecutionDuration.TotalMilliseconds), DateTime.Now);
         }
 
         private void _scCommand_CommandProgress(object sender, ProgressEventArgs e)
