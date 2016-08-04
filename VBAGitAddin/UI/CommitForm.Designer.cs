@@ -65,12 +65,14 @@
             this.CheckAll = new System.Windows.Forms.LinkLabel();
             this.LabelCheck = new System.Windows.Forms.Label();
             this._backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.GroupMessage.SuspendLayout();
             this.GroupChanges.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -216,10 +218,12 @@
             this.CommitBranch.Location = new System.Drawing.Point(82, 12);
             this.CommitBranch.Name = "CommitBranch";
             this.CommitBranch.ReadOnly = true;
-            this.CommitBranch.Size = new System.Drawing.Size(293, 16);
+            this.CommitBranch.Size = new System.Drawing.Size(286, 16);
             this.CommitBranch.TabIndex = 5;
             this.CommitBranch.TabStop = false;
             this.CommitBranch.Text = "master";
+            this.CommitBranch.TextChanged += new System.EventHandler(this.CommitBranch_TextChanged);
+            this.CommitBranch.Validating += new System.ComponentModel.CancelEventHandler(this.CommitBranch_Validating);
             // 
             // LabelCommit
             // 
@@ -234,7 +238,7 @@
             // 
             this.MessageOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MessageOnly.AutoSize = true;
-            this.MessageOnly.Location = new System.Drawing.Point(20, 333);
+            this.MessageOnly.Location = new System.Drawing.Point(20, 326);
             this.MessageOnly.Name = "MessageOnly";
             this.MessageOnly.Size = new System.Drawing.Size(98, 19);
             this.MessageOnly.TabIndex = 3;
@@ -246,7 +250,7 @@
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(586, 328);
+            this.Cancel.Location = new System.Drawing.Point(586, 321);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(87, 27);
             this.Cancel.TabIndex = 2;
@@ -257,7 +261,7 @@
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Commit.Enabled = false;
-            this.Commit.Location = new System.Drawing.Point(493, 329);
+            this.Commit.Location = new System.Drawing.Point(493, 322);
             this.Commit.Name = "Commit";
             this.Commit.Size = new System.Drawing.Size(87, 27);
             this.Commit.TabIndex = 1;
@@ -284,7 +288,7 @@
             this.GroupChanges.Controls.Add(this.LabelCheck);
             this.GroupChanges.Location = new System.Drawing.Point(13, 3);
             this.GroupChanges.Name = "GroupChanges";
-            this.GroupChanges.Size = new System.Drawing.Size(660, 316);
+            this.GroupChanges.Size = new System.Drawing.Size(660, 309);
             this.GroupChanges.TabIndex = 0;
             this.GroupChanges.TabStop = false;
             this.GroupChanges.Text = "Changes made (double-click on file for diff): ";
@@ -303,7 +307,7 @@
             // LabelSelected
             // 
             this.LabelSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelSelected.Location = new System.Drawing.Point(401, 280);
+            this.LabelSelected.Location = new System.Drawing.Point(401, 273);
             this.LabelSelected.Name = "LabelSelected";
             this.LabelSelected.Size = new System.Drawing.Size(253, 15);
             this.LabelSelected.TabIndex = 11;
@@ -316,7 +320,7 @@
             this.ShowUnversionedFiles.AutoSize = true;
             this.ShowUnversionedFiles.Checked = true;
             this.ShowUnversionedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 290);
+            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 283);
             this.ShowUnversionedFiles.Name = "ShowUnversionedFiles";
             this.ShowUnversionedFiles.Size = new System.Drawing.Size(145, 19);
             this.ShowUnversionedFiles.TabIndex = 10;
@@ -337,7 +341,7 @@
             this.CommitList.FullRowSelect = true;
             this.CommitList.Location = new System.Drawing.Point(7, 46);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(645, 230);
+            this.CommitList.Size = new System.Drawing.Size(645, 223);
             this.CommitList.SmallImageList = this.VBComponentsImageList;
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
@@ -495,7 +499,7 @@
             // LabelCheck
             // 
             this.LabelCheck.AutoSize = true;
-            this.LabelCheck.Location = new System.Drawing.Point(8, 24);
+            this.LabelCheck.Location = new System.Drawing.Point(6, 21);
             this.LabelCheck.Name = "LabelCheck";
             this.LabelCheck.Size = new System.Drawing.Size(46, 15);
             this.LabelCheck.TabIndex = 0;
@@ -505,6 +509,10 @@
             // 
             this._backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this._backgroundWorker_DoWork);
             this._backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this._backgroundWorker_RunWorkerCompleted);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
             // 
             // CommitForm
             // 
@@ -531,6 +539,7 @@
             this.GroupMessage.PerformLayout();
             this.GroupChanges.ResumeLayout(false);
             this.GroupChanges.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -570,5 +579,6 @@
         private System.Windows.Forms.ImageList VBComponentsImageList;
         private System.ComponentModel.BackgroundWorker _backgroundWorker;
         private System.Windows.Forms.Label EmptyCommitList;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

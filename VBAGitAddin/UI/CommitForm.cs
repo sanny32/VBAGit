@@ -87,7 +87,9 @@ namespace VBAGitAddin.UI
             Commit.Text = VBAGitUI.CommitForm_Commit;
             Cancel.Text = VBAGitUI.Cancel;
 
-            Author.Text = _scCommand.Author;           
+            Author.Text = _scCommand.Author;
+            CommitBranch.Tag = string.Empty;
+            CommitBranch.Text = _scCommand.CurrentBranch;
 
             System.Windows.Forms.Application.Idle += Application_Idle;
         }
@@ -275,7 +277,45 @@ namespace VBAGitAddin.UI
             CommitBranch.BorderStyle = (NewBranch.Checked) ? BorderStyle.Fixed3D : BorderStyle.None;
             CommitBranch.Top += (NewBranch.Checked) ? -3: 3;
             CommitBranch.Left += (NewBranch.Checked) ? -3 : 3;
-        }     
+            CommitBranch.Text = (NewBranch.Checked) ? CommitBranch.Tag.ToString() : "master";
+        }
+
+        private void CommitBranch_TextChanged(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).ContainsFocus)
+            {
+                CommitBranch.Tag = CommitBranch.Text;
+                errorProvider.SetError(CommitBranch, "");
+            }
+        }
+
+        private void CommitBranch_Validating(object sender, CancelEventArgs e)
+        {
+            if (!IsValidCommitBranch)
+            {
+                errorProvider.SetError(CommitBranch, "Invalid branch name");
+                return;
+            }            
+            errorProvider.SetError(CommitBranch, "");
+        }
+
+        private bool IsValidCommitBranch
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(CommitBranch.Text))
+                {                    
+                    return false;
+                }
+
+                if (CommitBranch.Text.Any(Char.IsWhiteSpace))
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
 
         private void MessageOnly_CheckedChanged(object sender, EventArgs e)
         {
@@ -284,7 +324,14 @@ namespace VBAGitAddin.UI
         }
 
         private void Commit_Click(object sender, EventArgs e)
-        { 
+        {
+            this.ValidateChildren();
+
+            if (!IsValidCommitBranch)
+            {                
+                return;
+            }
+
             List<string> files = new List<string>();
             if (!MessageOnly.Checked)
             {
@@ -305,8 +352,8 @@ namespace VBAGitAddin.UI
             {
                 author = Author.Text;
             }
-
-            _scCommand.Commit(CommitMessage.Text, author, when, files);
+        
+            _scCommand.Commit(CommitBranch.Text, CommitMessage.Text, author, when, files);
 
             if (_scCommand.Status == CommandStatus.Success)
             {
@@ -375,6 +422,6 @@ namespace VBAGitAddin.UI
 
             AddItems();
             UseWaitCursor = false;
-        }
+        }       
     }
 }

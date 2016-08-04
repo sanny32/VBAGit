@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace VBAGitAddin.UI.Commands
 {
-    public class InitCommand : CommandBase
+    public class InitCommand : CommandBase, ISourceControlCommand
     {
         private readonly VBProject _project;
         private IRepository _repositroty;

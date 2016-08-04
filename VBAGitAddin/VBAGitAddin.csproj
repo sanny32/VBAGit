@@ -101,6 +101,7 @@
     <Compile Include="UI\AnimationControl.Designer.cs">
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Commands\CreateBranchCommand.cs" />
     <Compile Include="UI\PersistentForm.cs">
       <SubType>Form</SubType>
     </Compile>

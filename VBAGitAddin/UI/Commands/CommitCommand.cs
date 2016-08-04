@@ -2,10 +2,8 @@
 using System;
 using System.Linq;
 using System.Drawing;
-using System.Diagnostics;
 using System.Collections.Generic;
 using VBAGitAddin.SourceControl;
-using VBAGitAddin.UI.Extensions;
 using System.ComponentModel;
 
 namespace VBAGitAddin.UI.Commands
@@ -14,13 +12,15 @@ namespace VBAGitAddin.UI.Commands
     {
         private class CommitInfo
         {
-            public CommitInfo(string message, string author, DateTimeOffset when, IEnumerable<string> files)
+            public CommitInfo(string branch, string message, string author, DateTimeOffset when, IEnumerable<string> files)
             {
+                Branch = branch;
                 Message = message;
                 Author = author;
                 When = when;
                 Files = files;
             }
+            public string Branch { get; private set; }
             public string Message { get; private set;}
             public string Author { get; private set; }
             public DateTimeOffset When { get; private set; }
@@ -36,7 +36,6 @@ namespace VBAGitAddin.UI.Commands
             _project = project;
             _repository = repo;
 
-            var path = UIApp.GetVBProjectRepoPath(_project);
             var providerFactory = new SourceControlProviderFactory();
            _provider = providerFactory.CreateProvider(_project, _repository);
         }      
@@ -65,13 +64,21 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        public void Commit(string message, string author, DateTimeOffset when, IEnumerable<string> files)
+        public string CurrentBranch
+        {
+            get
+            {
+                return (_provider.CurrentBranch == null) ? "master" : _provider.CurrentBranch.Name;
+            }
+        }
+
+        public void Commit(string branch, string message, string author, DateTimeOffset when, IEnumerable<string> files)
         {
             using (var progressForm = new ProgressForm(this))
             {
                 progressForm.Shown += delegate (object sender, EventArgs e)
                 {                   
-                    RunCommandAsync(new CommitInfo(message, author, when, files));
+                    RunCommandAsync(new CommitInfo(branch, message, author, when, files));
                 };
                 progressForm.ShowDialog();
             };
@@ -91,7 +98,13 @@ namespace VBAGitAddin.UI.Commands
                 _provider.Stage(commitInfo.Files);
             }
 
-            _provider.Commit(commitInfo.Message, commitInfo.Author, commitInfo.When, options);
+            if(commitInfo.Branch != "master" &&
+               commitInfo.Branch != _provider.CurrentBranch?.Name)           
+            {
+                _provider.CreateBranch(commitInfo.Branch);
+            }
+
+            _provider.Commit(commitInfo.Message, commitInfo.Author, commitInfo.When, options);            
         }
 
 

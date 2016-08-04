@@ -82,7 +82,7 @@ namespace VBAGitAddin.SourceControl
         {
             get
             {
-                return this.Branches.First(b => !b.IsRemote && b.IsCurrentHead);
+                return this.Branches.FirstOrDefault(b => !b.IsRemote && b.IsCurrentHead);
             }
         }
 

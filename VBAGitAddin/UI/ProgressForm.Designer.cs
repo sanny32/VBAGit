@@ -75,7 +75,7 @@ namespace VBAGitAddin.UI
             // ProgressInfo
             // 
             this.ProgressInfo.AutoSize = true;
-            this.ProgressInfo.Location = new System.Drawing.Point(10, 82);
+            this.ProgressInfo.Location = new System.Drawing.Point(13, 58);
             this.ProgressInfo.Name = "ProgressInfo";
             this.ProgressInfo.Size = new System.Drawing.Size(0, 15);
             this.ProgressInfo.TabIndex = 4;
@@ -98,7 +98,7 @@ namespace VBAGitAddin.UI
             this.Animation.AnimatedImage = null;
             this.Animation.Location = new System.Drawing.Point(14, 6);
             this.Animation.Name = "Animation";
-            this.Animation.Size = new System.Drawing.Size(456, 69);
+            this.Animation.Size = new System.Drawing.Size(456, 49);
             this.Animation.TabIndex = 6;
             // 
             // ProgressForm
