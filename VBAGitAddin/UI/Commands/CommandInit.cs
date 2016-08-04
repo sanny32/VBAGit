@@ -1,18 +1,19 @@
 ﻿using Microsoft.Vbe.Interop;
 using System;
 using System.ComponentModel;
-using VBAGitAddin.SourceControl;
+using VBAGitAddin.Git;
 using VBAGitAddin.VBEditor.Extensions;
 using System.Drawing;
+using LibGit2Sharp;
 
 namespace VBAGitAddin.UI.Commands
 {
-    public class InitCommand : CommandBase, ISourceControlCommand
+    public class CommandInit : CommandBase, IGitCommand
     {
         private readonly VBProject _project;
         private IRepository _repositroty;
 
-        public InitCommand(VBProject project)
+        public CommandInit(VBProject project)
         {
             _project = project;            
         }
@@ -57,9 +58,8 @@ namespace VBAGitAddin.UI.Commands
 
         protected override void OnExectute(DoWorkEventArgs e)
         {          
+            var provider = new GitProvider(_project);
             var path = UIApp.GetVBProjectRepoPath(_project);
-            var providerFactory = new SourceControlProviderFactory();
-            var provider = providerFactory.CreateProvider(_project);
 
             _repositroty = provider.Init(path, false);
 

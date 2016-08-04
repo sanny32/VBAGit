@@ -2,12 +2,12 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using VBAGitAddin.SourceControl;
+using LibGit2Sharp;
 using VBAGitAddin.UI.Extensions;
 
 namespace VBAGitAddin.UI.Commands
 {
-    public abstract class CommandBase : ISourceControlCommand, IDisposable
+    public abstract class CommandBase : IGitCommand, IDisposable
     {
         private BackgroundWorker _bgw;
         private Stopwatch _watch;

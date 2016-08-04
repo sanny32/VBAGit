@@ -71,37 +71,27 @@
     <Compile Include="Diagnostics\TraceInternal.cs" />
     <Compile Include="Diagnostics\TraceListenerCollection.cs" />
     <Compile Include="Extension.cs" />
+    <Compile Include="Git\Extensions\FileStatusExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Settings\IConfigurationService.cs" />
-    <Compile Include="Settings\SourceControlConfiguration.cs" />
-    <Compile Include="Settings\SourceControlConfigurationService.cs" />
-    <Compile Include="Settings\XmlConfigurationServiceBase.cs" />
-    <Compile Include="SourceControl\Branch.cs" />
-    <Compile Include="SourceControl\Commit.cs" />
-    <Compile Include="SourceControl\CommitOptions.cs" />
-    <Compile Include="SourceControl\Credentials.cs" />
-    <Compile Include="SourceControl\DefaultSettings.cs" />
-    <Compile Include="SourceControl\FileStatus.cs" />
-    <Compile Include="SourceControl\FileStatusEntry.cs" />
-    <Compile Include="SourceControl\GitProvider.cs" />
-    <Compile Include="SourceControl\IRepository.cs" />
-    <Compile Include="SourceControl\ISourceControlProvider.cs" />
-    <Compile Include="SourceControl\Repository.cs" />
-    <Compile Include="SourceControl\Signature.cs" />
-    <Compile Include="SourceControl\SourceControlException.cs" />
-    <Compile Include="SourceControl\SourceControlProviderBase.cs" />
+    <Compile Include="Configuration\IConfigurationService.cs" />
+    <Compile Include="Configuration\GitConfiguration.cs" />
+    <Compile Include="Configuration\VBAGitConfigurationService.cs" />
+    <Compile Include="Configuration\XmlConfigurationServiceBase.cs" />
+    <Compile Include="Git\DefaultSettings.cs" />
+    <Compile Include="Git\GitProvider.cs" />
+    <Compile Include="Git\GitException.cs" />
     <Compile Include="UI\AnimationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\AnimationControl.Designer.cs">
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Commands\CreateBranchCommand.cs" />
+    <Compile Include="UI\Commands\CommandCreateBranch.cs" />
     <Compile Include="UI\CreateBranchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,7 +102,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Commands\CommandBase.cs" />
-    <Compile Include="UI\Commands\CommitCommand.cs" />
+    <Compile Include="UI\Commands\CommandCommit.cs" />
     <Compile Include="UI\ExceptionMessageBox.cs" />
     <Compile Include="UI\Extensions\EventExtensions.cs" />
     <Compile Include="UI\Extensions\RichTextBoxExtensions.cs" />
@@ -123,8 +113,8 @@
     <Compile Include="UI\ProgressForm.Designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Commands\InitCommand.cs" />
-    <Compile Include="UI\Commands\ISourceControlCommand.cs" />
+    <Compile Include="UI\Commands\CommandInit.cs" />
+    <Compile Include="UI\Commands\IGitCommand.cs" />
     <Compile Include="UI\RichTextBoxTraceListener.cs" />
     <Compile Include="UI\UIApp.cs" />
     <Compile Include="UI\CommitForm.cs">
@@ -136,7 +126,6 @@
     <Compile Include="UI\FileBrowserDialogFactory.cs" />
     <Compile Include="UI\FolderBrowser.cs" />
     <Compile Include="UI\Menu.cs" />
-    <Compile Include="UI\SourceControlProviderFactory.cs" />
     <Compile Include="UI\VBAGitAddinMenu.cs" />
     <Compile Include="UI\VBAGitUI.Designer.cs">
       <AutoGen>True</AutoGen>

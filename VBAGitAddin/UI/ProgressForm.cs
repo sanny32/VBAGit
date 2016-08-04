@@ -7,10 +7,10 @@ namespace VBAGitAddin.UI
 {
     public partial class ProgressForm : PersistentForm
     {
-        private ISourceControlCommand _scCommand;
+        private IGitCommand _scCommand;
         private RichTextBoxTraceListener _tracer;
 
-        public ProgressForm(ISourceControlCommand command)
+        public ProgressForm(IGitCommand command)
         {
             InitializeComponent();
 

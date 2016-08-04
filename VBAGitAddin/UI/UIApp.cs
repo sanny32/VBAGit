@@ -1,7 +1,8 @@
 ﻿using Microsoft.Vbe.Interop;
+using System;
 using System.IO;
-using VBAGitAddin.Settings;
-using VBAGitAddin.SourceControl;
+using VBAGitAddin.Configuration;
+using VBAGitAddin.Git;
 using VBAGitAddin.UI.Commands;
 
 namespace VBAGitAddin.UI
@@ -9,14 +10,14 @@ namespace VBAGitAddin.UI
     public sealed class UIApp
     {       
         private readonly VBE _vbe;
-        private readonly IConfigurationService<SourceControlConfiguration> _configService;
-        private readonly SourceControlConfiguration _config;
+        private readonly IConfigurationService<GitConfiguration> _configService;
+        private readonly GitConfiguration _config;
         
         internal UIApp(VBE vbe)
         {
             _vbe = vbe;
 
-            _configService = new SourceControlConfigurationService();
+            _configService = new VBAGitConfigurationService();
             _config = _configService.LoadConfiguration();
         }
        
@@ -28,24 +29,32 @@ namespace VBAGitAddin.UI
             }
         }
 
-        public IRepository GetVBProjectRepository(VBProject project)
+        public RepositorySettings GetVBProjectRepository(VBProject project)
         {
             var projectRepoPath = GetVBProjectRepoPath(project);
-            return (IRepository) _config.Repositories.Find(
-                                       (Repository r) => (r.Name == project.Name &&
-                                                          r.LocalLocation == projectRepoPath &&
-                                                          Directory.Exists(r.LocalLocation)));
+            return _config.Repositories.Find(r => (r.Name == project.Name &&
+                                                   NormalizePath(r.LocalPath) == NormalizePath(projectRepoPath) &&
+                                                   Directory.Exists(r.LocalPath)));
         }
-         
+
+        public string NormalizePath(string path)
+        {
+            return Path.GetFullPath(new Uri(path).LocalPath)
+                       .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                       .ToUpperInvariant();
+        }
+
         public static string GetVBProjectRepoPath(VBProject project)
         {
             var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
             return Path.Combine(pathVBAGit, project.Name);
         }
 
-        public void AddRepoToConfig(Repository repo)
+        public void AddRepoToConfig(RepositorySettings repo)
         {
-            if (!_config.Repositories.Exists((Repository r) => r.IsEqual(repo)))
+            if (!_config.Repositories.Exists(r => (r.Name == repo.Name &&
+                                                   r.LocalPath == repo.LocalPath &&
+                                                   r.RemotePath == repo.RemotePath)))
             {
                 _config.Repositories.Add(repo);
                 _configService.SaveConfiguration(_config);
@@ -54,17 +63,23 @@ namespace VBAGitAddin.UI
 
         public void CreateNewRepo()
         {
-            using (var initCommand = new InitCommand(_vbe.ActiveVBProject))
+            var project = _vbe.ActiveVBProject;
+            using (var initCommand = new CommandInit(project))
             {
                 initCommand.Execute();
-                AddRepoToConfig((Repository)initCommand.Repository);
+
+                RepositorySettings repoSetting = new RepositorySettings();
+                repoSetting.Name = project.Name;
+                repoSetting.LocalPath = initCommand.Repository.Info.WorkingDirectory;
+
+                AddRepoToConfig(repoSetting);
             }           
         }
 
         public void Commit()
         {
             var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
-            using (var commitCommand = new CommitCommand(_vbe.ActiveVBProject, repo))
+            using (var commitCommand = new CommandCommit(_vbe.ActiveVBProject, repo))
             {
                 commitCommand.Execute();
             }   

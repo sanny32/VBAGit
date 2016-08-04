@@ -1,13 +1,15 @@
-﻿using Microsoft.Vbe.Interop;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using VBAGitAddin.Git;
+using VBAGitAddin.Git.Extensions;
 using VBAGitAddin.UI.Commands;
-using VBAGitAddin.SourceControl;
 using VBAGitAddin.VBEditor.Extensions;
+using LibGit2Sharp;
+
 
 namespace VBAGitAddin.UI
 {
@@ -39,20 +41,15 @@ namespace VBAGitAddin.UI
             }
         }
 
-        private readonly CommitCommand _scCommand;
-        private readonly VBProject _project;
-        private readonly IRepository _repository;
-
+        private readonly CommandCommit _gitCommand;        
         private List<ListViewItem> _items;
         private List<ListViewGroup> _groups;
 
-        public CommitForm(CommitCommand scCommand)
+        public CommitForm(CommandCommit gitCommand)
         {
             InitializeComponent();
 
-            _scCommand = scCommand;
-            _project = _scCommand.VBProject;
-            _repository = _scCommand.Repository;
+            _gitCommand = gitCommand;
             _items = new List<ListViewItem>();
             _groups = new List<ListViewGroup>()
             {
@@ -87,9 +84,9 @@ namespace VBAGitAddin.UI
             Commit.Text = VBAGitUI.CommitForm_Commit;
             Cancel.Text = VBAGitUI.Cancel;
 
-            Author.Text = _scCommand.Author;
+            Author.Text = _gitCommand.Author;
             CommitBranch.Tag = string.Empty;
-            CommitBranch.Text = _scCommand.CurrentBranch;
+            CommitBranch.Text = _gitCommand.CurrentBranch;
 
             System.Windows.Forms.Application.Idle += Application_Idle;
         }
@@ -102,7 +99,7 @@ namespace VBAGitAddin.UI
 
         public new void ShowDialog()
         {
-            Text = string.Format(VBAGitUI.CommitForm_Text, _repository.LocalLocation);
+            Text = string.Format(VBAGitUI.CommitForm_Text, _gitCommand.Repository.Info.WorkingDirectory);
             
             UseWaitCursor = true;
 
@@ -128,7 +125,7 @@ namespace VBAGitAddin.UI
                 }
                 else
                 {
-                    var versionedItems = _items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned);
+                    var versionedItems = _items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.NewInWorkdir);
                     versionedItems.AsParallel().ForAll(item => item.Group = (item.Tag as ListViewItemObject)?.Group);
                     CommitList.Items.AddRange(versionedItems.ToArray());
                 }
@@ -136,11 +133,11 @@ namespace VBAGitAddin.UI
                 EmptyCommitList.Text = VBAGitUI.CommitForm_EmptyCommitList;
                 EmptyCommitList.Visible = (CommitList.Items.Count == 0);
 
-                CheckUnversioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Unversioned);
-                CheckVersioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned);
-                CheckAdded.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Added);
-                CheckDeleted.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Deleted);
-                CheckModified.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Modified);
+                CheckUnversioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.NewInWorkdir);
+                CheckVersioned.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.NewInWorkdir);
+                CheckAdded.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.NewInIndex);
+                CheckDeleted.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.DeletedFromIndex);
+                CheckModified.Enabled = _items.Exists(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.ModifiedInWorkdir);
             };
 
             if (CommitList.InvokeRequired)
@@ -197,7 +194,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.NewInWorkdir).ToList().ForEach(item => item.Checked = true);
             }
         }
 
@@ -207,7 +204,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.Unversioned).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus != FileStatus.NewInWorkdir).ToList().ForEach(item => item.Checked = true);
             }
         }
 
@@ -217,7 +214,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Added).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.NewInIndex).ToList().ForEach(item => item.Checked = true);
             }
         }
 
@@ -227,7 +224,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Deleted).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.DeletedFromIndex).ToList().ForEach(item => item.Checked = true);
             }
         }
 
@@ -237,7 +234,7 @@ namespace VBAGitAddin.UI
             {
                 IEnumerable<ListViewItem> items = CommitList.Items.Cast<ListViewItem>();
                 items.ToList().ForEach(item => item.Checked = false);
-                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.Modified).ToList().ForEach(item => item.Checked = true);
+                items.Where(item => (item.Tag as ListViewItemObject)?.FileStatus == FileStatus.ModifiedInWorkdir).ToList().ForEach(item => item.Checked = true);
             }
         }
 
@@ -251,7 +248,7 @@ namespace VBAGitAddin.UI
 
         private void AddSignedoffby_Click(object sender, EventArgs e)
         {
-            string signedOfBy = string.Format(VBAGitUI.CommitForm_Signedofby, _scCommand.Author);
+            string signedOfBy = string.Format(VBAGitUI.CommitForm_Signedofby, _gitCommand.Author);
             if (!CommitMessage.Text.Contains(signedOfBy))
             {
                 CommitMessage.Text += "\r\n\r\n" + signedOfBy;
@@ -277,7 +274,7 @@ namespace VBAGitAddin.UI
             CommitBranch.BorderStyle = (NewBranch.Checked) ? BorderStyle.Fixed3D : BorderStyle.None;
             CommitBranch.Top += (NewBranch.Checked) ? -3: 3;
             CommitBranch.Left += (NewBranch.Checked) ? -3 : 3;
-            CommitBranch.Text = (NewBranch.Checked) ? CommitBranch.Tag.ToString() : _scCommand.CurrentBranch;
+            CommitBranch.Text = (NewBranch.Checked) ? CommitBranch.Tag.ToString() : _gitCommand.CurrentBranch;
             ErrorProvider.SetError(CommitBranch, "");
         }
 
@@ -292,17 +289,24 @@ namespace VBAGitAddin.UI
 
         private void CommitBranch_Validating(object sender, CancelEventArgs e)
         {
-            if (!Branch.IsValidBranchName(CommitBranch.Text))
+            try
             {
-                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
-                return;
-            }    
-               
-            if(_scCommand.Provider.Branches.Any(b => b?.Name == CommitBranch.Text))
-            {
-                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
-                return;
+                _gitCommand.Provider.ValidateBranchName(CommitBranch.Text);
             }
+            catch(GitException ex)
+            {
+                if(ex.Message == "Invalid branch name")
+                {
+                    ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
+                }
+
+                if(ex.Message == "Branch already exists")
+                {
+                    ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
+                }
+
+                return;
+            }            
                  
             ErrorProvider.SetError(CommitBranch, "");
         }      
@@ -317,11 +321,10 @@ namespace VBAGitAddin.UI
         {
             this.ValidateChildren();
 
-            if (!Branch.IsValidBranchName(CommitBranch.Text) ||
-                _scCommand.Provider.Branches.Any(b => b?.Name == CommitBranch.Text))
-            {                
+            if(ErrorProvider.GetError(CommitBranch) != "")
+            {
                 return;
-            }
+            }           
 
             List<string> files = new List<string>();
             if (!MessageOnly.Checked)
@@ -338,15 +341,15 @@ namespace VBAGitAddin.UI
                                               AuthorTime.Value.Hour, AuthorTime.Value.Minute, AuthorTime.Value.Second);
             }
 
-            string author = _scCommand.Author;
+            string author = _gitCommand.Author;
             if(SetAuthor.Checked)
             {
                 author = Author.Text;
             }
         
-            _scCommand.Commit(CommitBranch.Text, CommitMessage.Text, author, when, files);
+            _gitCommand.Commit(CommitBranch.Text, CommitMessage.Text, author, when, files);
 
-            if (_scCommand.Status == CommandStatus.Success)
+            if (_gitCommand.Status == CommandStatus.Success)
             {
                 Close();
             }
@@ -354,14 +357,14 @@ namespace VBAGitAddin.UI
        
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = _scCommand.FileList;                         
+            e.Result = _gitCommand.FileList;                         
         }
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            foreach (var stat in e.Result as IList<IFileStatusEntry>)
+            foreach (var stat in e.Result as IList<StatusEntry>)
             {
-                if (stat.FileStatus == FileStatus.Ignored)
+                if (stat.State == FileStatus.Ignored)
                 {
                     continue;
                 }
@@ -401,10 +404,10 @@ namespace VBAGitAddin.UI
                     item.Name = componentName;
                     item.Text = componentName;                                
                     item.SubItems.Add(ext);
-                    item.SubItems.Add(stat.FileStatus.ToString());
+                    item.SubItems.Add(stat.State.AsString());
 
                     itemTag.Group = item.Group;
-                    itemTag.FileStatus = stat.FileStatus;
+                    itemTag.FileStatus = stat.State;
                     item.Tag = itemTag;
 
                     _items.Add(item);

@@ -2,13 +2,15 @@
 using System;
 using System.Linq;
 using System.Drawing;
-using System.Collections.Generic;
-using VBAGitAddin.SourceControl;
 using System.ComponentModel;
+using System.Collections.Generic;
+using LibGit2Sharp;
+using VBAGitAddin.Git;
+using VBAGitAddin.Configuration;
 
 namespace VBAGitAddin.UI.Commands
 {
-    public class CommitCommand : CommandBase
+    public class CommandCommit : CommandBase
     {
         private class CommitInfo
         {
@@ -28,19 +30,15 @@ namespace VBAGitAddin.UI.Commands
         }
 
         private readonly VBProject _project;
-        private readonly IRepository _repository;
-        private readonly ISourceControlProvider _provider;
+        private readonly GitProvider _provider;
 
-        public CommitCommand(VBProject project, IRepository repo)
+        public CommandCommit(VBProject project, RepositorySettings repoSettings)
         {
             _project = project;
-            _repository = repo;
-
-            var providerFactory = new SourceControlProviderFactory();
-           _provider = providerFactory.CreateProvider(_project, _repository);
+            _provider = new GitProvider(_project, repoSettings);
         }      
         
-        public IList<IFileStatusEntry> FileList
+        public IList<StatusEntry> FileList
         {
             get
             {
@@ -62,17 +60,17 @@ namespace VBAGitAddin.UI.Commands
             {
                 return _provider.Author;
             }
-        }
+        }       
 
         public string CurrentBranch
         {
             get
             {
-                return (_provider.CurrentBranch == null) ? "master" : _provider.CurrentBranch.Name;
+                return (_provider.CurrentBranch == null) ? "master" : _provider.CurrentBranch.FriendlyName;
             }
         }
 
-        public ISourceControlProvider Provider
+        public GitProvider Provider
         {
             get
             {
@@ -107,7 +105,7 @@ namespace VBAGitAddin.UI.Commands
             }
 
             if(commitInfo.Branch != "master" &&
-               commitInfo.Branch != _provider.CurrentBranch?.Name)           
+               commitInfo.Branch != this.CurrentBranch)           
             {
                 _provider.CreateBranch(commitInfo.Branch);
             }
@@ -120,7 +118,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                return string.Format("{0} - Git Commit", _repository.LocalLocation);
+                return string.Format("{0} - Git Commit", this.Repository.Info.WorkingDirectory);
             }
         }
 
@@ -136,7 +134,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                return _repository;
+                return _provider.Repository;
             }
         }          
        

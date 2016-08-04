@@ -2,47 +2,43 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Runtime.InteropServices;
-using System.Security;
 using LibGit2Sharp;
 using LibGit2Sharp.Handlers;
 using Microsoft.Vbe.Interop;
 using VBAGitAddin.Diagnostics;
+using VBAGitAddin.VBEditor.Extensions;
+using VBAGitAddin.Configuration;
 
-namespace VBAGitAddin.SourceControl
+
+namespace VBAGitAddin.Git
 {
-    public class GitProvider : SourceControlProviderBase
+    public class GitProvider
     {
-        private readonly LibGit2Sharp.Repository _repo;
-        private readonly LibGit2Sharp.Credentials _credentials;
+        private VBProject _project;
+        private readonly IRepository _repo;
+        private readonly Credentials _credentials;
         private readonly CredentialsHandler _credentialsHandler;
-        private List<ICommit> _unsyncedLocalCommits;
-        private List<ICommit> _unsyncedRemoteCommits;
+        private List<Commit> _unsyncedLocalCommits;
+        private List<Commit> _unsyncedRemoteCommits;
 
         public GitProvider(VBProject project)
-            : base(project)
         {
-            _unsyncedLocalCommits = new List<ICommit>();
-            _unsyncedRemoteCommits = new List<ICommit>();
+            _project = project;
+            _unsyncedLocalCommits = new List<Commit>();
+            _unsyncedRemoteCommits = new List<Commit>();
         }
 
-        public GitProvider(VBProject project, IRepository repository)
-            : base(project, repository) 
+        public GitProvider(VBProject project, RepositorySettings repoSettings)
         {
-            _unsyncedLocalCommits = new List<ICommit>();
-            _unsyncedRemoteCommits = new List<ICommit>();
-
-            try
-            {
-                _repo = new LibGit2Sharp.Repository(CurrentRepository.LocalLocation);
-            }
-            catch (RepositoryNotFoundException ex)
-            {
-                throw new SourceControlException("Repository not found.", ex);
-            }
+            _project = project;
+            _unsyncedLocalCommits = new List<Commit>();
+            _unsyncedRemoteCommits = new List<Commit>();
+            _repo = new Repository(repoSettings.LocalPath);           
         }
         
-        public GitProvider(VBProject project, IRepository repository, string userName, string passWord)
+        public GitProvider(VBProject project, RepositorySettings repository, string userName, string passWord)
             : this(project, repository)
         {
             _credentials = new UsernamePasswordCredentials()
@@ -52,23 +48,7 @@ namespace VBAGitAddin.SourceControl
             };
 
             _credentialsHandler = (url, user, cred) => _credentials;
-        }
-
-        public GitProvider(VBProject project, IRepository repository, ICredentials<string> credentials)
-            :this(project, repository, credentials.Username, credentials.Password)
-        { }
-
-        public GitProvider(VBProject project, IRepository repository, ICredentials<SecureString> credentials)
-            : this(project, repository)
-        {
-            _credentials = new SecureUsernamePasswordCredentials()
-            {
-                Username = credentials.Username,
-                Password = credentials.Password
-            };
-
-            _credentialsHandler = (url, user, cred) => _credentials;
-        }
+        }       
 
         ~GitProvider()
         {
@@ -78,24 +58,32 @@ namespace VBAGitAddin.SourceControl
             }
         }
 
-        public override IBranch CurrentBranch
+        public Branch CurrentBranch
         {
             get
             {
-                return this.Branches.FirstOrDefault(b => !b.IsRemote && b.IsCurrentHead);
+                return this.Branches.FirstOrDefault(b => !b.IsRemote && b.IsCurrentRepositoryHead);
             }
         }
 
-        public override IEnumerable<IBranch> Branches
+        public IEnumerable<Branch> Branches
         {
             get
             {
                 //note: consider doing this once and refreshing if necessary
-                return _repo.Branches.Select(b => new Branch(b));
+                return _repo.Branches;
             }
         }
 
-        public override string Author
+        public IRepository Repository
+        {
+            get
+            {
+                return _repo;
+            }
+        }
+
+        public string Author
         {
             get
             {
@@ -104,49 +92,65 @@ namespace VBAGitAddin.SourceControl
             }
         }
 
-        public override IList<ICommit> UnsyncedLocalCommits
+        public IList<Commit> UnsyncedLocalCommits
         {
             get { return _unsyncedLocalCommits; }
         }
 
-        public override IList<ICommit> UnsyncedRemoteCommits
+        public IList<Commit> UnsyncedRemoteCommits
         {
             get { return _unsyncedRemoteCommits; }
         }
 
-        public override IRepository Clone(string remotePathOrUrl, string workingDirectory)
+        public void ValidateBranchName(string name)
+        {
+            if (name == null || name == string.Empty || name.Any(Char.IsWhiteSpace))
+            {
+                throw new GitException("Invalid branch name");
+            }
+
+            if(Branches.Any(b => b?.FriendlyName == name))
+            {
+                throw new GitException("Branch already exists");
+            }
+        }   
+
+        public IRepository Clone(string remotePathOrUrl, string workingDirectory)
         {
             try
             {
-                var name = GetProjectNameFromDirectory(remotePathOrUrl);
-                LibGit2Sharp.Repository.Clone(remotePathOrUrl, workingDirectory);
-                return new Repository(name, workingDirectory, remotePathOrUrl);
+                var separators = new[] { '/', '\\', '.' };
+                var name = remotePathOrUrl.Split(separators, StringSplitOptions.RemoveEmptyEntries)
+                                .LastOrDefault(c => c != "git");
+
+                string path = LibGit2Sharp.Repository.Clone(remotePathOrUrl, workingDirectory);
+                return new Repository(path);
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Failed to clone remote repository.", ex);
+                throw new GitException("Failed to clone remote repository.", ex);
             }
-        }
+        }      
 
-        public override IRepository Init(string directory, bool bare = false)
+        public IRepository Init(string directory, bool bare = false)
         {
             try
             {
                 string localPath = (bare) ? string.Empty : directory;
                 string remotePath = directory;
 
-                LibGit2Sharp.Repository.Init(remotePath, bare);
+                string path = LibGit2Sharp.Repository.Init(remotePath, bare);
                 Trace.TraceInformation("Init Git repository in {0}", remotePath);
 
-                return new Repository(this.Project.Name, localPath, remotePath);
+                return new Repository(path);
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Unable to initialize repository.", ex);
+                throw new GitException("Unable to initialize repository.", ex);
             }
         }
         
-        public override void Push()
+        public void Push()
         {
             try
             {
@@ -160,7 +164,7 @@ namespace VBAGitAddin.SourceControl
                     };
                 }
 
-                var branch = _repo.Branches[this.CurrentBranch.Name];
+                var branch = _repo.Branches[this.CurrentBranch.FriendlyName];
                 _repo.Network.Push(branch, options);
 
                 RequeryUnsyncedCommits();
@@ -168,7 +172,7 @@ namespace VBAGitAddin.SourceControl
             catch (LibGit2SharpException ex)
             {
 
-                throw new SourceControlException("Push Failed.", ex);
+                throw new GitException("Push Failed.", ex);
             }
         }
 
@@ -176,7 +180,7 @@ namespace VBAGitAddin.SourceControl
         /// Fetches the specified remote for tracking.
         /// If not argument is supplied, fetches the "origin" remote.
         /// </summary>
-        public override void Fetch([Optional] string remoteName)
+        public void Fetch([Optional] string remoteName)
         {
             if (remoteName == null)
             {
@@ -192,11 +196,11 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Fetch failed.", ex);
+                throw new GitException("Fetch failed.", ex);
             }
         }
 
-        public override void Pull()
+        public void Pull()
         {
             try
             {
@@ -211,21 +215,22 @@ namespace VBAGitAddin.SourceControl
                 var signature = GetSignature();
                 _repo.Network.Pull(signature, options);
 
-                base.Pull();
+                Refresh();
 
                 RequeryUnsyncedCommits();
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Pull Failed.", ex);
+                throw new GitException("Pull Failed.", ex);
             }
         }
 
-        public override void Commit(string message, string author, DateTimeOffset when, CommitOptions options)
+        public void Commit(string message, string author, DateTimeOffset when, CommitOptions options)
         {
             try
             {
-                var signature = string.IsNullOrEmpty(author)? _repo.Config.BuildSignature(when) : new Signature(author, when);               
+                MailAddress mailAddress = new MailAddress(string.IsNullOrEmpty(author) ? Author : author);
+                var signature = new Signature(mailAddress.DisplayName, mailAddress.Address, when);               
                 var commit = _repo.Commit(message, signature, signature, options);
 
                Trace.TraceInformation("[{0} ({1}) {2}] {3}", 
@@ -234,13 +239,17 @@ namespace VBAGitAddin.SourceControl
                    commit.Id.ToString(7), 
                    commit.MessageShort);               
             }
+            catch(FormatException)
+            {
+                throw new GitException(string.Format("author '{0}' is not 'Name <email>' and matches no existing author", author));
+            }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Commit Failed.", ex);
+                throw new GitException("Commit Failed.", ex);
             }
         }
 
-        public override void Stage(string filePath)
+        public void Stage(string filePath)
         {
             try
             {
@@ -248,11 +257,11 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
-                throw  new SourceControlException("Failed to stage file.", ex);
+                throw  new GitException("Failed to stage file.", ex);
             }
         }
 
-        public override void Stage(IEnumerable<string> filePaths)
+        public void Stage(IEnumerable<string> filePaths)
         {
             try
             {
@@ -260,11 +269,11 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Failed to stage file.", ex);
+                throw new GitException("Failed to stage file.", ex);
             }
         }
 
-        public override void Merge(string sourceBranch, string destinationBranch)
+        public void Merge(string sourceBranch, string destinationBranch)
         {
             _repo.Checkout(_repo.Branches[destinationBranch]);
 
@@ -284,25 +293,26 @@ namespace VBAGitAddin.SourceControl
                     Merge(sourceBranch, destinationBranch); //a little leary about this. Could stack overflow if I'm wrong.
                     break;
             }
-            base.Merge(sourceBranch, destinationBranch);
+
+            Refresh();
         }
 
-        public override void Checkout(string branch)
+        public void Checkout(string branch)
         {
             try
             {
                 _repo.Checkout(_repo.Branches[branch]);
-                base.Checkout(branch);
+                Refresh();
 
                 RequeryUnsyncedCommits();
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Checkout failed.", ex);
+                throw new GitException("Checkout failed.", ex);
             }
         }
 
-        public override void CreateBranch(string branch)
+        public void CreateBranch(string branch)
         {
             try
             {
@@ -313,11 +323,11 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Branch creation failed.", ex);
+                throw new GitException("Branch creation failed.", ex);
             }
         }
 
-        public override void Revert()
+        public void Revert()
         {
             try
             {
@@ -325,18 +335,18 @@ namespace VBAGitAddin.SourceControl
 
                 if (results.Status == RevertStatus.Conflicts)
                 {
-                    throw new SourceControlException("Revert resulted in conflicts. Revert failed.");
+                    throw new GitException("Revert resulted in conflicts. Revert failed.");
                 }
 
-                base.Revert();
+                Refresh();
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Revert failed.", ex);
+                throw new GitException("Revert failed.", ex);
             }
         }
 
-        public override void AddFile(string filePath)
+        public void AddFile(string filePath)
         {
             try
             {
@@ -345,7 +355,7 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException(string.Format("Failed to stage file {0}", filePath), ex);
+                throw new GitException(string.Format("Failed to stage file {0}", filePath), ex);
             }
         }
 
@@ -353,7 +363,7 @@ namespace VBAGitAddin.SourceControl
         /// Removes file from staging area, but leaves the file in the working directory.
         /// </summary>
         /// <param name="filePath"></param>
-        public override void RemoveFile(string filePath)
+        public void RemoveFile(string filePath)
         {
             try
             {
@@ -361,37 +371,49 @@ namespace VBAGitAddin.SourceControl
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException(string.Format("Failed to remove file {0} from staging area.", filePath), ex);
+                throw new GitException(string.Format("Failed to remove file {0} from staging area.", filePath), ex);
             }
         }
 
-        public override IEnumerable<IFileStatusEntry> Status()
+        public IEnumerable<StatusEntry> Status()
         {
             try
             {
-                base.Status();
-                return _repo.RetrieveStatus().Select(item => new FileStatusEntry(item));
+                _project.ExportSourceFiles(_repo.Info.WorkingDirectory);
+                return _repo.RetrieveStatus();
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Failed to retrieve repository status.", ex);
+                throw new GitException("Failed to retrieve repository status.", ex);
             }
         }
 
-        public override void Undo(string filePath)
+        public void Undo(string filePath)
         {
             try
             {
-                _repo.CheckoutPaths(this.CurrentBranch.Name, new List<string> {filePath});
-                base.Undo(filePath);
+                _repo.CheckoutPaths(this.CurrentBranch.FriendlyName, new List<string> {filePath});
+
+                //this might need to cherry pick from the tip instead.
+
+                var componentName = Path.GetFileNameWithoutExtension(filePath);
+
+                //GetFileNameWithoutExtension returns empty string if it's not a file
+                //https://msdn.microsoft.com/en-us/library/system.io.path.getfilenamewithoutextension%28v=vs.110%29.aspx
+                if (componentName != String.Empty)
+                {
+                    var component = _project.VBComponents.Item(componentName);
+                    _project.VBComponents.RemoveSafely(component);
+                    _project.VBComponents.ImportSourceFile(filePath);
+                }
             }
             catch (LibGit2SharpException ex)
             {
-                throw new SourceControlException("Undo failed.", ex);
+                throw new GitException("Undo failed.", ex);
             }
         }
 
-        public override void DeleteBranch(string branch)
+        public void DeleteBranch(string branch)
         {
             try
             {
@@ -403,39 +425,48 @@ namespace VBAGitAddin.SourceControl
             }
             catch(LibGit2SharpException ex)
             {
-                throw new SourceControlException("Branch deletion failed.", ex);
+                throw new GitException("Branch deletion failed.", ex);
             }
         }
 
-        private LibGit2Sharp.Signature GetSignature()
+        private Signature GetSignature()
         {
             return _repo.Config.BuildSignature(DateTimeOffset.Now);
         }
 
         private void RequeryUnsyncedCommits()
         {
-            var currentBranch = _repo.Branches[this.CurrentBranch.Name];
+            var currentBranch = _repo.Branches[this.CurrentBranch.FriendlyName];
             var local = currentBranch.Commits;
 
             if (currentBranch.TrackedBranch == null)
             {
-                _unsyncedLocalCommits = local.Select(c => new Commit(c) as ICommit)
-                                            .ToList();
-
-                _unsyncedRemoteCommits = new List<ICommit>();
+                _unsyncedLocalCommits = local.ToList();
+                _unsyncedRemoteCommits = new List<Commit>();
             }
             else
             {
                 var remote = currentBranch.TrackedBranch.Commits;
-
-                _unsyncedLocalCommits = local.Where(c => !remote.Contains(c))
-                                            .Select(c => new Commit(c) as ICommit)
-                                            .ToList();
-
-                _unsyncedRemoteCommits = remote.Where(c => !local.Contains(c))
-                                               .Select(c => new Commit(c) as ICommit)
-                                               .ToList();
+                _unsyncedLocalCommits = local.Where(c => !remote.Contains(c)).ToList();
+                _unsyncedRemoteCommits = remote.Where(c => !local.Contains(c)).ToList();
             }
+        }
+
+        private void Refresh()
+        {
+            //Because refreshing removes all components, we need to store the current selection,
+            // so we can correctly reset it once the files are imported from the repository.
+            var selection = _project.VBE.ActiveCodePane.GetSelection();
+            string name = null;
+            if (selection.QualifiedName.Component != null)
+            {
+                name = selection.QualifiedName.Component.Name;
+            }
+
+            _project.RemoveAllComponents();
+            _project.ImportSourceFiles(_repo.Info.WorkingDirectory);
+
+            _project.VBE.SetSelection(selection.QualifiedName.Project, selection.Selection, name);
         }
     }
 }

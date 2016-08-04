@@ -1,4 +1,4 @@
-﻿namespace VBAGitAddin.SourceControl
+﻿namespace VBAGitAddin.Git
 {
     public enum GitSettingsFile { Ignore, Attributes }
 

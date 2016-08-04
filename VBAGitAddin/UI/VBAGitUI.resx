@@ -444,4 +444,37 @@
   <data name="SourceControl_InvalidBranchName" xml:space="preserve">
     <value>Invalid branch name</value>
   </data>
+  <data name="CreateBranchForm_BaseOn" xml:space="preserve">
+    <value>Base On</value>
+  </data>
+  <data name="CreateBranchForm_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="CreateBranchForm_Commit" xml:space="preserve">
+    <value>Commit</value>
+  </data>
+  <data name="CreateBranchForm_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="CreateBranchForm_Force" xml:space="preserve">
+    <value>Force</value>
+  </data>
+  <data name="CreateBranchForm_Head" xml:space="preserve">
+    <value>HEAD ({0})</value>
+  </data>
+  <data name="CreateBranchForm_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="CreateBranchForm_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="CreateBranchForm_Switch" xml:space="preserve">
+    <value>Switch to new branch</value>
+  </data>
+  <data name="CreateBranchForm_Tag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="CreateBranchForm_Track" xml:space="preserve">
+    <value>Track</value>
+  </data>
 </root>

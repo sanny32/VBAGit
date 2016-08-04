@@ -277,6 +277,105 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base On.
+        /// </summary>
+        internal static string CreateBranchForm_BaseOn {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_BaseOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch.
+        /// </summary>
+        internal static string CreateBranchForm_Branch {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Branch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commit.
+        /// </summary>
+        internal static string CreateBranchForm_Commit {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Commit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CreateBranchForm_Description {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force.
+        /// </summary>
+        internal static string CreateBranchForm_Force {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Force", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HEAD ({0}).
+        /// </summary>
+        internal static string CreateBranchForm_Head {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Head", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string CreateBranchForm_Name {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string CreateBranchForm_Options {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch to new branch.
+        /// </summary>
+        internal static string CreateBranchForm_Switch {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Switch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tag.
+        /// </summary>
+        internal static string CreateBranchForm_Tag {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Tag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track.
+        /// </summary>
+        internal static string CreateBranchForm_Track {
+            get {
+                return ResourceManager.GetString("CreateBranchForm_Track", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline.
         /// </summary>
         internal static string Offline {

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LibGit2Sharp;
+using System;
 using System.Drawing;
-using VBAGitAddin.SourceControl;
 
 namespace VBAGitAddin.UI.Commands
 {
@@ -48,7 +48,7 @@ namespace VBAGitAddin.UI.Commands
         NotExecuted = 4
     }
 
-    public interface ISourceControlCommand
+    public interface IGitCommand
     {
         string Name { get; }
         IRepository Repository { get; }

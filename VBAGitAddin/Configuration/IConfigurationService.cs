@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VBAGitAddin.Settings
+namespace VBAGitAddin.Configuration
 {
     public interface IConfigurationService<T>
     {

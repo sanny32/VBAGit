@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace VBAGitAddin.Settings
+namespace VBAGitAddin.Configuration
 {
     public abstract class XmlConfigurationServiceBase<T> : IConfigurationService<T>
     {

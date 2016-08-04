@@ -8,7 +8,7 @@ namespace VBAGitAddin.UI
 {
     public class PersistentForm : Form
     {
-        public PersistWindowState WindowState;
+        public new PersistWindowState WindowState;
 
         public PersistentForm() : base()
         {
