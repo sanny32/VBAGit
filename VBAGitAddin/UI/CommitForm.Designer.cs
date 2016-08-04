@@ -65,14 +65,14 @@
             this.CheckAll = new System.Windows.Forms.LinkLabel();
             this.LabelCheck = new System.Windows.Forms.Label();
             this._backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.GroupMessage.SuspendLayout();
             this.GroupChanges.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -238,7 +238,7 @@
             // 
             this.MessageOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MessageOnly.AutoSize = true;
-            this.MessageOnly.Location = new System.Drawing.Point(20, 324);
+            this.MessageOnly.Location = new System.Drawing.Point(20, 323);
             this.MessageOnly.Name = "MessageOnly";
             this.MessageOnly.Size = new System.Drawing.Size(98, 19);
             this.MessageOnly.TabIndex = 3;
@@ -250,7 +250,7 @@
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(586, 319);
+            this.Cancel.Location = new System.Drawing.Point(586, 318);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(87, 27);
             this.Cancel.TabIndex = 2;
@@ -261,7 +261,7 @@
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Commit.Enabled = false;
-            this.Commit.Location = new System.Drawing.Point(493, 320);
+            this.Commit.Location = new System.Drawing.Point(493, 319);
             this.Commit.Name = "Commit";
             this.Commit.Size = new System.Drawing.Size(87, 27);
             this.Commit.TabIndex = 1;
@@ -288,7 +288,7 @@
             this.GroupChanges.Controls.Add(this.LabelCheck);
             this.GroupChanges.Location = new System.Drawing.Point(13, 3);
             this.GroupChanges.Name = "GroupChanges";
-            this.GroupChanges.Size = new System.Drawing.Size(660, 307);
+            this.GroupChanges.Size = new System.Drawing.Size(660, 306);
             this.GroupChanges.TabIndex = 0;
             this.GroupChanges.TabStop = false;
             this.GroupChanges.Text = "Changes made (double-click on file for diff): ";
@@ -307,7 +307,7 @@
             // LabelSelected
             // 
             this.LabelSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelSelected.Location = new System.Drawing.Point(401, 271);
+            this.LabelSelected.Location = new System.Drawing.Point(401, 270);
             this.LabelSelected.Name = "LabelSelected";
             this.LabelSelected.Size = new System.Drawing.Size(253, 15);
             this.LabelSelected.TabIndex = 11;
@@ -320,7 +320,7 @@
             this.ShowUnversionedFiles.AutoSize = true;
             this.ShowUnversionedFiles.Checked = true;
             this.ShowUnversionedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 281);
+            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 280);
             this.ShowUnversionedFiles.Name = "ShowUnversionedFiles";
             this.ShowUnversionedFiles.Size = new System.Drawing.Size(145, 19);
             this.ShowUnversionedFiles.TabIndex = 10;
@@ -341,7 +341,7 @@
             this.CommitList.FullRowSelect = true;
             this.CommitList.Location = new System.Drawing.Point(7, 46);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(645, 221);
+            this.CommitList.Size = new System.Drawing.Size(645, 220);
             this.CommitList.SmallImageList = this.VBComponentsImageList;
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
@@ -510,9 +510,9 @@
             this._backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this._backgroundWorker_DoWork);
             this._backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this._backgroundWorker_RunWorkerCompleted);
             // 
-            // errorProvider
+            // ErrorProvider
             // 
-            this.errorProvider.ContainerControl = this;
+            this.ErrorProvider.ContainerControl = this;
             // 
             // CommitForm
             // 
@@ -541,7 +541,7 @@
             this.GroupMessage.PerformLayout();
             this.GroupChanges.ResumeLayout(false);
             this.GroupChanges.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -581,6 +581,6 @@
         private System.Windows.Forms.ImageList VBComponentsImageList;
         private System.ComponentModel.BackgroundWorker _backgroundWorker;
         private System.Windows.Forms.Label EmptyCommitList;
-        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ErrorProvider ErrorProvider;
     }
 }

@@ -8,11 +8,11 @@ namespace VBAGitAddin.UI
 {
     public class PersistentForm : Form
     {
-        public PersistWindowState windowState;
+        public PersistWindowState WindowState;
 
         public PersistentForm() : base()
         {
-            windowState = new PersistWindowState(this, @"SOFTWARE\Microsoft\VBA\VBE\6.0\Addins\" + _Extension.ProgId + @"\Forms");
+            WindowState = new PersistWindowState(this, @"SOFTWARE\Microsoft\VBA\VBE\6.0\Addins\" + _Extension.ProgId + @"\Forms");
         }
 
         private void InitializeComponent()

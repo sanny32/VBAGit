@@ -278,7 +278,7 @@ namespace VBAGitAddin.UI
             CommitBranch.Top += (NewBranch.Checked) ? -3: 3;
             CommitBranch.Left += (NewBranch.Checked) ? -3 : 3;
             CommitBranch.Text = (NewBranch.Checked) ? CommitBranch.Tag.ToString() : _scCommand.CurrentBranch;
-            errorProvider.SetError(CommitBranch, "");
+            ErrorProvider.SetError(CommitBranch, "");
         }
 
         private void CommitBranch_TextChanged(object sender, EventArgs e)
@@ -286,7 +286,7 @@ namespace VBAGitAddin.UI
             if (((TextBox)sender).ContainsFocus)
             {
                 CommitBranch.Tag = CommitBranch.Text;
-                errorProvider.SetError(CommitBranch, "");
+                ErrorProvider.SetError(CommitBranch, "");
             }
         }
 
@@ -294,17 +294,17 @@ namespace VBAGitAddin.UI
         {
             if (!Branch.IsValidBranchName(CommitBranch.Text))
             {
-                errorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
+                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
                 return;
             }    
                
             if(_scCommand.Provider.Branches.Any(b => b?.Name == CommitBranch.Text))
             {
-                errorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
+                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
                 return;
             }
                  
-            errorProvider.SetError(CommitBranch, "");
+            ErrorProvider.SetError(CommitBranch, "");
         }      
 
         private void MessageOnly_CheckedChanged(object sender, EventArgs e)
