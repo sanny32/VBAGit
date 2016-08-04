@@ -2,9 +2,11 @@
 using System;
 using System.ComponentModel;
 using VBAGitAddin.Git;
+using VBAGitAddin.UI.Forms;
 using VBAGitAddin.VBEditor.Extensions;
 using System.Drawing;
 using LibGit2Sharp;
+
 
 namespace VBAGitAddin.UI.Commands
 {

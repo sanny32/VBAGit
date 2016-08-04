@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using LibGit2Sharp;
 using VBAGitAddin.Git;
 using VBAGitAddin.Configuration;
+using VBAGitAddin.UI.Forms;
 
 namespace VBAGitAddin.UI.Commands
 {

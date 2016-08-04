@@ -1,4 +1,4 @@
-﻿namespace VBAGitAddin.UI
+﻿namespace VBAGitAddin.UI.Controls
 {
     partial class AnimationControl
     {

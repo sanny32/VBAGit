@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace VBAGitAddin.UI
+namespace VBAGitAddin.UI.Controls
 {
     public partial class AnimationControl : UserControl
     {

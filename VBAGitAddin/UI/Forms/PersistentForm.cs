@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using Microsoft.Win32;
 
-namespace VBAGitAddin.UI
+namespace VBAGitAddin.UI.Forms
 {
     public class PersistentForm : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace VBAGitAddin.UI
+﻿namespace VBAGitAddin.UI.Forms
 {
     partial class CommitForm
     {

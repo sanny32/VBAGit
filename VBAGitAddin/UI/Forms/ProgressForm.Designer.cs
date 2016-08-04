@@ -1,6 +1,6 @@
-﻿using VBAGitAddin.Diagnostics;
+﻿using VBAGitAddin.UI.Controls;
 
-namespace VBAGitAddin.UI
+namespace VBAGitAddin.UI.Forms
 {
     partial class ProgressForm
     {
@@ -24,7 +24,7 @@ namespace VBAGitAddin.UI
             this.Abort = new System.Windows.Forms.Button();
             this.ProgressInfo = new System.Windows.Forms.Label();
             this.Action = new System.Windows.Forms.Button();
-            this.Animation = new VBAGitAddin.UI.AnimationControl();
+            this.Animation = new AnimationControl();
             this.SuspendLayout();
             // 
             // ProgressBar

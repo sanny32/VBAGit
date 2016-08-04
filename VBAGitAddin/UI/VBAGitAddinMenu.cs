@@ -60,7 +60,7 @@ namespace VBAGitAddin.UI
             }
             
             _menu = menuBarControls.Add(MsoControlType.msoControlPopup, Before: beforeIndex, Temporary: true) as CommandBarPopup;
-            _menu.Tag = "VBAFGit";       
+            _menu.Tag = "VBAGit";       
             _menu.Caption = VBAGitUI.VBAGitMenu;
 
             if (_app.IsActiveProjectHasRepo)
@@ -198,7 +198,7 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCreateBranch(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-
+            _app.CreateBranch();
         }
 
         private void OnSourceControlExport(CommandBarButton Ctrl, ref bool CancelDefault)

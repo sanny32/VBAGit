@@ -83,5 +83,14 @@ namespace VBAGitAddin.UI
                 commitCommand.Execute();
             }   
         }
+
+        public void CreateBranch()
+        {
+            var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
+            using (var createBranchCommand = new CommandCreateBranch(_vbe.ActiveVBProject, repo))
+            {
+                createBranchCommand.Execute();
+            }
+        }
     }
 }

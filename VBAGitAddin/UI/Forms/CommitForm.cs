@@ -4,14 +4,13 @@ using System.Linq;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using VBAGitAddin.Git;
 using VBAGitAddin.Git.Extensions;
 using VBAGitAddin.UI.Commands;
 using VBAGitAddin.VBEditor.Extensions;
 using LibGit2Sharp;
 
 
-namespace VBAGitAddin.UI
+namespace VBAGitAddin.UI.Forms
 {
     public partial class CommitForm : PersistentForm
     {

@@ -85,20 +85,20 @@
     <Compile Include="Git\DefaultSettings.cs" />
     <Compile Include="Git\GitProvider.cs" />
     <Compile Include="Git\GitException.cs" />
-    <Compile Include="UI\AnimationControl.cs">
+    <Compile Include="UI\Controls\AnimationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\AnimationControl.Designer.cs">
+    <Compile Include="UI\Controls\AnimationControl.Designer.cs">
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Commands\CommandCreateBranch.cs" />
-    <Compile Include="UI\CreateBranchForm.cs">
+    <Compile Include="UI\Forms\CreateBranchForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\CreateBranchForm.Designer.cs">
+    <Compile Include="UI\Forms\CreateBranchForm.Designer.cs">
       <DependentUpon>CreateBranchForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\PersistentForm.cs">
+    <Compile Include="UI\Forms\PersistentForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Commands\CommandBase.cs" />
@@ -107,20 +107,20 @@
     <Compile Include="UI\Extensions\EventExtensions.cs" />
     <Compile Include="UI\Extensions\RichTextBoxExtensions.cs" />
     <Compile Include="UI\InformationMessageBox.cs" />
-    <Compile Include="UI\ProgressForm.cs">
+    <Compile Include="UI\Forms\ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ProgressForm.Designer.cs">
+    <Compile Include="UI\Forms\ProgressForm.Designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Commands\CommandInit.cs" />
     <Compile Include="UI\Commands\IGitCommand.cs" />
     <Compile Include="UI\RichTextBoxTraceListener.cs" />
     <Compile Include="UI\VBAGitAddinApp.cs" />
-    <Compile Include="UI\CommitForm.cs">
+    <Compile Include="UI\Forms\CommitForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\CommitForm.Designer.cs">
+    <Compile Include="UI\Forms\CommitForm.Designer.cs">
       <DependentUpon>CommitForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FileBrowserDialogFactory.cs" />
@@ -157,16 +157,16 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\CommitForm.resx">
+    <EmbeddedResource Include="UI\Forms\CommitForm.resx">
       <DependentUpon>CommitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\CreateBranchForm.resx">
+    <EmbeddedResource Include="UI\Forms\CreateBranchForm.resx">
       <DependentUpon>CreateBranchForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\PersistentForm.resx">
+    <EmbeddedResource Include="UI\Forms\PersistentForm.resx">
       <DependentUpon>PersistentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ProgressForm.resx">
+    <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\VBAGitUI.resx">

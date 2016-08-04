@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using VBAGitAddin.UI.Commands;
 using VBAGitAddin.Diagnostics;
 
-namespace VBAGitAddin.UI
+namespace VBAGitAddin.UI.Forms
 {
     public partial class ProgressForm : PersistentForm
     {

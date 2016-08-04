@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using VBAGitAddin.UI.Commands;
 
-namespace VBAGitAddin.UI
+namespace VBAGitAddin.UI.Forms
 {
     public partial class CreateBranchForm : PersistentForm
     {
@@ -43,8 +43,6 @@ namespace VBAGitAddin.UI
         public new void ShowDialog()
         {
             Text = string.Format(VBAGitUI.CreateBranchForm_Text, _gitCommand.Repository.Info.WorkingDirectory);
-
-            UseWaitCursor = true;
 
             base.ShowDialog();
         }

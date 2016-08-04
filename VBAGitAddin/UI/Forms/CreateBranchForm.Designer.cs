@@ -1,4 +1,4 @@
-﻿namespace VBAGitAddin.UI
+﻿namespace VBAGitAddin.UI.Forms
 {
     partial class CreateBranchForm
     {
@@ -110,7 +110,7 @@
             this.SelectCommit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SelectCommit.Location = new System.Drawing.Point(498, 92);
             this.SelectCommit.Name = "SelectCommit";
-            this.SelectCommit.Size = new System.Drawing.Size(27, 25);
+            this.SelectCommit.Size = new System.Drawing.Size(26, 25);
             this.SelectCommit.TabIndex = 8;
             this.SelectCommit.Text = "...";
             this.SelectCommit.UseVisualStyleBackColor = true;
@@ -120,7 +120,7 @@
             this.SelectBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SelectBranch.Location = new System.Drawing.Point(498, 42);
             this.SelectBranch.Name = "SelectBranch";
-            this.SelectBranch.Size = new System.Drawing.Size(27, 25);
+            this.SelectBranch.Size = new System.Drawing.Size(26, 25);
             this.SelectBranch.TabIndex = 7;
             this.SelectBranch.Text = "...";
             this.SelectBranch.UseVisualStyleBackColor = true;
@@ -305,7 +305,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(584, 508);
             this.Name = "CreateBranchForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Branch - VBAGit";
             this.GroupName.ResumeLayout(false);
             this.GroupName.PerformLayout();

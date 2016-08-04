@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using VBAGitAddin.Configuration;
 using VBAGitAddin.Git;
+using VBAGitAddin.UI.Forms;
 
 namespace VBAGitAddin.UI.Commands
 {
