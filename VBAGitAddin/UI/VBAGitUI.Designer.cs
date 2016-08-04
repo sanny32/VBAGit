@@ -250,6 +250,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Signed-off-by: {0}.
+        /// </summary>
+        internal static string CommitForm_Signedofby {
+            get {
+                return ResourceManager.GetString("CommitForm_Signedofby", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Commit - VBAGit.
         /// </summary>
         internal static string CommitForm_Text {
@@ -327,6 +336,15 @@ namespace VBAGitAddin.UI {
         internal static string SourceControl_Branches {
             get {
                 return ResourceManager.GetString("SourceControl_Branches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch already exists.
+        /// </summary>
+        internal static string SourceControl_BranchExists {
+            get {
+                return ResourceManager.GetString("SourceControl_BranchExists", resourceCulture);
             }
         }
         
@@ -552,6 +570,15 @@ namespace VBAGitAddin.UI {
         internal static string SourceControl_InitRepoButtonToolTip {
             get {
                 return ResourceManager.GetString("SourceControl_InitRepoButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid branch name.
+        /// </summary>
+        internal static string SourceControl_InvalidBranchName {
+            get {
+                return ResourceManager.GetString("SourceControl_InvalidBranchName", resourceCulture);
             }
         }
         

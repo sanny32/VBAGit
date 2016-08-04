@@ -251,7 +251,7 @@ namespace VBAGitAddin.UI
 
         private void AddSignedoffby_Click(object sender, EventArgs e)
         {
-            string signedOfBy = "Signed-off-by: " + _scCommand.Author;
+            string signedOfBy = string.Format(VBAGitUI.CommitForm_Signedofby, _scCommand.Author);
             if (!CommitMessage.Text.Contains(signedOfBy))
             {
                 CommitMessage.Text += "\r\n\r\n" + signedOfBy;
@@ -277,7 +277,8 @@ namespace VBAGitAddin.UI
             CommitBranch.BorderStyle = (NewBranch.Checked) ? BorderStyle.Fixed3D : BorderStyle.None;
             CommitBranch.Top += (NewBranch.Checked) ? -3: 3;
             CommitBranch.Left += (NewBranch.Checked) ? -3 : 3;
-            CommitBranch.Text = (NewBranch.Checked) ? CommitBranch.Tag.ToString() : "master";
+            CommitBranch.Text = (NewBranch.Checked) ? CommitBranch.Tag.ToString() : _scCommand.CurrentBranch;
+            errorProvider.SetError(CommitBranch, "");
         }
 
         private void CommitBranch_TextChanged(object sender, EventArgs e)
@@ -291,31 +292,20 @@ namespace VBAGitAddin.UI
 
         private void CommitBranch_Validating(object sender, CancelEventArgs e)
         {
-            if (!IsValidCommitBranch)
+            if (!Branch.IsValidBranchName(CommitBranch.Text))
             {
-                errorProvider.SetError(CommitBranch, "Invalid branch name");
+                errorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
                 return;
-            }            
-            errorProvider.SetError(CommitBranch, "");
-        }
-
-        private bool IsValidCommitBranch
-        {
-            get
+            }    
+               
+            if(_scCommand.Provider.Branches.Any(b => b?.Name == CommitBranch.Text))
             {
-                if (string.IsNullOrWhiteSpace(CommitBranch.Text))
-                {                    
-                    return false;
-                }
-
-                if (CommitBranch.Text.Any(Char.IsWhiteSpace))
-                {
-                    return false;
-                }
-
-                return true;
+                errorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
+                return;
             }
-        }
+                 
+            errorProvider.SetError(CommitBranch, "");
+        }      
 
         private void MessageOnly_CheckedChanged(object sender, EventArgs e)
         {
@@ -327,7 +317,8 @@ namespace VBAGitAddin.UI
         {
             this.ValidateChildren();
 
-            if (!IsValidCommitBranch)
+            if (!Branch.IsValidBranchName(CommitBranch.Text) ||
+                _scCommand.Provider.Branches.Any(b => b?.Name == CommitBranch.Text))
             {                
                 return;
             }

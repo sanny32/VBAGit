@@ -72,6 +72,14 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
+        public ISourceControlProvider Provider
+        {
+            get
+            {
+                return _provider;
+            }
+        }
+
         public void Commit(string branch, string message, string author, DateTimeOffset when, IEnumerable<string> files)
         {
             using (var progressForm = new ProgressForm(this))

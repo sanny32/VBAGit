@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace VBAGitAddin.SourceControl
 {
@@ -42,6 +44,21 @@ namespace VBAGitAddin.SourceControl
             this.CanonicalName = canonicalName;
             this.IsRemote = isRemote;
             this.IsCurrentHead = isCurrentHead;
+        }
+
+        public static bool IsValidBranchName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return false;
+            }
+
+            if (name.Any(Char.IsWhiteSpace))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
