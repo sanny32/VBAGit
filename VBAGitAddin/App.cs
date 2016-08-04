@@ -6,7 +6,7 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace VBAGitAddin
 {
-    public class VBEApp : IDisposable
+    public class App : IDisposable
     {
         private readonly VBE _vbe;
         private readonly AddIn _addIn;        
@@ -16,7 +16,7 @@ namespace VBAGitAddin
         private IConnectionPoint _projectsEventsConnectionPoint;
         private int _projectsEventsCookie;
 
-        public VBEApp(VBE vbe, AddIn addIn)
+        public App(VBE vbe, AddIn addIn)
         {
             _vbe = vbe;
             _addIn = addIn;

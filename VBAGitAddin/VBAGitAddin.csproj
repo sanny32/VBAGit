@@ -65,7 +65,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VBEApp.cs" />
+    <Compile Include="App.cs" />
     <Compile Include="Diagnostics\DiagnosticsConfiguration.cs" />
     <Compile Include="Diagnostics\Trace.cs" />
     <Compile Include="Diagnostics\TraceInternal.cs" />
