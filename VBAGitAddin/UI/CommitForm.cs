@@ -288,25 +288,18 @@ namespace VBAGitAddin.UI
         }
 
         private void CommitBranch_Validating(object sender, CancelEventArgs e)
-        {
-            try
+        {                        
+            if(!Reference.IsValidName("refs/heads/" + CommitBranch.Text))
             {
-                _gitCommand.Provider.ValidateBranchName(CommitBranch.Text);
-            }
-            catch(GitException ex)
-            {
-                if(ex.Message == "Invalid branch name")
-                {
-                    ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
-                }
-
-                if(ex.Message == "Branch already exists")
-                {
-                    ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
-                }
-
+                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
                 return;
-            }            
+            }    
+            
+            if(_gitCommand.Repository.Branches[CommitBranch.Text] !=null)
+            {
+                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
+                return;
+            }
                  
             ErrorProvider.SetError(CommitBranch, "");
         }      

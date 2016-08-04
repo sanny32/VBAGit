@@ -101,20 +101,7 @@ namespace VBAGitAddin.Git
         {
             get { return _unsyncedRemoteCommits; }
         }
-
-        public void ValidateBranchName(string name)
-        {
-            if (name == null || name == string.Empty || name.Any(Char.IsWhiteSpace))
-            {
-                throw new GitException("Invalid branch name");
-            }
-
-            if(Branches.Any(b => b?.FriendlyName == name))
-            {
-                throw new GitException("Branch already exists");
-            }
-        }   
-
+       
         public IRepository Clone(string remotePathOrUrl, string workingDirectory)
         {
             try
@@ -136,11 +123,8 @@ namespace VBAGitAddin.Git
         {
             try
             {
-                string localPath = (bare) ? string.Empty : directory;
-                string remotePath = directory;
-
-                string path = LibGit2Sharp.Repository.Init(remotePath, bare);
-                Trace.TraceInformation("Init Git repository in {0}", remotePath);
+                string path = LibGit2Sharp.Repository.Init(directory, bare);
+                Trace.TraceInformation("Init Git repository in {0}", directory);
 
                 return new Repository(path);
             }
