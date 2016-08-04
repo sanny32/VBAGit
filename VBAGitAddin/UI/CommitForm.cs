@@ -291,13 +291,13 @@ namespace VBAGitAddin.UI
         {                        
             if(!Reference.IsValidName("refs/heads/" + CommitBranch.Text))
             {
-                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_InvalidBranchName);
+                ErrorProvider.SetError(CommitBranch, VBAGitUI.Git_InvalidBranchName);
                 return;
             }    
             
             if(_gitCommand.Repository.Branches[CommitBranch.Text] !=null)
             {
-                ErrorProvider.SetError(CommitBranch, VBAGitUI.SourceControl_BranchExists);
+                ErrorProvider.SetError(CommitBranch, VBAGitUI.Git_BranchExists);
                 return;
             }
                  

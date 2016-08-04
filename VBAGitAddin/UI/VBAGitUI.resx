@@ -126,159 +126,6 @@
   <data name="VBAGitLoadFailure" xml:space="preserve">
     <value>VBAGit Add-In could not be loaded</value>
   </data>
-  <data name="SourceControl_CreateNewRepo" xml:space="preserve">
-    <value>Create New Repository</value>
-  </data>
-  <data name="SourceControl_OpenWorkingDirectory" xml:space="preserve">
-    <value>Open Working Directory</value>
-  </data>
-  <data name="SourceControlPanel_Caption" xml:space="preserve">
-    <value>Source Control</value>
-  </data>
-  <data name="SourceControl_AttributesFile" xml:space="preserve">
-    <value>Attributes File</value>
-  </data>
-  <data name="SourceControl_CancelGlobalSettings" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="SourceControl_DefaultRepoLocationLabel" xml:space="preserve">
-    <value>Default Repository Location</value>
-  </data>
-  <data name="SourceControl_EmailAddressLabel" xml:space="preserve">
-    <value>Email Address</value>
-  </data>
-  <data name="SourceControl_GlobalSettings" xml:space="preserve">
-    <value>Global Settings</value>
-  </data>
-  <data name="SourceControl_IgnoreFile" xml:space="preserve">
-    <value>Ignore File</value>
-  </data>
-  <data name="SourceControl_InitRepoButtonToolTip" xml:space="preserve">
-    <value>Init New Repo from this Project</value>
-  </data>
-  <data name="SourceControl_OpenWorkingFolderToolTip" xml:space="preserve">
-    <value>Open Working Directory</value>
-  </data>
-  <data name="SourceControl_RefreshButtonToolTip" xml:space="preserve">
-    <value>Refreshes pending changes</value>
-  </data>
-  <data name="SourceControl_RespositorySettings" xml:space="preserve">
-    <value>Repository Settings</value>
-  </data>
-  <data name="SourceControl_UpdateGlobalSettings" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="SourceControl_UserNameLabel" xml:space="preserve">
-    <value>User Name</value>
-  </data>
-  <data name="SourceControl_Changes" xml:space="preserve">
-    <value>Changes</value>
-  </data>
-  <data name="SourceControl_Branches" xml:space="preserve">
-    <value>Branches</value>
-  </data>
-  <data name="SourceControl_Commit" xml:space="preserve">
-    <value>Commit</value>
-  </data>
-  <data name="SourceControl_CommitButtonLabel" xml:space="preserve">
-    <value>Go</value>
-  </data>
-  <data name="SourceControl_CommitMessageLabel" xml:space="preserve">
-    <value>Commit message:</value>
-  </data>
-  <data name="SourceControl_CommitPush" xml:space="preserve">
-    <value>Commit and Push</value>
-  </data>
-  <data name="SourceControl_CommitSync" xml:space="preserve">
-    <value>Commit and Sync</value>
-  </data>
-  <data name="SourceControl_CreateNewBranchCaption" xml:space="preserve">
-    <value>VBAGit - Create Branch</value>
-  </data>
-  <data name="SourceControl_CurrentBranchLabel" xml:space="preserve">
-    <value>Branch:</value>
-  </data>
-  <data name="SourceControl_DestinationLabel" xml:space="preserve">
-    <value>Destination</value>
-  </data>
-  <data name="SourceControl_ExcludedChanges" xml:space="preserve">
-    <value>Excluded changes</value>
-  </data>
-  <data name="SourceControl_FetchCommitsLabel" xml:space="preserve">
-    <value>Fetch</value>
-  </data>
-  <data name="SourceControl_IncludedChanges" xml:space="preserve">
-    <value>Included changes</value>
-  </data>
-  <data name="SourceControl_IncomingCommits" xml:space="preserve">
-    <value>Incoming commits</value>
-  </data>
-  <data name="SourceControl_MergeBranch" xml:space="preserve">
-    <value>Merge</value>
-  </data>
-  <data name="SourceControl_MergeFormCaption" xml:space="preserve">
-    <value>VBAGit - Merge</value>
-  </data>
-  <data name="SourceControl_NewBranch" xml:space="preserve">
-    <value>New Branch</value>
-  </data>
-  <data name="SourceControl_OutgoingCommits" xml:space="preserve">
-    <value>Outgoing commits</value>
-  </data>
-  <data name="SourceControl_PublishedBranchesLabel" xml:space="preserve">
-    <value>Published Branches</value>
-  </data>
-  <data name="SourceControl_PullCommitsLabel" xml:space="preserve">
-    <value>Pull</value>
-  </data>
-  <data name="SourceControl_PushCommitsLabel" xml:space="preserve">
-    <value>Push</value>
-  </data>
-  <data name="SourceControl_Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="SourceControl_SourceLabel" xml:space="preserve">
-    <value>Source</value>
-  </data>
-  <data name="SourceControl_SyncCommitsLabel" xml:space="preserve">
-    <value>Sync</value>
-  </data>
-  <data name="SourceControl_UnpublishedBranchesLabel" xml:space="preserve">
-    <value>Unpublished Branches</value>
-  </data>
-  <data name="SourceControl_UnsyncedCommits" xml:space="preserve">
-    <value>Unsynced commits</value>
-  </data>
-  <data name="SourceControl_UntrackedFiles" xml:space="preserve">
-    <value>Untracked files</value>
-  </data>
-  <data name="SourceControl_CreateNewBranchInstructions" xml:space="preserve">
-    <value>Please specify branch name.</value>
-  </data>
-  <data name="SourceControl_CreateNewBranchTitle" xml:space="preserve">
-    <value>New branch</value>
-  </data>
-  <data name="SourceControl_MergeFormInstructions" xml:space="preserve">
-    <value>Please select source and destination branches.</value>
-  </data>
-  <data name="SourceControl_MergeFormTitle" xml:space="preserve">
-    <value>Merge branches</value>
-  </data>
-  <data name="SourceControl_NoRepoFound" xml:space="preserve">
-    <value>No repository found.</value>
-  </data>
-  <data name="SourceControl_SuccessfulMerge" xml:space="preserve">
-    <value>Successfully Merged {0} into {1}</value>
-  </data>
-  <data name="SourceControl_DeleteBranchCaption" xml:space="preserve">
-    <value>VBAGit - Delete Branch</value>
-  </data>
-  <data name="SourceControl_DeleteBranchInstructionsLabel" xml:space="preserve">
-    <value>Please specify branch name.</value>
-  </data>
-  <data name="SourceControl_DeleteBranchTitleLable" xml:space="preserve">
-    <value>Delete branch</value>
-  </data>
   <data name="Offline" xml:space="preserve">
     <value>Offline</value>
   </data>
@@ -312,7 +159,7 @@
   <data name="VBAGitMenu_VBAGit" xml:space="preserve">
     <value>VBAGit</value>
   </data>
-  <data name="SourceControl_SuccessfulInitEmptyRepo" xml:space="preserve">
+  <data name="Git_SuccessfulInitEmptyRepo" xml:space="preserve">
     <value>Initialized empty Git repository in {0}</value>
   </data>
   <data name="VBAGitCaption" xml:space="preserve">
@@ -438,10 +285,10 @@
   <data name="CommitForm_Signedofby" xml:space="preserve">
     <value>Signed-off-by: {0}</value>
   </data>
-  <data name="SourceControl_BranchExists" xml:space="preserve">
+  <data name="Git_BranchExists" xml:space="preserve">
     <value>Branch already exists</value>
   </data>
-  <data name="SourceControl_InvalidBranchName" xml:space="preserve">
+  <data name="Git_InvalidBranchName" xml:space="preserve">
     <value>Invalid branch name</value>
   </data>
   <data name="CreateBranchForm_BaseOn" xml:space="preserve">
@@ -454,7 +301,7 @@
     <value>Commit</value>
   </data>
   <data name="CreateBranchForm_Description" xml:space="preserve">
-    <value />
+    <value>Description</value>
   </data>
   <data name="CreateBranchForm_Force" xml:space="preserve">
     <value>Force</value>
@@ -476,5 +323,8 @@
   </data>
   <data name="CreateBranchForm_Track" xml:space="preserve">
     <value>Track</value>
+  </data>
+  <data name="CreateBranchForm_Text" xml:space="preserve">
+    <value>{0} - Create Branch - VBAGit</value>
   </data>
 </root>

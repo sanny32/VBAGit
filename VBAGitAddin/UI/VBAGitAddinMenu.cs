@@ -6,7 +6,7 @@ namespace VBAGitAddin.UI
     internal class VBAGitAddinMenu : Menu
     {       
         private readonly AddIn _addIn;
-        private readonly UIApp _app;
+        private readonly VBAGitAddinApp _app;
 
         private CommandBarPopup _menu;
 
@@ -38,7 +38,7 @@ namespace VBAGitAddin.UI
             : base(vbe, addIn)
         {
             _addIn = addIn;
-            _app = new UIApp(vbe);
+            _app = new VBAGitAddinApp(vbe);
         }
         
         public void Initialize()

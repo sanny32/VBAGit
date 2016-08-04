@@ -5,19 +5,19 @@ namespace VBAGitAddin.UI
 {
     public partial class CreateBranchForm : PersistentForm
     {
-        private readonly CommandCreateBranch _scCommand;
+        private readonly CommandCreateBranch _gitCommand;
 
-        public CreateBranchForm(CommandCreateBranch scCommand)
+        public CreateBranchForm(CommandCreateBranch gitCommand)
         {
             InitializeComponent();
 
-            _scCommand = scCommand;
+            _gitCommand = gitCommand;
 
             GroupName.Text = VBAGitUI.CreateBranchForm_Name;
             LabelBranch.Text = VBAGitUI.CreateBranchForm_Branch;
 
             GroupBaseOn.Text = VBAGitUI.CreateBranchForm_BaseOn;
-            BaseOnHead.Text = string.Format(VBAGitUI.CreateBranchForm_Head, _scCommand.CurrentBranch);
+            BaseOnHead.Text = string.Format(VBAGitUI.CreateBranchForm_Head, _gitCommand.CurrentBranch);
             BaseOnBranch.Text = VBAGitUI.CreateBranchForm_Branch;
             BaseOnTag.Text = VBAGitUI.CreateBranchForm_Tag;
             BaseOnCommit.Text = VBAGitUI.CreateBranchForm_Commit;
@@ -33,9 +33,20 @@ namespace VBAGitAddin.UI
             Cancel.Text = VBAGitUI.Cancel;
 
             // populate combobox with branches
-            Branches.Items.AddRange(_scCommand.Provider.Branches.Select(b => b.FriendlyName).ToArray());
+            Branches.Items.AddRange(_gitCommand.Provider.Branches.Select(b => b.FriendlyName).ToArray());
 
-            //Tags.Items.AddRange(_scCommand.Provider.t)
+            // populate combobox with tags
+            Tags.Items.AddRange(_gitCommand.Repository.Tags.Select(t => t.FriendlyName).ToArray());
+            
+        }
+
+        public new void ShowDialog()
+        {
+            Text = string.Format(VBAGitUI.CreateBranchForm_Text, _gitCommand.Repository.Info.WorkingDirectory);
+
+            UseWaitCursor = true;
+
+            base.ShowDialog();
         }
     }
 }

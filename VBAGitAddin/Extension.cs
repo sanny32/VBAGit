@@ -17,7 +17,7 @@ namespace VBAGitAddin
         public const string ClassId = "C723A557-FD00-4C16-AE87-E8D31DC164F9";
         public const string ProgId = "VBAGitAddin.Connect";
 
-        private App _app;
+        private VBEApp _app;
 
         public void OnAddInsUpdate(ref Array custom)
         {
@@ -31,7 +31,7 @@ namespace VBAGitAddin
         {
             try
             {
-                _app = new App((VBE)Application, (AddIn)AddInInst);
+                _app = new VBEApp((VBE)Application, (AddIn)AddInInst);
             }
             catch (Exception exception)
             {

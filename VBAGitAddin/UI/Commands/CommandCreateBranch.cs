@@ -1,5 +1,6 @@
 ﻿using LibGit2Sharp;
 using Microsoft.Vbe.Interop;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using VBAGitAddin.Configuration;
@@ -58,14 +59,31 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
+        public void CreateBranch(string branch)
+        {
+            using (var progressForm = new ProgressForm(this))
+            {
+                progressForm.Shown += delegate (object sender, EventArgs e)
+                {
+                    RunCommandAsync(branch);
+                };
+                progressForm.ShowDialog();
+            };
+        }
+
         public override void Execute()
         {
-            
+            using (var createBranchForm = new CreateBranchForm(this))
+            {
+                createBranchForm.ShowDialog();
+            }
         }
 
         protected override void OnExectute(DoWorkEventArgs e)
         {
-            
+            var branch = e.Argument as string;
+
+            _provider.CreateBranch(branch);
         }
     }
 }

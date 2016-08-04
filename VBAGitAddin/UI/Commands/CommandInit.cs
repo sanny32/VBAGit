@@ -59,7 +59,7 @@ namespace VBAGitAddin.UI.Commands
         protected override void OnExectute(DoWorkEventArgs e)
         {          
             var provider = new GitProvider(_project);
-            var path = UIApp.GetVBProjectRepoPath(_project);
+            var path = VBAGitAddinApp.GetVBProjectRepoPath(_project);
 
             _repositroty = provider.Init(path, false);
 

@@ -65,7 +65,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
+    <Compile Include="VBEApp.cs" />
     <Compile Include="Diagnostics\DiagnosticsConfiguration.cs" />
     <Compile Include="Diagnostics\Trace.cs" />
     <Compile Include="Diagnostics\TraceInternal.cs" />
@@ -116,7 +116,7 @@
     <Compile Include="UI\Commands\CommandInit.cs" />
     <Compile Include="UI\Commands\IGitCommand.cs" />
     <Compile Include="UI\RichTextBoxTraceListener.cs" />
-    <Compile Include="UI\UIApp.cs" />
+    <Compile Include="UI\VBAGitAddinApp.cs" />
     <Compile Include="UI\CommitForm.cs">
       <SubType>Form</SubType>
     </Compile>
