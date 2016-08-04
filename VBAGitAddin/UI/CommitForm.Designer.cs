@@ -238,7 +238,7 @@
             // 
             this.MessageOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MessageOnly.AutoSize = true;
-            this.MessageOnly.Location = new System.Drawing.Point(20, 325);
+            this.MessageOnly.Location = new System.Drawing.Point(20, 324);
             this.MessageOnly.Name = "MessageOnly";
             this.MessageOnly.Size = new System.Drawing.Size(98, 19);
             this.MessageOnly.TabIndex = 3;
@@ -250,7 +250,7 @@
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(586, 320);
+            this.Cancel.Location = new System.Drawing.Point(586, 319);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(87, 27);
             this.Cancel.TabIndex = 2;
@@ -261,7 +261,7 @@
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Commit.Enabled = false;
-            this.Commit.Location = new System.Drawing.Point(493, 321);
+            this.Commit.Location = new System.Drawing.Point(493, 320);
             this.Commit.Name = "Commit";
             this.Commit.Size = new System.Drawing.Size(87, 27);
             this.Commit.TabIndex = 1;
@@ -288,7 +288,7 @@
             this.GroupChanges.Controls.Add(this.LabelCheck);
             this.GroupChanges.Location = new System.Drawing.Point(13, 3);
             this.GroupChanges.Name = "GroupChanges";
-            this.GroupChanges.Size = new System.Drawing.Size(660, 308);
+            this.GroupChanges.Size = new System.Drawing.Size(660, 307);
             this.GroupChanges.TabIndex = 0;
             this.GroupChanges.TabStop = false;
             this.GroupChanges.Text = "Changes made (double-click on file for diff): ";
@@ -307,7 +307,7 @@
             // LabelSelected
             // 
             this.LabelSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelSelected.Location = new System.Drawing.Point(401, 272);
+            this.LabelSelected.Location = new System.Drawing.Point(401, 271);
             this.LabelSelected.Name = "LabelSelected";
             this.LabelSelected.Size = new System.Drawing.Size(253, 15);
             this.LabelSelected.TabIndex = 11;
@@ -320,7 +320,7 @@
             this.ShowUnversionedFiles.AutoSize = true;
             this.ShowUnversionedFiles.Checked = true;
             this.ShowUnversionedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 282);
+            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 281);
             this.ShowUnversionedFiles.Name = "ShowUnversionedFiles";
             this.ShowUnversionedFiles.Size = new System.Drawing.Size(145, 19);
             this.ShowUnversionedFiles.TabIndex = 10;
@@ -341,7 +341,7 @@
             this.CommitList.FullRowSelect = true;
             this.CommitList.Location = new System.Drawing.Point(7, 46);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(645, 222);
+            this.CommitList.Size = new System.Drawing.Size(645, 221);
             this.CommitList.SmallImageList = this.VBComponentsImageList;
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
@@ -522,6 +522,8 @@
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(700, 650);
             this.Name = "CommitForm";
             this.ShowInTaskbar = false;
