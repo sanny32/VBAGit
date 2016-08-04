@@ -2,18 +2,17 @@
 using System;
 using System.IO;
 using VBAGitAddin.Configuration;
-using VBAGitAddin.Git;
 using VBAGitAddin.UI.Commands;
 
 namespace VBAGitAddin.UI
 {         
-    public sealed class UIApp
+    public sealed class VBAGitAddinApp
     {       
         private readonly VBE _vbe;
         private readonly IConfigurationService<GitConfiguration> _configService;
         private readonly GitConfiguration _config;
         
-        internal UIApp(VBE vbe)
+        internal VBAGitAddinApp(VBE vbe)
         {
             _vbe = vbe;
 
