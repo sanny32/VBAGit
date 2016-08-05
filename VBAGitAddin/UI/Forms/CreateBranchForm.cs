@@ -47,7 +47,7 @@ namespace VBAGitAddin.UI.Forms
             Application.Idle += Application_Idle;
         }
    
-        private void Application_Idle(object sender, System.EventArgs e)
+        private void Application_Idle(object sender, EventArgs e)
         {
             Branches.Enabled = BaseOnBranch.Checked;
             SelectBranch.Enabled = BaseOnBranch.Checked;
