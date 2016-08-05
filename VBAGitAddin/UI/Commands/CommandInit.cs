@@ -67,8 +67,11 @@ namespace VBAGitAddin.UI.Commands
 
             int progress = 0;
             int count = _project.VBComponents.Count;
+
             foreach (VBComponent component in _project.VBComponents)
             {
+                ReportProgress(100 * ++progress / count, VBAGitUI.ProgressInfo_ExportingFiles);
+
                 if (CancellationPending)
                 {
                     e.Cancel = true;              
@@ -76,8 +79,6 @@ namespace VBAGitAddin.UI.Commands
                 }
 
                 component.ExportAsSourceFile(path);
-
-                ReportProgress(100 * ++progress / count, VBAGitUI.ProgressInfo_ExportingFiles);
             }
         }                    
     }

@@ -448,6 +448,24 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Commit....
+        /// </summary>
+        internal static string ProgressInfo_Commit {
+            get {
+                return ResourceManager.GetString("ProgressInfo_Commit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Branch....
+        /// </summary>
+        internal static string ProgressInfo_CreateBranch {
+            get {
+                return ResourceManager.GetString("ProgressInfo_CreateBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting files....
         /// </summary>
         internal static string ProgressInfo_ExportingFiles {

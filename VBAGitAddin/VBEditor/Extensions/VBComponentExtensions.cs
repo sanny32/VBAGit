@@ -10,7 +10,7 @@ namespace VBAGitAddin.VBEditor.Extensions
         internal const string FormExtension = ".frm";
         internal const string StandardExtension = ".bas";
         internal const string FormBinaryExtension = ".frx";
-        internal const string DocClassExtension = ".cls";
+        internal const string DocClassExtension = ".doccls";
 
         internal const string Module = "module";
         internal const string Form = "form";

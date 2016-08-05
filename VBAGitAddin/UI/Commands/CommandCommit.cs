@@ -94,6 +94,8 @@ namespace VBAGitAddin.UI.Commands
 
         protected override void OnExectute(DoWorkEventArgs e)
         {
+            ReportProgress(0, VBAGitUI.ProgressInfo_Commit);
+
             var commitInfo = e.Argument as CommitInfo;
 
             var options = new CommitOptions();
@@ -108,9 +110,11 @@ namespace VBAGitAddin.UI.Commands
             if(commitInfo.Branch != "master" &&
                commitInfo.Branch != this.CurrentBranch)           
             {
-                _provider.CreateBranch(commitInfo.Branch, true);
+                ReportProgress(50, VBAGitUI.ProgressInfo_CreateBranch);
+                _provider.CreateBranch(commitInfo.Branch);                
             }
 
+            ReportProgress(60, VBAGitUI.ProgressInfo_Commit);
             _provider.Commit(commitInfo.Message, commitInfo.Author, commitInfo.When, options);            
         }
 

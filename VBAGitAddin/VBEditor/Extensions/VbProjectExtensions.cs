@@ -23,7 +23,7 @@ namespace VBAGitAddin.VBEditor.Extensions
         public static void ExportSourceFiles(this VBProject project, string directoryPath)
         {            
             IEnumerable<VBComponent> components = project.VBComponents.Cast<VBComponent>();
-            components.AsParallel().ForAll(component => component.ExportAsSourceFile(directoryPath));
+            components.ToList().ForEach(component => component.ExportAsSourceFile(directoryPath));
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace VBAGitAddin.VBEditor.Extensions
         public static void RemoveAllComponents(this VBProject project)
         {
             IEnumerable<VBComponent> components = project.VBComponents.Cast<VBComponent>();
-            components.AsParallel().ForAll(component => project.VBComponents.RemoveSafely(component));            
+            components.ToList().ForEach(component => project.VBComponents.RemoveSafely(component));            
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace VBAGitAddin.VBEditor.Extensions
                                             f.Extension == VBComponentExtensions.FormExtension
                                             );
 
-            files.AsParallel().ForAll(file => project.VBComponents.ImportSourceFile(file.FullName));            
+            files.ToList().ForEach(file => project.VBComponents.ImportSourceFile(file.FullName));            
         }
     }
 }

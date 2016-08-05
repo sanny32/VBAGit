@@ -281,12 +281,18 @@ namespace VBAGitAddin.Git
             Refresh();
         }
 
-        public void Checkout(string branch)
+        public void Checkout(string branch, bool refresh)
         {
             try
             {
                 _repo.Checkout(_repo.Branches[branch]);
-                Refresh();
+                Trace.TraceInformation("git checkout '{0}'", branch);
+                Trace.TraceInformation("switched to branch '{0}'", branch);
+
+                if (refresh)
+                {
+                    Refresh();
+                }
 
                 RequeryUnsyncedCommits();
             }
@@ -296,21 +302,65 @@ namespace VBAGitAddin.Git
             }
         }
 
-        public void CreateBranch(string branch, bool switchToNewBranch)
+        public void CreateBranch(string branch)
         {
+            CreateBranchOptions options = new CreateBranchOptions();
+            options.BaseOn = CreateBranchOptions.Base.Head;
+            options.Switch = true;
+            CreateBranch(branch, string.Empty, options);
+        }
+
+        public void CreateBranch(string branch, string description, CreateBranchOptions options)
+        {
+            Branch newBranch = null;
             try
             {
-                _repo.CreateBranch(branch);
-
-                if (switchToNewBranch)
+                switch(options.BaseOn)
                 {
-                    _repo.Checkout(branch);
+                    case CreateBranchOptions.Base.Head:
+                        newBranch = _repo.Branches.Add(branch, _repo.Head.FriendlyName, options.Force);
+                        break;
+
+                    case CreateBranchOptions.Base.Branch:
+                        newBranch = _repo.Branches.Add(branch, options.Branch.FriendlyName, options.Force);
+                        break;
+
+                    case CreateBranchOptions.Base.Tag:
+                        throw new NotImplementedException("creation branch based on tag is not implemented.");                       
+
+                    case CreateBranchOptions.Base.Commit:
+                        newBranch = _repo.Branches.Add(branch, options.Commit, options.Force);
+                        break;
+                }
+
+                Trace.TraceInformation("git create branch '{0}'", branch);
+
+                var key = string.Format("branch.{0}.description", branch);
+                if (string.IsNullOrWhiteSpace(description))
+                {
+                    _repo.Config.Unset(key);
+                }
+                else
+                {
+                    description.Trim();                    
+                    _repo.Config.Set(key, description.Replace(Environment.NewLine, string.Empty));
                 }
 
                 RequeryUnsyncedCommits();
+
+                if (options.Switch)
+                {
+                    Checkout(branch, false);                  
+                }
+               
             }
             catch (LibGit2SharpException ex)
             {
+                if(newBranch != null)
+                {
+                    _repo.Branches.Remove(newBranch);
+                }
+
                 throw new GitException("Branch creation failed.", ex);
             }
         }

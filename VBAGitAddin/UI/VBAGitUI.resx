@@ -327,4 +327,10 @@
   <data name="CreateBranchForm_Text" xml:space="preserve">
     <value>{0} - Create Branch - VBAGit</value>
   </data>
+  <data name="ProgressInfo_Commit" xml:space="preserve">
+    <value>Commit...</value>
+  </data>
+  <data name="ProgressInfo_CreateBranch" xml:space="preserve">
+    <value>Create Branch...</value>
+  </data>
 </root>

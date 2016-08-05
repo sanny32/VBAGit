@@ -7,21 +7,18 @@ namespace VBAGitAddin.UI.Forms
 {
     public partial class ProgressForm : PersistentForm
     {
-        private IGitCommand _scCommand;
+        private IGitCommand _gitCommand;
         private RichTextBoxTraceListener _tracer;
 
-        public ProgressForm(IGitCommand command)
+        public ProgressForm(IGitCommand gitCommand)
         {
             InitializeComponent();
 
-            _scCommand = command;
-            _scCommand.CommandProgress += _scCommand_CommandProgress;
-            _scCommand.CommandSuccess += _scCommand_CommandSuccess;
-            _scCommand.CommandAborted += _scCommand_CommandAborted;
-            _scCommand.CommandFailed += _scCommand_CommandFailed;
-
-            Animation.AnimatedImage = _scCommand.ProgressImage;
-            Text = string.Format(VBAGitUI.ProgressForm_Text, _scCommand.Name);
+            _gitCommand = gitCommand;
+            _gitCommand.CommandProgress += _gitCommand_CommandProgress;
+            _gitCommand.CommandSuccess += _gitCommand_CommandSuccess;
+            _gitCommand.CommandAborted += _gitCommand_CommandAborted;
+            _gitCommand.CommandFailed += _gitCommand_CommandFailed;
             
             _tracer = new RichTextBoxTraceListener(LogBox);
             Trace.AutoFlush = true;
@@ -32,6 +29,9 @@ namespace VBAGitAddin.UI.Forms
         {
             Close.Enabled = false;
             LogBox.Text = string.Empty;
+
+            Text = string.Format(VBAGitUI.ProgressForm_Text, _gitCommand.Name);
+            Animation.AnimatedImage = _gitCommand.ProgressImage;
 
             Animation.AnimateImage();           
 
@@ -46,10 +46,10 @@ namespace VBAGitAddin.UI.Forms
         {
             Trace.Listeners.Remove(_tracer);
 
-            _scCommand.CommandProgress -= _scCommand_CommandProgress;
-            _scCommand.CommandSuccess -= _scCommand_CommandSuccess;
-            _scCommand.CommandAborted -= _scCommand_CommandAborted;
-            _scCommand.CommandFailed -= _scCommand_CommandFailed;
+            _gitCommand.CommandProgress -= _gitCommand_CommandProgress;
+            _gitCommand.CommandSuccess -= _gitCommand_CommandSuccess;
+            _gitCommand.CommandAborted -= _gitCommand_CommandAborted;
+            _gitCommand.CommandFailed -= _gitCommand_CommandFailed;
 
             if (disposing && (components != null))
             {
@@ -59,12 +59,12 @@ namespace VBAGitAddin.UI.Forms
             base.Dispose(disposing);
         }
 
-        private void _scCommand_CommandAborted(object sender, EventArgs e)
+        private void _gitCommand_CommandAborted(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void _scCommand_CommandSuccess(object sender, EventArgs e)
+        private void _gitCommand_CommandSuccess(object sender, EventArgs e)
         {
             ProgressBar.Value = 100;
             Abort.Enabled = false;
@@ -72,10 +72,10 @@ namespace VBAGitAddin.UI.Forms
             Animation.StopAnimate();            
 
             Trace.TraceOperationStop("Success ({0} ms @ {1})", 
-                Convert.ToInt64(_scCommand.LastExecutionDuration.TotalMilliseconds), DateTime.Now);                               
+                Convert.ToInt64(_gitCommand.LastExecutionDuration.TotalMilliseconds), DateTime.Now);                               
         }
 
-        private void _scCommand_CommandFailed(object sender, ErrorEventArgs e)
+        private void _gitCommand_CommandFailed(object sender, ErrorEventArgs e)
         {
             ProgressBar.Value = 100;
             Abort.Enabled = false;
@@ -92,10 +92,10 @@ namespace VBAGitAddin.UI.Forms
             }
 
             Trace.TraceError("Failed ({0} ms @ {1})",
-                Convert.ToInt64(_scCommand.LastExecutionDuration.TotalMilliseconds), DateTime.Now);
+                Convert.ToInt64(_gitCommand.LastExecutionDuration.TotalMilliseconds), DateTime.Now);
         }
 
-        private void _scCommand_CommandProgress(object sender, ProgressEventArgs e)
+        private void _gitCommand_CommandProgress(object sender, ProgressEventArgs e)
         {
             ProgressInfo.Text = e.Info;
 
@@ -117,7 +117,7 @@ namespace VBAGitAddin.UI.Forms
         private void Abort_Click(object sender, EventArgs e)
         {
             UseWaitCursor = true;
-            _scCommand.Abort();
+            _gitCommand.Abort();
             UseWaitCursor = false;
         }
     }

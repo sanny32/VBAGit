@@ -148,6 +148,7 @@ namespace VBAGitAddin.UI.Forms
             // 
             this.Tags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Tags.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Tags.FormattingEnabled = true;
             this.Tags.Location = new System.Drawing.Point(160, 68);
             this.Tags.Name = "Tags";
@@ -158,6 +159,7 @@ namespace VBAGitAddin.UI.Forms
             // 
             this.Branches.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Branches.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Branches.FormattingEnabled = true;
             this.Branches.Location = new System.Drawing.Point(160, 43);
             this.Branches.Name = "Branches";
@@ -173,6 +175,7 @@ namespace VBAGitAddin.UI.Forms
             this.BaseOnCommit.TabIndex = 3;
             this.BaseOnCommit.Text = "Commit";
             this.BaseOnCommit.UseVisualStyleBackColor = true;
+            this.BaseOnCommit.CheckedChanged += new System.EventHandler(this.BaseOnCommit_CheckedChanged);
             // 
             // BaseOnTag
             // 
@@ -183,6 +186,7 @@ namespace VBAGitAddin.UI.Forms
             this.BaseOnTag.TabIndex = 2;
             this.BaseOnTag.Text = "Tag";
             this.BaseOnTag.UseVisualStyleBackColor = true;
+            this.BaseOnTag.CheckedChanged += new System.EventHandler(this.BaseOnTag_CheckedChanged);
             // 
             // BaseOnBranch
             // 
@@ -193,6 +197,7 @@ namespace VBAGitAddin.UI.Forms
             this.BaseOnBranch.TabIndex = 1;
             this.BaseOnBranch.Text = "Branch";
             this.BaseOnBranch.UseVisualStyleBackColor = true;
+            this.BaseOnBranch.CheckedChanged += new System.EventHandler(this.BaseOnBranch_CheckedChanged);
             // 
             // BaseOnHead
             // 
@@ -205,6 +210,7 @@ namespace VBAGitAddin.UI.Forms
             this.BaseOnHead.TabStop = true;
             this.BaseOnHead.Text = "HEAD";
             this.BaseOnHead.UseVisualStyleBackColor = true;
+            this.BaseOnHead.CheckedChanged += new System.EventHandler(this.BaseOnHead_CheckedChanged);
             // 
             // GroupOptions
             // 
@@ -229,6 +235,7 @@ namespace VBAGitAddin.UI.Forms
             this.SwitchOption.TabIndex = 2;
             this.SwitchOption.Text = "Switch to new branch";
             this.SwitchOption.UseVisualStyleBackColor = true;
+            this.SwitchOption.CheckedChanged += new System.EventHandler(this.SwitchOption_CheckedChanged);
             // 
             // ForceOption
             // 
@@ -239,6 +246,7 @@ namespace VBAGitAddin.UI.Forms
             this.ForceOption.TabIndex = 1;
             this.ForceOption.Text = "Force";
             this.ForceOption.UseVisualStyleBackColor = true;
+            this.ForceOption.CheckedChanged += new System.EventHandler(this.ForceOption_CheckedChanged);
             // 
             // TrackOption
             // 
@@ -253,6 +261,7 @@ namespace VBAGitAddin.UI.Forms
             this.TrackOption.Text = "Track";
             this.TrackOption.ThreeState = true;
             this.TrackOption.UseVisualStyleBackColor = true;
+            this.TrackOption.CheckedChanged += new System.EventHandler(this.TrackOption_CheckedChanged);
             // 
             // GroupDescription
             // 
@@ -321,6 +330,7 @@ namespace VBAGitAddin.UI.Forms
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(584, 508);
             this.Name = "CreateBranchForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Branch - VBAGit";
             this.GroupName.ResumeLayout(false);

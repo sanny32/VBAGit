@@ -11,6 +11,19 @@ namespace VBAGitAddin.UI.Commands
 {
     public class CommandCreateBranch : CommandBase, IGitCommand
     {
+        private class CreateBranchInfo
+        {
+            public CreateBranchInfo(string branch, string description, CreateBranchOptions options)
+            {
+                Branch = branch;
+                Description = description;
+                Options = options;              
+            }
+            public string Branch { get; private set; }
+            public string Description { get; private set; }
+            public CreateBranchOptions Options { get; private set; }
+        }
+
         private readonly VBProject _project;
         private readonly GitProvider _provider;
 
@@ -60,13 +73,13 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        public void CreateBranch(string branch)
+        public void CreateBranch(string branch, string description, CreateBranchOptions options)
         {
             using (var progressForm = new ProgressForm(this))
             {
                 progressForm.Shown += delegate (object sender, EventArgs e)
                 {
-                    RunCommandAsync(branch);
+                    RunCommandAsync(new CreateBranchInfo(branch, description, options));
                 };
                 progressForm.ShowDialog();
             };
@@ -82,9 +95,10 @@ namespace VBAGitAddin.UI.Commands
 
         protected override void OnExectute(DoWorkEventArgs e)
         {
-            var branch = e.Argument as string;
+            ReportProgress(100, VBAGitUI.ProgressInfo_CreateBranch);
 
-            //_provider.CreateBranch(branch);
+            var branchInfo = e.Argument as CreateBranchInfo;
+            _provider.CreateBranch(branchInfo.Branch, branchInfo.Description, branchInfo.Options);            
         }
     }
 }

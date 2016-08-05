@@ -1,6 +1,8 @@
 ﻿using LibGit2Sharp;
+using System;
 using System.Linq;
 using System.Windows.Forms;
+using VBAGitAddin.Git;
 using VBAGitAddin.UI.Commands;
 
 namespace VBAGitAddin.UI.Forms
@@ -8,12 +10,14 @@ namespace VBAGitAddin.UI.Forms
     public partial class CreateBranchForm : PersistentForm
     {
         private readonly CommandCreateBranch _gitCommand;
+        private CreateBranchOptions _options;
 
         public CreateBranchForm(CommandCreateBranch gitCommand)
         {
             InitializeComponent();
 
             _gitCommand = gitCommand;
+            _options = new CreateBranchOptions();
 
             GroupName.Text = VBAGitUI.CreateBranchForm_Name;
             LabelBranch.Text = VBAGitUI.CreateBranchForm_Branch;
@@ -69,7 +73,7 @@ namespace VBAGitAddin.UI.Forms
                 return;
             }
 
-            if (_gitCommand.Repository.Branches[BranchName.Text] != null)
+            if (_gitCommand.Repository.Branches[BranchName.Text] != null && !_options.Force)
             {
                 ErrorProvider.SetError(BranchName, VBAGitUI.Git_BranchExists);
                 return;
@@ -94,6 +98,68 @@ namespace VBAGitAddin.UI.Forms
             {
                 return;
             }
-        }        
+
+            _gitCommand.CreateBranch(BranchName.Text, Description.Text, _options);
+
+            if(_gitCommand.Status == CommandStatus.Success)
+            {
+                Close();
+            }
+        }
+
+        private void BaseOnHead_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BaseOnHead.Checked)
+            {
+                _options.BaseOn = CreateBranchOptions.Base.Head;
+            }
+        }
+
+        private void BaseOnBranch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BaseOnBranch.Checked)
+            {
+                _options.BaseOn = CreateBranchOptions.Base.Branch;
+            }
+        }
+
+        private void BaseOnTag_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BaseOnTag.Checked)
+            {
+                _options.BaseOn = CreateBranchOptions.Base.Tag;
+            }
+        }
+
+        private void BaseOnCommit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BaseOnCommit.Checked)
+            {
+                _options.BaseOn = CreateBranchOptions.Base.Commit;
+            }
+        }
+
+        private void TrackOption_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TrackOption.CheckState == CheckState.Indeterminate)
+            {
+                _options.Track = null;
+            }
+            else
+            {
+                _options.Track = Convert.ToBoolean(TrackOption.CheckState);
+            }
+        }
+
+        private void ForceOption_CheckedChanged(object sender, EventArgs e)
+        {
+            _options.Force = ForceOption.Checked;
+            this.ValidateChildren();
+        }
+
+        private void SwitchOption_CheckedChanged(object sender, EventArgs e)
+        {
+            _options.Switch = SwitchOption.Checked;
+        }
     }
 }
