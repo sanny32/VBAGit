@@ -75,6 +75,22 @@ namespace VBAGitAddin.Git
             }
         }
 
+        public IEnumerable<Tag> Tags
+        {
+            get
+            {
+                return _repo.Tags;
+            }
+        }
+
+        public IEnumerable<Commit> Commits
+        {
+            get
+            {
+                return _repo.Commits;
+            }
+        }
+
         public IRepository Repository
         {
             get

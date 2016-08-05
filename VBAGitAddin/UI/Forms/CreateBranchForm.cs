@@ -42,7 +42,7 @@ namespace VBAGitAddin.UI.Forms
             Branches.Items.AddRange(_gitCommand.Provider.Branches.Select(b => b.FriendlyName).ToArray());
 
             // populate combobox with tags
-            Tags.Items.AddRange(_gitCommand.Repository.Tags.Select(t => t.FriendlyName).ToArray());
+            Tags.Items.AddRange(_gitCommand.Provider.Tags.Select(t => t.FriendlyName).ToArray());
 
             Application.Idle += Application_Idle;
         }
@@ -82,7 +82,7 @@ namespace VBAGitAddin.UI.Forms
             ErrorProvider.SetError(BranchName, "");
         }
 
-        private void BranchName_TextChanged(object sender, System.EventArgs e)
+        private void BranchName_TextChanged(object sender, EventArgs e)
         {
             if (((TextBox)sender).ContainsFocus)
             {
@@ -90,7 +90,7 @@ namespace VBAGitAddin.UI.Forms
             }
         }
 
-        private void Ok_Click(object sender, System.EventArgs e)
+        private void Ok_Click(object sender, EventArgs e)
         {
             this.ValidateChildren();
 
@@ -98,6 +98,10 @@ namespace VBAGitAddin.UI.Forms
             {
                 return;
             }
+
+            _options.Branch = _gitCommand.Provider.Branches.FirstOrDefault(b => b.FriendlyName == Branches.Text);
+            _options.Tag = _gitCommand.Provider.Tags.FirstOrDefault(t => t.FriendlyName == Tags.Text);
+            _options.Commit = _gitCommand.Provider.Commits.FirstOrDefault(c => c.Sha == Commits.Text.Trim());
 
             _gitCommand.CreateBranch(BranchName.Text, Description.Text, _options);
 
