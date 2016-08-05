@@ -250,7 +250,7 @@ namespace VBAGitAddin.UI.Forms
             string signedOfBy = string.Format(VBAGitUI.CommitForm_Signedofby, _gitCommand.Author);
             if (!CommitMessage.Text.Contains(signedOfBy))
             {
-                CommitMessage.Text += "\r\n\r\n" + signedOfBy;
+                CommitMessage.Text += Environment.NewLine + Environment.NewLine + signedOfBy;
             }
         }
 
@@ -369,6 +369,12 @@ namespace VBAGitAddin.UI.Forms
 
                 switch (ext)
                 {
+                    case VBComponentExtensions.DocClassExtension:
+                        item.ImageIndex = 2;
+                        item.Group = _groups.ElementAt(0);
+                        itemTag.Files.Add(stat.FilePath);
+                        break;
+
                     case VBComponentExtensions.ClassExtesnion:
                         item.ImageIndex = 2;
                         item.Group = _groups.ElementAt(3);
