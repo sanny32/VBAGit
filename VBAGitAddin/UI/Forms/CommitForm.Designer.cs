@@ -1,4 +1,6 @@
-﻿namespace VBAGitAddin.UI.Forms
+﻿using System.Windows.Forms;
+
+namespace VBAGitAddin.UI.Forms
 {
     partial class CommitForm
     {
@@ -13,7 +15,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            System.Windows.Forms.Application.Idle += Application_Idle;
+            Application.Idle -= Application_Idle;
 
             if (disposing && (components != null))
             {

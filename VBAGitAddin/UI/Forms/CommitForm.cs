@@ -87,7 +87,7 @@ namespace VBAGitAddin.UI.Forms
             CommitBranch.Tag = string.Empty;
             CommitBranch.Text = _gitCommand.CurrentBranch;
 
-            System.Windows.Forms.Application.Idle += Application_Idle;
+            Application.Idle += Application_Idle;
         }
 
         private void Application_Idle(object sender, EventArgs e)
@@ -107,7 +107,7 @@ namespace VBAGitAddin.UI.Forms
 
         private void CommitForm_Shown(object sender, EventArgs e)
         {
-            System.Windows.Forms.Application.DoEvents();
+            Application.DoEvents();
             _backgroundWorker.RunWorkerAsync();
         }
 
