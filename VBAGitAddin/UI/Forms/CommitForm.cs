@@ -370,7 +370,7 @@ namespace VBAGitAddin.UI.Forms
                 switch (ext)
                 {
                     case VBComponentExtensions.DocClassExtension:
-                        item.ImageIndex = 2;
+                        item.ImageIndex = 3;
                         item.Group = _groups.ElementAt(0);
                         itemTag.Files.Add(stat.FilePath);
                         break;
