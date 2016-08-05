@@ -84,7 +84,7 @@ namespace VBAGitAddin.UI.Commands
         {
             var branch = e.Argument as string;
 
-            _provider.CreateBranch(branch);
+            //_provider.CreateBranch(branch);
         }
     }
 }

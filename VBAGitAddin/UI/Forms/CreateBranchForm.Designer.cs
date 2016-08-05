@@ -1,4 +1,6 @@
-﻿namespace VBAGitAddin.UI.Forms
+﻿using System.Windows.Forms;
+
+namespace VBAGitAddin.UI.Forms
 {
     partial class CreateBranchForm
     {
@@ -13,6 +15,8 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            Application.Idle -= Application_Idle;
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -28,6 +32,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateBranchForm));
             this.GroupName = new System.Windows.Forms.GroupBox();
             this.BranchName = new System.Windows.Forms.TextBox();
@@ -50,10 +55,12 @@
             this.Description = new System.Windows.Forms.TextBox();
             this.Cancel = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
+            this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupName.SuspendLayout();
             this.GroupBaseOn.SuspendLayout();
             this.GroupOptions.SuspendLayout();
             this.GroupDescription.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // GroupName
@@ -75,6 +82,8 @@
             this.BranchName.Name = "BranchName";
             this.BranchName.Size = new System.Drawing.Size(236, 23);
             this.BranchName.TabIndex = 1;
+            this.BranchName.TextChanged += new System.EventHandler(this.BranchName_TextChanged);
+            this.BranchName.Validating += new System.ComponentModel.CancelEventHandler(this.BranchName_Validating);
             // 
             // LabelBranch
             // 
@@ -162,7 +171,6 @@
             this.BaseOnCommit.Name = "BaseOnCommit";
             this.BaseOnCommit.Size = new System.Drawing.Size(69, 19);
             this.BaseOnCommit.TabIndex = 3;
-            this.BaseOnCommit.TabStop = true;
             this.BaseOnCommit.Text = "Commit";
             this.BaseOnCommit.UseVisualStyleBackColor = true;
             // 
@@ -173,7 +181,6 @@
             this.BaseOnTag.Name = "BaseOnTag";
             this.BaseOnTag.Size = new System.Drawing.Size(44, 19);
             this.BaseOnTag.TabIndex = 2;
-            this.BaseOnTag.TabStop = true;
             this.BaseOnTag.Text = "Tag";
             this.BaseOnTag.UseVisualStyleBackColor = true;
             // 
@@ -184,13 +191,13 @@
             this.BaseOnBranch.Name = "BaseOnBranch";
             this.BaseOnBranch.Size = new System.Drawing.Size(62, 19);
             this.BaseOnBranch.TabIndex = 1;
-            this.BaseOnBranch.TabStop = true;
             this.BaseOnBranch.Text = "Branch";
             this.BaseOnBranch.UseVisualStyleBackColor = true;
             // 
             // BaseOnHead
             // 
             this.BaseOnHead.AutoSize = true;
+            this.BaseOnHead.Checked = true;
             this.BaseOnHead.Location = new System.Drawing.Point(19, 22);
             this.BaseOnHead.Name = "BaseOnHead";
             this.BaseOnHead.Size = new System.Drawing.Size(56, 19);
@@ -236,6 +243,9 @@
             // TrackOption
             // 
             this.TrackOption.AutoSize = true;
+            this.TrackOption.Checked = true;
+            this.TrackOption.CheckState = System.Windows.Forms.CheckState.Indeterminate;
+            this.TrackOption.Enabled = false;
             this.TrackOption.Location = new System.Drawing.Point(19, 31);
             this.TrackOption.Name = "TrackOption";
             this.TrackOption.Size = new System.Drawing.Size(54, 19);
@@ -282,13 +292,17 @@
             // Ok
             // 
             this.Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ok.Enabled = false;
             this.Ok.Location = new System.Drawing.Point(376, 430);
             this.Ok.Name = "Ok";
             this.Ok.Size = new System.Drawing.Size(87, 27);
             this.Ok.TabIndex = 4;
             this.Ok.Text = "OK";
             this.Ok.UseVisualStyleBackColor = true;
+            this.Ok.Click += new System.EventHandler(this.Ok_Click);
+            // 
+            // ErrorProvider
+            // 
+            this.ErrorProvider.ContainerControl = this;
             // 
             // CreateBranchForm
             // 
@@ -317,6 +331,7 @@
             this.GroupOptions.PerformLayout();
             this.GroupDescription.ResumeLayout(false);
             this.GroupDescription.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -344,5 +359,6 @@
         private System.Windows.Forms.ComboBox Commits;
         private System.Windows.Forms.ComboBox Tags;
         private System.Windows.Forms.ComboBox Branches;
+        private ErrorProvider ErrorProvider;
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using LibGit2Sharp;
+using System.Linq;
+using System.Windows.Forms;
 using VBAGitAddin.UI.Commands;
 
 namespace VBAGitAddin.UI.Forms
@@ -37,7 +39,19 @@ namespace VBAGitAddin.UI.Forms
 
             // populate combobox with tags
             Tags.Items.AddRange(_gitCommand.Repository.Tags.Select(t => t.FriendlyName).ToArray());
-            
+
+            Application.Idle += Application_Idle;
+        }
+   
+        private void Application_Idle(object sender, System.EventArgs e)
+        {
+            Branches.Enabled = BaseOnBranch.Checked;
+            SelectBranch.Enabled = BaseOnBranch.Checked;
+
+            Tags.Enabled = BaseOnTag.Checked;
+
+            Commits.Enabled = BaseOnCommit.Checked;
+            SelectCommit.Enabled = BaseOnCommit.Checked;
         }
 
         public new void ShowDialog()
@@ -45,6 +59,41 @@ namespace VBAGitAddin.UI.Forms
             Text = string.Format(VBAGitUI.CreateBranchForm_Text, _gitCommand.Repository.Info.WorkingDirectory);
 
             base.ShowDialog();
+        }      
+
+        private void BranchName_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!Reference.IsValidName("refs/heads/" + BranchName.Text))
+            {
+                ErrorProvider.SetError(BranchName, VBAGitUI.Git_InvalidBranchName);
+                return;
+            }
+
+            if (_gitCommand.Repository.Branches[BranchName.Text] != null)
+            {
+                ErrorProvider.SetError(BranchName, VBAGitUI.Git_BranchExists);
+                return;
+            }
+
+            ErrorProvider.SetError(BranchName, "");
         }
+
+        private void BranchName_TextChanged(object sender, System.EventArgs e)
+        {
+            if (((TextBox)sender).ContainsFocus)
+            {
+                ErrorProvider.SetError(BranchName, "");
+            }
+        }
+
+        private void Ok_Click(object sender, System.EventArgs e)
+        {
+            this.ValidateChildren();
+
+            if (ErrorProvider.GetError(BranchName) != "")
+            {
+                return;
+            }
+        }        
     }
 }

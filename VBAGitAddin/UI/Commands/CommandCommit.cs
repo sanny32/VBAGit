@@ -108,7 +108,7 @@ namespace VBAGitAddin.UI.Commands
             if(commitInfo.Branch != "master" &&
                commitInfo.Branch != this.CurrentBranch)           
             {
-                _provider.CreateBranch(commitInfo.Branch);
+                _provider.CreateBranch(commitInfo.Branch, true);
             }
 
             _provider.Commit(commitInfo.Message, commitInfo.Author, commitInfo.When, options);            
