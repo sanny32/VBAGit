@@ -296,12 +296,16 @@ namespace VBAGitAddin.Git
             }
         }
 
-        public void CreateBranch(string branch)
+        public void CreateBranch(string branch, bool switchToNewBranch)
         {
             try
             {
                 _repo.CreateBranch(branch);
-                _repo.Checkout(branch);
+
+                if (switchToNewBranch)
+                {
+                    _repo.Checkout(branch);
+                }
 
                 RequeryUnsyncedCommits();
             }
