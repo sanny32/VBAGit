@@ -93,6 +93,12 @@
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Commands\CommandCreateBranch.cs" />
+    <Compile Include="UI\Forms\BrowseReferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\BrowseReferencesForm.Designer.cs">
+      <DependentUpon>BrowseReferencesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\CreateBranchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\BrowseReferencesForm.resx">
+      <DependentUpon>BrowseReferencesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\CommitForm.resx">
       <DependentUpon>CommitForm.cs</DependentUpon>
