@@ -31,7 +31,7 @@
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("refs");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowseReferencesForm));
             this.RefsTree = new System.Windows.Forms.TreeView();
-            this.ListView = new System.Windows.Forms.ListView();
+            this.RefsList = new System.Windows.Forms.ListView();
             this.NestedRefs = new System.Windows.Forms.CheckBox();
             this.Cancel = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
@@ -39,9 +39,9 @@
             this.Filter = new System.Windows.Forms.TextBox();
             this.CurrentBranch = new System.Windows.Forms.Button();
             this.FilterPanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.FilterPicture = new System.Windows.Forms.PictureBox();
             this.FilterPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FilterPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // RefsTree
@@ -60,19 +60,21 @@
             this.RefsTree.TabIndex = 0;
             this.RefsTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.RefsTree_AfterSelect);
             // 
-            // ListView
+            // RefsList
             // 
-            this.ListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.RefsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ListView.FullRowSelect = true;
-            this.ListView.Location = new System.Drawing.Point(225, 37);
-            this.ListView.Name = "ListView";
-            this.ListView.Size = new System.Drawing.Size(447, 329);
-            this.ListView.TabIndex = 1;
-            this.ListView.UseCompatibleStateImageBehavior = false;
-            this.ListView.View = System.Windows.Forms.View.Details;
-            this.ListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ListView_ItemSelectionChanged);
+            this.RefsList.FullRowSelect = true;
+            this.RefsList.HideSelection = false;
+            this.RefsList.Location = new System.Drawing.Point(225, 37);
+            this.RefsList.MultiSelect = false;
+            this.RefsList.Name = "RefsList";
+            this.RefsList.Size = new System.Drawing.Size(447, 329);
+            this.RefsList.TabIndex = 1;
+            this.RefsList.UseCompatibleStateImageBehavior = false;
+            this.RefsList.View = System.Windows.Forms.View.Details;
+            this.RefsList.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ListView_ItemSelectionChanged);
             // 
             // NestedRefs
             // 
@@ -84,6 +86,7 @@
             this.NestedRefs.TabIndex = 2;
             this.NestedRefs.Text = "Show nested refs";
             this.NestedRefs.UseVisualStyleBackColor = true;
+            this.NestedRefs.Visible = false;
             // 
             // Cancel
             // 
@@ -99,12 +102,14 @@
             // Ok
             // 
             this.Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Ok.Location = new System.Drawing.Point(492, 372);
             this.Ok.Name = "Ok";
             this.Ok.Size = new System.Drawing.Size(87, 27);
             this.Ok.TabIndex = 6;
             this.Ok.Text = "OK";
             this.Ok.UseVisualStyleBackColor = true;
+            this.Ok.Click += new System.EventHandler(this.Ok_Click);
             // 
             // LabelFilter
             // 
@@ -121,29 +126,35 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Filter.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.Filter.Location = new System.Drawing.Point(0, 1);
+            this.Filter.Location = new System.Drawing.Point(1, 1);
             this.Filter.Name = "Filter";
-            this.Filter.Size = new System.Drawing.Size(379, 16);
+            this.Filter.Size = new System.Drawing.Size(382, 16);
             this.Filter.TabIndex = 9;
             this.Filter.Text = "Filter by refname, Subject, Authors, SHA-1";
             this.Filter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Filter.TextChanged += new System.EventHandler(this.Filter_TextChanged);
+            this.Filter.Enter += new System.EventHandler(this.Filter_Enter);
+            this.Filter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Filter_KeyUp);
+            this.Filter.Leave += new System.EventHandler(this.Filter_Leave);
             // 
             // CurrentBranch
             // 
             this.CurrentBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CurrentBranch.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.CurrentBranch.Location = new System.Drawing.Point(374, 372);
             this.CurrentBranch.Name = "CurrentBranch";
             this.CurrentBranch.Size = new System.Drawing.Size(112, 27);
             this.CurrentBranch.TabIndex = 10;
             this.CurrentBranch.Text = "Current Branch";
             this.CurrentBranch.UseVisualStyleBackColor = true;
+            this.CurrentBranch.Click += new System.EventHandler(this.CurrentBranch_Click);
             // 
             // FilterPanel
             // 
             this.FilterPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FilterPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.FilterPanel.Controls.Add(this.pictureBox1);
+            this.FilterPanel.Controls.Add(this.FilterPicture);
             this.FilterPanel.Controls.Add(this.Filter);
             this.FilterPanel.Location = new System.Drawing.Point(271, 12);
             this.FilterPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -151,16 +162,17 @@
             this.FilterPanel.Size = new System.Drawing.Size(401, 20);
             this.FilterPanel.TabIndex = 11;
             // 
-            // pictureBox1
+            // FilterPicture
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Location = new System.Drawing.Point(379, -2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.FilterPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FilterPicture.BackColor = System.Drawing.SystemColors.Window;
+            this.FilterPicture.Image = global::VBAGitAddin.Properties.Resources.search;
+            this.FilterPicture.Location = new System.Drawing.Point(383, 1);
+            this.FilterPicture.Name = "FilterPicture";
+            this.FilterPicture.Size = new System.Drawing.Size(16, 16);
+            this.FilterPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.FilterPicture.TabIndex = 10;
+            this.FilterPicture.TabStop = false;
             // 
             // BrowseReferencesForm
             // 
@@ -173,7 +185,7 @@
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Ok);
             this.Controls.Add(this.NestedRefs);
-            this.Controls.Add(this.ListView);
+            this.Controls.Add(this.RefsList);
             this.Controls.Add(this.RefsTree);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -183,9 +195,10 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Browse references - VBAGit";
+            this.Shown += new System.EventHandler(this.BrowseReferencesForm_Shown);
             this.FilterPanel.ResumeLayout(false);
             this.FilterPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FilterPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,7 +207,7 @@
         #endregion
 
         private System.Windows.Forms.TreeView RefsTree;
-        private System.Windows.Forms.ListView ListView;
+        private System.Windows.Forms.ListView RefsList;
         private System.Windows.Forms.CheckBox NestedRefs;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Button Ok;
@@ -202,6 +215,6 @@
         private System.Windows.Forms.TextBox Filter;
         private System.Windows.Forms.Button CurrentBranch;
         private System.Windows.Forms.Panel FilterPanel;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox FilterPicture;
     }
 }

@@ -117,6 +117,7 @@ namespace VBAGitAddin.UI.Forms
             // SelectCommit
             // 
             this.SelectCommit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SelectCommit.Enabled = false;
             this.SelectCommit.Location = new System.Drawing.Point(498, 92);
             this.SelectCommit.Name = "SelectCommit";
             this.SelectCommit.Size = new System.Drawing.Size(26, 25);

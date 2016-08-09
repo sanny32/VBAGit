@@ -40,6 +40,7 @@ namespace VBAGitAddin.UI.Forms
 
             // populate combobox with branches
             Branches.Items.AddRange(_gitCommand.Provider.Branches.Select(b => b.FriendlyName).ToArray());
+            Branches.SelectedIndex = Branches.Items.Count > 0 ? 0 : -1;
 
             // populate combobox with tags
             Tags.Items.AddRange(_gitCommand.Provider.Tags.Select(t => t.FriendlyName).ToArray());
@@ -170,9 +171,14 @@ namespace VBAGitAddin.UI.Forms
         {
             using (BrowseReferencesForm browsRefsForm = new BrowseReferencesForm(_gitCommand.Repository))
             {
-                if(browsRefsForm.ShowDialog() == DialogResult.OK)
+                var branch = _gitCommand.Provider.Branches.FirstOrDefault(b => b.FriendlyName == Branches.Text);
+                if (branch!= null && browsRefsForm.ShowDialog(branch) == DialogResult.OK)
                 {
-
+                    if (browsRefsForm.SelectedReference is Branch)
+                    {
+                        var selectedBranch = browsRefsForm.SelectedReference as Branch;
+                        Branches.SelectedItem = selectedBranch.FriendlyName;
+                    }                    
                 }
             }
         }
