@@ -61,6 +61,105 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Branch Name.
+        /// </summary>
+        internal static string BrowseReferencesForm_BranchName {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_BranchName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Branch.
+        /// </summary>
+        internal static string BrowseReferencesForm_CurrentBranch {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_CurrentBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Last Commit.
+        /// </summary>
+        internal static string BrowseReferencesForm_DateLastCommit {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_DateLastCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string BrowseReferencesForm_Description {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter: .
+        /// </summary>
+        internal static string BrowseReferencesForm_Filter {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by Refname, Subject, Authors, SHA-1.
+        /// </summary>
+        internal static string BrowseReferencesForm_FilterTooltip {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_FilterTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Author.
+        /// </summary>
+        internal static string BrowseReferencesForm_LastAuthor {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_LastAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Commit.
+        /// </summary>
+        internal static string BrowseReferencesForm_LastCommit {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_LastCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SHA-1.
+        /// </summary>
+        internal static string BrowseReferencesForm_SHA1 {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_SHA1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show nested refs.
+        /// </summary>
+        internal static string BrowseReferencesForm_ShowNestedRefs {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_ShowNestedRefs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tracked branch.
+        /// </summary>
+        internal static string BrowseReferencesForm_TrackedBranch {
+            get {
+                return ResourceManager.GetString("BrowseReferencesForm_TrackedBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {

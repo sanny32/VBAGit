@@ -10,7 +10,7 @@ using Microsoft.Vbe.Interop;
 using VBAGitAddin.Diagnostics;
 using VBAGitAddin.VBEditor.Extensions;
 using VBAGitAddin.Configuration;
-
+using VBAGitAddin.Git.Extensions;
 
 namespace VBAGitAddin.Git
 {
@@ -351,16 +351,7 @@ namespace VBAGitAddin.Git
 
                 Trace.TraceInformation("git create branch '{0}'", branch);
 
-                var key = string.Format("branch.{0}.description", branch);
-                if (string.IsNullOrWhiteSpace(description))
-                {
-                    _repo.Config.Unset(key);
-                }
-                else
-                {
-                    description.Trim();                    
-                    _repo.Config.Set(key, description.Replace(Environment.NewLine, string.Empty));
-                }
+                _repo.SetBranchDescription(branch, description);
 
                 RequeryUnsyncedCommits();
 

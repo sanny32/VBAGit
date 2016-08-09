@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("refs");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowseReferencesForm));
             this.RefsTree = new System.Windows.Forms.TreeView();
-            this.BranchesView = new System.Windows.Forms.ListView();
+            this.ListView = new System.Windows.Forms.ListView();
             this.NestedRefs = new System.Windows.Forms.CheckBox();
             this.Cancel = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
@@ -47,27 +48,37 @@
             // 
             this.RefsTree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.RefsTree.HideSelection = false;
             this.RefsTree.Location = new System.Drawing.Point(14, 37);
             this.RefsTree.Name = "RefsTree";
-            this.RefsTree.Size = new System.Drawing.Size(247, 379);
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "refs";
+            this.RefsTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.RefsTree.ShowPlusMinus = false;
+            this.RefsTree.Size = new System.Drawing.Size(205, 329);
             this.RefsTree.TabIndex = 0;
+            this.RefsTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.RefsTree_AfterSelect);
             // 
-            // BranchesView
+            // ListView
             // 
-            this.BranchesView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.BranchesView.Location = new System.Drawing.Point(271, 37);
-            this.BranchesView.Name = "BranchesView";
-            this.BranchesView.Size = new System.Drawing.Size(501, 379);
-            this.BranchesView.TabIndex = 1;
-            this.BranchesView.UseCompatibleStateImageBehavior = false;
+            this.ListView.FullRowSelect = true;
+            this.ListView.Location = new System.Drawing.Point(225, 37);
+            this.ListView.Name = "ListView";
+            this.ListView.Size = new System.Drawing.Size(447, 329);
+            this.ListView.TabIndex = 1;
+            this.ListView.UseCompatibleStateImageBehavior = false;
+            this.ListView.View = System.Windows.Forms.View.Details;
+            this.ListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ListView_ItemSelectionChanged);
             // 
             // NestedRefs
             // 
             this.NestedRefs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.NestedRefs.AutoSize = true;
-            this.NestedRefs.Location = new System.Drawing.Point(14, 430);
+            this.NestedRefs.Location = new System.Drawing.Point(14, 380);
             this.NestedRefs.Name = "NestedRefs";
             this.NestedRefs.Size = new System.Drawing.Size(115, 19);
             this.NestedRefs.TabIndex = 2;
@@ -78,7 +89,7 @@
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(685, 422);
+            this.Cancel.Location = new System.Drawing.Point(585, 372);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(87, 27);
             this.Cancel.TabIndex = 7;
@@ -88,7 +99,7 @@
             // Ok
             // 
             this.Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ok.Location = new System.Drawing.Point(592, 422);
+            this.Ok.Location = new System.Drawing.Point(492, 372);
             this.Ok.Name = "Ok";
             this.Ok.Size = new System.Drawing.Size(87, 27);
             this.Ok.TabIndex = 6;
@@ -98,7 +109,7 @@
             // LabelFilter
             // 
             this.LabelFilter.AutoSize = true;
-            this.LabelFilter.Location = new System.Drawing.Point(268, 15);
+            this.LabelFilter.Location = new System.Drawing.Point(222, 13);
             this.LabelFilter.Name = "LabelFilter";
             this.LabelFilter.Size = new System.Drawing.Size(39, 15);
             this.LabelFilter.TabIndex = 8;
@@ -110,9 +121,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Filter.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Filter.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.Filter.Location = new System.Drawing.Point(3, 3);
+            this.Filter.Location = new System.Drawing.Point(0, 1);
             this.Filter.Name = "Filter";
-            this.Filter.Size = new System.Drawing.Size(426, 16);
+            this.Filter.Size = new System.Drawing.Size(379, 16);
             this.Filter.TabIndex = 9;
             this.Filter.Text = "Filter by refname, Subject, Authors, SHA-1";
             this.Filter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -120,7 +131,7 @@
             // CurrentBranch
             // 
             this.CurrentBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CurrentBranch.Location = new System.Drawing.Point(474, 422);
+            this.CurrentBranch.Location = new System.Drawing.Point(374, 372);
             this.CurrentBranch.Name = "CurrentBranch";
             this.CurrentBranch.Size = new System.Drawing.Size(112, 27);
             this.CurrentBranch.TabIndex = 10;
@@ -131,22 +142,23 @@
             // 
             this.FilterPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.FilterPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FilterPanel.Controls.Add(this.pictureBox1);
             this.FilterPanel.Controls.Add(this.Filter);
-            this.FilterPanel.Location = new System.Drawing.Point(323, 12);
+            this.FilterPanel.Location = new System.Drawing.Point(271, 12);
             this.FilterPanel.Margin = new System.Windows.Forms.Padding(0);
             this.FilterPanel.Name = "FilterPanel";
-            this.FilterPanel.Size = new System.Drawing.Size(449, 21);
+            this.FilterPanel.Size = new System.Drawing.Size(401, 20);
             this.FilterPanel.TabIndex = 11;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Location = new System.Drawing.Point(430, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(379, -2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 10;
             this.pictureBox1.TabStop = false;
             // 
@@ -154,20 +166,21 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.FilterPanel);
             this.Controls.Add(this.CurrentBranch);
             this.Controls.Add(this.LabelFilter);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Ok);
             this.Controls.Add(this.NestedRefs);
-            this.Controls.Add(this.BranchesView);
+            this.Controls.Add(this.ListView);
             this.Controls.Add(this.RefsTree);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(800, 500);
+            this.MinimumSize = new System.Drawing.Size(700, 450);
             this.Name = "BrowseReferencesForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Browse references - VBAGit";
             this.FilterPanel.ResumeLayout(false);
@@ -181,7 +194,7 @@
         #endregion
 
         private System.Windows.Forms.TreeView RefsTree;
-        private System.Windows.Forms.ListView BranchesView;
+        private System.Windows.Forms.ListView ListView;
         private System.Windows.Forms.CheckBox NestedRefs;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Button Ok;

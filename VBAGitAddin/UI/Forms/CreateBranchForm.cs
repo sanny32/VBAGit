@@ -165,5 +165,16 @@ namespace VBAGitAddin.UI.Forms
         {
             _options.Switch = SwitchOption.Checked;
         }
+
+        private void SelectBranch_Click(object sender, EventArgs e)
+        {
+            using (BrowseReferencesForm browsRefsForm = new BrowseReferencesForm(_gitCommand.Repository))
+            {
+                if(browsRefsForm.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+        }
     }
 }

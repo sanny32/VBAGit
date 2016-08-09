@@ -333,4 +333,37 @@
   <data name="ProgressInfo_CreateBranch" xml:space="preserve">
     <value>Create Branch...</value>
   </data>
+  <data name="BrowseReferencesForm_CurrentBranch" xml:space="preserve">
+    <value>Current Branch</value>
+  </data>
+  <data name="BrowseReferencesForm_Filter" xml:space="preserve">
+    <value>Filter: </value>
+  </data>
+  <data name="BrowseReferencesForm_FilterTooltip" xml:space="preserve">
+    <value>Filter by Refname, Subject, Authors, SHA-1</value>
+  </data>
+  <data name="BrowseReferencesForm_ShowNestedRefs" xml:space="preserve">
+    <value>Show nested refs</value>
+  </data>
+  <data name="BrowseReferencesForm_BranchName" xml:space="preserve">
+    <value>Branch Name</value>
+  </data>
+  <data name="BrowseReferencesForm_DateLastCommit" xml:space="preserve">
+    <value>Date Last Commit</value>
+  </data>
+  <data name="BrowseReferencesForm_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="BrowseReferencesForm_LastAuthor" xml:space="preserve">
+    <value>Last Author</value>
+  </data>
+  <data name="BrowseReferencesForm_LastCommit" xml:space="preserve">
+    <value>Last Commit</value>
+  </data>
+  <data name="BrowseReferencesForm_SHA1" xml:space="preserve">
+    <value>SHA-1</value>
+  </data>
+  <data name="BrowseReferencesForm_TrackedBranch" xml:space="preserve">
+    <value>Tracked branch</value>
+  </data>
 </root>

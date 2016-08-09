@@ -133,6 +133,7 @@ namespace VBAGitAddin.UI.Forms
             this.SelectBranch.TabIndex = 7;
             this.SelectBranch.Text = "...";
             this.SelectBranch.UseVisualStyleBackColor = true;
+            this.SelectBranch.Click += new System.EventHandler(this.SelectBranch_Click);
             // 
             // Commits
             // 
