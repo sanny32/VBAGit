@@ -94,6 +94,8 @@
       <DependentUpon>AnimationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Commands\CommandCreateBranch.cs" />
+    <Compile Include="UI\DialogResultEx.cs" />
+    <Compile Include="UI\FlashWindow.cs" />
     <Compile Include="UI\Forms\BrowseReferencesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,7 +197,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
