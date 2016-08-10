@@ -3,7 +3,7 @@ using Microsoft.Vbe.Interop;
 
 namespace VBAGitAddin.VBEditor.Extensions
 {
-    public static class VbeExtensions
+    public static class VBEExtensions
     {
         public static void SetSelection(this VBE vbe, VBProject vbProject, Selection selection, string name)
         {

@@ -5,7 +5,7 @@ using Microsoft.Vbe.Interop;
 
 namespace VBAGitAddin.VBEditor.Extensions
 {
-    public static class ProjectExtensions
+    public static class VBProjectExtensions
     {
         public static IEnumerable<string> ComponentNames(this VBProject project)
         {
