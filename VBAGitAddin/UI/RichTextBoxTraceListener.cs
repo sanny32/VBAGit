@@ -69,8 +69,7 @@ namespace VBAGitAddin.UI
 
             if (_richTextBox.InvokeRequired)
             {
-                var result = _richTextBox.BeginInvoke(append);
-                _richTextBox.EndInvoke(result);
+                _richTextBox.Invoke(append);                
             }
             else
             {
