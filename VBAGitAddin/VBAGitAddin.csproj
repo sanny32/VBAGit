@@ -114,6 +114,12 @@
     <Compile Include="UI\ExceptionMessageBox.cs" />
     <Compile Include="UI\Extensions\EventExtensions.cs" />
     <Compile Include="UI\Extensions\RichTextBoxExtensions.cs" />
+    <Compile Include="UI\Forms\ReloadFileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\ReloadFileForm.Designer.cs">
+      <DependentUpon>ReloadFileForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InformationMessageBox.cs" />
     <Compile Include="UI\Forms\ProgressForm.cs">
       <SubType>Form</SubType>
@@ -144,7 +150,6 @@
     <Compile Include="VBEditor\CodeModuleSelection.cs" />
     <Compile Include="VBEditor\Extensions\CodeModuleExtensions.cs" />
     <Compile Include="VBEditor\Extensions\CodePaneExtensions.cs" />
-    <Compile Include="VBEditor\Extensions\StringExtensions.cs" />
     <Compile Include="VBEditor\Extensions\VBComponentExtensions.cs" />
     <Compile Include="VBEditor\Extensions\VBComponentsExtensions.cs" />
     <Compile Include="VBEditor\Extensions\VbeExtensions.cs" />
@@ -179,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\ReloadFileForm.resx">
+      <DependentUpon>ReloadFileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\VBAGitUI.resx">
       <Generator>ResXFileCodeGenerator</Generator>

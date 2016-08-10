@@ -41,6 +41,20 @@ namespace VBAGitAddin.VBEditor.Extensions
         }
 
         /// <summary>
+        /// Remove Vbcomponent from VbProject.
+        /// </summary>        
+        /// <param name="project"></param>
+        /// <param name="name">name of removed component</param>
+        public static void RemoveComponent(this VBProject project, string name)
+        {
+            var component = project.VBComponents.Find(name);
+            if(component != null)
+            {
+                project.VBComponents.RemoveSafely(component);
+            }
+        }
+
+        /// <summary>
         /// Imports all source code files from target directory into project.
         /// </summary>
         /// <remarks>
@@ -48,10 +62,10 @@ namespace VBAGitAddin.VBEditor.Extensions
         /// It is the callers responsibility to remove any existing components prior to importing.
         /// </remarks>
         /// <param name="project"></param>
-        /// <param name="filePath">Directory path containing the source files.</param>
-        public static void ImportSourceFiles(this VBProject project, string filePath)
+        /// <param name="path">Directory path containing the source files.</param>
+        public static void ImportSourceFiles(this VBProject project, string path)
         {
-            var dirInfo = new DirectoryInfo(filePath);
+            var dirInfo = new DirectoryInfo(path);
 
             var files = dirInfo.EnumerateFiles()
                                 .Where(f => f.Extension == VBComponentExtensions.StandardExtension ||
@@ -60,7 +74,17 @@ namespace VBAGitAddin.VBEditor.Extensions
                                             f.Extension == VBComponentExtensions.FormExtension
                                             );
 
-            files.ToList().ForEach(file => project.VBComponents.ImportSourceFile(file.FullName));            
+            files.ToList().ForEach(file => project.ImportSourceFile(file.FullName));            
+        }
+
+        /// <summary>
+        /// Import source code from target file.
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="filePath">File path containing the source file</param>
+        public static void ImportSourceFile(this VBProject project, string filePath)
+        {
+            project.VBComponents.ImportSourceFile(filePath);
         }
     }
 }

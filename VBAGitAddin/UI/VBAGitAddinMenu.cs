@@ -69,7 +69,7 @@ namespace VBAGitAddin.UI
                 _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnSourceControlCommit, "git_commit");                
                 _scPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnSourceControlPull, "git_pull");                
                 _scFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnSourceControlFetch, "git_pull");                
-                _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnSourceControlPush, "git_push");                               
+                _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnSourceControlPush, "git_push");
             }
             else
             {
@@ -275,6 +275,11 @@ namespace VBAGitAddin.UI
             }
 
             UnsubsribeCommandBarButtonClickEvents();
+
+            if(_app != null)
+            {
+                _app.Dispose();
+            }
 
             if (_menu != null)
             {

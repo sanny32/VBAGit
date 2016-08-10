@@ -574,6 +574,18 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///
+        ///This file has been modified outside of the source editor.
+        ///Do you want to reload it?.
+        /// </summary>
+        internal static string ReloadFileForm_Info {
+            get {
+                return ResourceManager.GetString("ReloadFileForm_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VBAGit.
         /// </summary>
         internal static string VBAGitCaption {

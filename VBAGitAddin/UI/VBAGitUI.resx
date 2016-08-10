@@ -366,4 +366,10 @@
   <data name="BrowseReferencesForm_TrackedBranch" xml:space="preserve">
     <value>Tracked branch</value>
   </data>
+  <data name="ReloadFileForm_Info" xml:space="preserve">
+    <value>{0}
+
+This file has been modified outside of the source editor.
+Do you want to reload it?</value>
+  </data>
 </root>
