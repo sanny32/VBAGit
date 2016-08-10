@@ -131,6 +131,9 @@
     </Compile>
     <Compile Include="UI\Commands\CommandInit.cs" />
     <Compile Include="UI\Commands\IGitCommand.cs" />
+    <Compile Include="UI\RepositoryFileWatcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\RichTextBoxTraceListener.cs" />
     <Compile Include="UI\VBAGitAddinApp.cs" />
     <Compile Include="UI\Forms\CommitForm.cs">
@@ -154,8 +157,8 @@
     <Compile Include="VBEditor\Extensions\CodePaneExtensions.cs" />
     <Compile Include="VBEditor\Extensions\VBComponentExtensions.cs" />
     <Compile Include="VBEditor\Extensions\VBComponentsExtensions.cs" />
-    <Compile Include="VBEditor\Extensions\VbeExtensions.cs" />
-    <Compile Include="VBEditor\Extensions\VbProjectExtensions.cs" />
+    <Compile Include="VBEditor\Extensions\VBEExtensions.cs" />
+    <Compile Include="VBEditor\Extensions\VBProjectExtensions.cs" />
     <Compile Include="VBEditor\Extensions\WindowExtensions.cs" />
     <Compile Include="VBEditor\IActiveCodePaneEditor.cs" />
     <Compile Include="VBEditor\NativeWindowMethods.cs" />
