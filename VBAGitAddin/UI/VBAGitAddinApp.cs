@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Permissions;
 using System.Windows.Forms;
 using VBAGitAddin.Configuration;
 using VBAGitAddin.UI.Commands;
@@ -17,58 +16,154 @@ namespace VBAGitAddin.UI
         private readonly IConfigurationService<GitConfiguration> _configService;
         private readonly GitConfiguration _config;
         private List<FileSystemWatcher> _fsWatchers;
+        private List<string> _changedFiles;
+        private IGitCommand _gitCommand;
+        private Timer _timer;
 
         internal VBAGitAddinApp(VBE vbe)
         {
             _vbe = vbe;
+            _gitCommand = null;
 
             _configService = new VBAGitConfigurationService();
             _config = _configService.LoadConfiguration();
 
             _fsWatchers = new List<FileSystemWatcher>();
+            _changedFiles = new List<string>();
+
+            _timer = new Timer();
+            _timer.Interval = 1000;
+            _timer.Tick += _timer_Tick;
+            _timer.Start();
+
             foreach (VBProject prj in _vbe.VBProjects)
             {
                 var repo = GetVBProjectRepository(prj);
                 if (repo != null)
                 {
                     var fsWatcher = new FileSystemWatcher();
-                    fsWatcher.NotifyFilter = NotifyFilters.LastWrite;                  
+                    fsWatcher.NotifyFilter = NotifyFilters.LastWrite;                    
+                    fsWatcher.InternalBufferSize = 4096;
+                    fsWatcher.IncludeSubdirectories = false;
                     fsWatcher.Changed += fsWatcher_Changed;
                     fsWatcher.Path = repo.LocalPath;
-                    fsWatcher.EnableRaisingEvents = true;
+                    fsWatcher.EnableRaisingEvents = true;                    
 
                     _fsWatchers.Add(fsWatcher);
                 }
             }
         }
 
-        private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
+        private void _timer_Tick(object sender, EventArgs e)
         {
-            if(e.ChangeType == WatcherChangeTypes.Changed)
+            try
             {
-                var fileInfo = new FileInfo(e.FullPath);
-                switch(fileInfo.Extension)
+                _timer.Stop();
+
+                lock (_changedFiles)
+                {
+                    if (_changedFiles.Count == 0)
+                    {
+                        return;
+                    }
+
+                    //Because refreshing removes components, we need to store the current selection,
+                    // so we can correctly reset it once the files are imported from the repository.
+                    var selection = _vbe.ActiveCodePane.GetSelection();
+                    string name = null;
+                    if (selection.QualifiedName.Component != null)
+                    {
+                        name = selection.QualifiedName.Component.Name;
+                    }
+
+                    ReloadVBComponents();
+
+                    _vbe.SetSelection(selection.QualifiedName.Project, selection.Selection, name);
+                }
+            }
+            finally
+            {
+                _timer.Start();
+            }
+        }
+
+        private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
+        {           
+            if(e.ChangeType == WatcherChangeTypes.Changed)
+            {                               
+                lock(_changedFiles)
+                {
+                    if (!_changedFiles.Contains(e.FullPath))
+                    {
+                        _changedFiles.Add(e.FullPath);
+                    }
+                }
+            }
+        }
+
+        private void ReloadVBComponents()
+        {
+            DialogResultEx result = DialogResultEx.None;
+            _changedFiles.ForEach(filePath =>
+            {
+                var fileInfo = new FileInfo(filePath);
+                var name = Path.GetFileNameWithoutExtension(fileInfo.Name);
+                switch (fileInfo.Extension)
                 {
                     case VBComponentExtensions.ClassExtesnion:
                     case VBComponentExtensions.DocClassExtension:
                     case VBComponentExtensions.FormExtension:
                     case VBComponentExtensions.StandardExtension:
                         {
-                            using (ReloadFileForm form = new ReloadFileForm(e.FullPath))
+                            switch (result)
                             {
-                                if (form.ShowDialog() == DialogResult.Yes)
-                                {
-                                    _vbe.ActiveVBProject.RemoveComponent(fileInfo.Name);
-                                    _vbe.ActiveVBProject.ImportSourceFile(e.FullPath);
-                                }
-                                else
-                                {
+                                case DialogResultEx.Yes:
+                                case DialogResultEx.No:
+                                case DialogResultEx.None:
+                                    {
+                                        using (ReloadFileForm form = new ReloadFileForm(filePath))
+                                        {
+                                            NativeWindow window = new NativeWindow();
+                                            window.AssignHandle(new IntPtr(_vbe.MainWindow.HWnd));
 
-                                }
+                                            result = form.ShowDialog(window);
+                                            switch (result)
+                                            {
+                                                case DialogResultEx.Yes:
+                                                case DialogResultEx.YesToAll:
+                                                    ReloadVBComponent(name, fileInfo.FullName);
+                                                    break;
+                                            }
+
+                                            window.ReleaseHandle();
+                                        }
+                                    }
+                                    break;
+
+                                case DialogResultEx.YesToAll:
+                                    ReloadVBComponent(name, fileInfo.FullName);
+                                    break;
                             }
+
                         }
-                    break;
-                }                
+                        break;
+                }
+            });
+
+            _changedFiles.Clear();
+        }
+
+        private void ReloadVBComponent(string name, string filePath)
+        {           
+            _vbe.ActiveVBProject.RemoveComponent(name);
+            _vbe.ActiveVBProject.ImportSourceFile(filePath);           
+        }
+
+        public bool EnableFileSystemWatcher
+        {
+            set
+            {
+                _fsWatchers.ForEach(fsWatcher => fsWatcher.EnableRaisingEvents = value);
             }
         }
 
@@ -114,34 +209,61 @@ namespace VBAGitAddin.UI
 
         public void CreateNewRepo()
         {
-            var project = _vbe.ActiveVBProject;
-            using (var initCommand = new CommandInit(project))
+            try
             {
-                initCommand.Execute();
+                EnableFileSystemWatcher = false;
 
-                RepositorySettings repoSetting = new RepositorySettings();
-                repoSetting.Name = project.Name;
-                repoSetting.LocalPath = initCommand.Repository.Info.WorkingDirectory;
+                var project = _vbe.ActiveVBProject;
+                using (_gitCommand = new CommandInit(project))
+                {
+                    _gitCommand.Execute();
 
-                AddRepoToConfig(repoSetting);
-            }           
+                    RepositorySettings repoSetting = new RepositorySettings();
+                    repoSetting.Name = project.Name;
+                    repoSetting.LocalPath = _gitCommand.Repository.Info.WorkingDirectory;
+
+                    AddRepoToConfig(repoSetting);
+                }
+            }
+            finally
+            {
+                EnableFileSystemWatcher = true;
+            }
         }
 
         public void Commit()
         {
-            var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
-            using (var commitCommand = new CommandCommit(_vbe.ActiveVBProject, repo))
+            try
             {
-                commitCommand.Execute();
-            }   
+                EnableFileSystemWatcher = false;
+
+                var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
+                using (_gitCommand = new CommandCommit(_vbe.ActiveVBProject, repo))
+                {
+                    _gitCommand.Execute();
+                }
+            }
+            finally
+            {
+                EnableFileSystemWatcher = true;
+            }
         }
 
         public void CreateBranch()
         {
-            var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
-            using (var createBranchCommand = new CommandCreateBranch(_vbe.ActiveVBProject, repo))
+            try
             {
-                createBranchCommand.Execute();
+                EnableFileSystemWatcher = false;
+
+                var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
+                using (_gitCommand = new CommandCreateBranch(_vbe.ActiveVBProject, repo))
+                {
+                    _gitCommand.Execute();
+                }
+            }
+            finally
+            {
+                EnableFileSystemWatcher = true;
             }
         }
 

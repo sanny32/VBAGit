@@ -7,7 +7,7 @@ using VBAGitAddin.UI.Extensions;
 
 namespace VBAGitAddin.UI.Commands
 {
-    public abstract class CommandBase : IGitCommand, IDisposable
+    public abstract class CommandBase : IGitCommand
     {
         private BackgroundWorker _bgw;
         private Stopwatch _watch;
@@ -127,7 +127,7 @@ namespace VBAGitAddin.UI.Commands
 
         public void Dispose()
         {
-            _bgw.Dispose();
+            _bgw.Dispose();            
         }
     }
 }

@@ -511,6 +511,24 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No To All.
+        /// </summary>
+        internal static string NoToAll {
+            get {
+                return ResourceManager.GetString("NoToAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline.
         /// </summary>
         internal static string Offline {
@@ -816,6 +834,24 @@ namespace VBAGitAddin.UI {
         internal static string VBAGitMenu_VBAGit {
             get {
                 return ResourceManager.GetString("VBAGitMenu_VBAGit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes To All.
+        /// </summary>
+        internal static string YesToAll {
+            get {
+                return ResourceManager.GetString("YesToAll", resourceCulture);
             }
         }
     }

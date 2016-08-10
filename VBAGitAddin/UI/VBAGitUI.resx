@@ -372,4 +372,16 @@
 This file has been modified outside of the source editor.
 Do you want to reload it?</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoToAll" xml:space="preserve">
+    <value>No To All</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YesToAll" xml:space="preserve">
+    <value>Yes To All</value>
+  </data>
 </root>

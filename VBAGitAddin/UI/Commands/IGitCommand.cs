@@ -48,7 +48,7 @@ namespace VBAGitAddin.UI.Commands
         NotExecuted = 4
     }
 
-    public interface IGitCommand
+    public interface IGitCommand : IDisposable
     {
         string Name { get; }
         IRepository Repository { get; }
@@ -62,6 +62,6 @@ namespace VBAGitAddin.UI.Commands
         event EventHandler<ErrorEventArgs> CommandFailed;
 
         void Abort();
-        void Execute();        
+        void Execute();
     }
 }
