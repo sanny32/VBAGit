@@ -294,7 +294,7 @@ namespace VBAGitAddin.UI.Forms
                 return;
             }    
             
-            if(CommitBranch.Text != "master" && 
+            if(NewBranch.Checked && 
                _gitCommand.Repository.Branches[CommitBranch.Text] !=null)
             {
                 ErrorProvider.SetError(CommitBranch, VBAGitUI.Git_BranchExists);
