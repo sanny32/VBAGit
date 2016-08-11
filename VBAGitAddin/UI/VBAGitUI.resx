@@ -384,4 +384,16 @@ Do you want to reload it?</value>
   <data name="YesToAll" xml:space="preserve">
     <value>Yes To All</value>
   </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="RevertForm_SelectAll" xml:space="preserve">
+    <value>Select/deselect all</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
 </root>

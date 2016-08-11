@@ -484,6 +484,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extension.
+        /// </summary>
+        internal static string Extension {
+            get {
+                return ResourceManager.GetString("Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Branch already exists.
         /// </summary>
         internal static string Git_BranchExists {
@@ -507,6 +516,15 @@ namespace VBAGitAddin.UI {
         internal static string Git_SuccessfulInitEmptyRepo {
             get {
                 return ResourceManager.GetString("Git_SuccessfulInitEmptyRepo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -600,6 +618,24 @@ namespace VBAGitAddin.UI {
         internal static string ReloadFileForm_Info {
             get {
                 return ResourceManager.GetString("ReloadFileForm_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select/deselect all.
+        /// </summary>
+        internal static string RevertForm_SelectAll {
+            get {
+                return ResourceManager.GetString("RevertForm_SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         

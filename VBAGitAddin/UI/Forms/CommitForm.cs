@@ -58,6 +58,9 @@ namespace VBAGitAddin.UI.Forms
                 new ListViewGroup("VBClassModules", "Class Modules")
             };
             CommitList.Groups.AddRange(_groups.ToArray());
+            ColumnName.Text = VBAGitUI.Name;
+            ColumnExtension.Text = VBAGitUI.Extension;
+            ColumnStatus.Text = VBAGitUI.Status;
 
             LabelCommit.Text = VBAGitUI.CommitForm_LabelCommit;
             NewBranch.Text = VBAGitUI.CommitForm_NewBranch;
