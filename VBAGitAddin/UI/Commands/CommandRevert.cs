@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -35,6 +36,14 @@ namespace VBAGitAddin.UI.Commands
             get
             {
                 return null;
+            }
+        }
+
+        public IList<StatusEntry> FileList
+        {
+            get
+            {
+                return _provider.Status().ToList();
             }
         }
 
