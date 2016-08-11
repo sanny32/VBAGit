@@ -240,7 +240,7 @@ namespace VBAGitAddin.UI.Forms
             // 
             this.MessageOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.MessageOnly.AutoSize = true;
-            this.MessageOnly.Location = new System.Drawing.Point(20, 321);
+            this.MessageOnly.Location = new System.Drawing.Point(20, 338);
             this.MessageOnly.Name = "MessageOnly";
             this.MessageOnly.Size = new System.Drawing.Size(98, 19);
             this.MessageOnly.TabIndex = 3;
@@ -252,7 +252,7 @@ namespace VBAGitAddin.UI.Forms
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(586, 316);
+            this.Cancel.Location = new System.Drawing.Point(586, 333);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(87, 27);
             this.Cancel.TabIndex = 2;
@@ -263,7 +263,7 @@ namespace VBAGitAddin.UI.Forms
             // 
             this.Commit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Commit.Enabled = false;
-            this.Commit.Location = new System.Drawing.Point(493, 317);
+            this.Commit.Location = new System.Drawing.Point(493, 334);
             this.Commit.Name = "Commit";
             this.Commit.Size = new System.Drawing.Size(87, 27);
             this.Commit.TabIndex = 1;
@@ -290,7 +290,7 @@ namespace VBAGitAddin.UI.Forms
             this.GroupChanges.Controls.Add(this.LabelCheck);
             this.GroupChanges.Location = new System.Drawing.Point(13, 3);
             this.GroupChanges.Name = "GroupChanges";
-            this.GroupChanges.Size = new System.Drawing.Size(660, 304);
+            this.GroupChanges.Size = new System.Drawing.Size(660, 324);
             this.GroupChanges.TabIndex = 0;
             this.GroupChanges.TabStop = false;
             this.GroupChanges.Text = "Changes made (double-click on file for diff): ";
@@ -309,7 +309,7 @@ namespace VBAGitAddin.UI.Forms
             // LabelSelected
             // 
             this.LabelSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelSelected.Location = new System.Drawing.Point(401, 268);
+            this.LabelSelected.Location = new System.Drawing.Point(401, 288);
             this.LabelSelected.Name = "LabelSelected";
             this.LabelSelected.Size = new System.Drawing.Size(253, 15);
             this.LabelSelected.TabIndex = 11;
@@ -322,7 +322,7 @@ namespace VBAGitAddin.UI.Forms
             this.ShowUnversionedFiles.AutoSize = true;
             this.ShowUnversionedFiles.Checked = true;
             this.ShowUnversionedFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 278);
+            this.ShowUnversionedFiles.Location = new System.Drawing.Point(7, 298);
             this.ShowUnversionedFiles.Name = "ShowUnversionedFiles";
             this.ShowUnversionedFiles.Size = new System.Drawing.Size(145, 19);
             this.ShowUnversionedFiles.TabIndex = 10;
@@ -343,7 +343,7 @@ namespace VBAGitAddin.UI.Forms
             this.CommitList.FullRowSelect = true;
             this.CommitList.Location = new System.Drawing.Point(7, 46);
             this.CommitList.Name = "CommitList";
-            this.CommitList.Size = new System.Drawing.Size(645, 218);
+            this.CommitList.Size = new System.Drawing.Size(645, 238);
             this.CommitList.SmallImageList = this.VBComponentsImageList;
             this.CommitList.TabIndex = 9;
             this.CommitList.UseCompatibleStateImageBehavior = false;
