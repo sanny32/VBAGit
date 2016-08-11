@@ -396,4 +396,10 @@ Do you want to reload it?</value>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="ProgressInfo_Revert" xml:space="preserve">
+    <value>Revert...</value>
+  </data>
+  <data name="RevertForm_Text" xml:space="preserve">
+    <value>{0} - Revert - VBAGit</value>
+  </data>
 </root>

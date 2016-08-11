@@ -87,6 +87,7 @@
     <Compile Include="Git\DefaultSettings.cs" />
     <Compile Include="Git\GitProvider.cs" />
     <Compile Include="Git\GitException.cs" />
+    <Compile Include="UI\Commands\CommandRevert.cs" />
     <Compile Include="UI\Controls\AnimationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +122,12 @@
     </Compile>
     <Compile Include="UI\Forms\ReloadFileForm.Designer.cs">
       <DependentUpon>ReloadFileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\RevertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\RevertForm.Designer.cs">
+      <DependentUpon>RevertForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InformationMessageBox.cs" />
     <Compile Include="UI\Forms\ProgressForm.cs">
@@ -192,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ReloadFileForm.resx">
       <DependentUpon>ReloadFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\RevertForm.resx">
+      <DependentUpon>RevertForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\VBAGitUI.resx">
       <Generator>ResXFileCodeGenerator</Generator>

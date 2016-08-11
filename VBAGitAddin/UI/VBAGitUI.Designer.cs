@@ -610,6 +610,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Revert....
+        /// </summary>
+        internal static string ProgressInfo_Revert {
+            get {
+                return ResourceManager.GetString("ProgressInfo_Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///
         ///This file has been modified outside of the source editor.
@@ -627,6 +636,15 @@ namespace VBAGitAddin.UI {
         internal static string RevertForm_SelectAll {
             get {
                 return ResourceManager.GetString("RevertForm_SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Revert - VBAGit.
+        /// </summary>
+        internal static string RevertForm_Text {
+            get {
+                return ResourceManager.GetString("RevertForm_Text", resourceCulture);
             }
         }
         
