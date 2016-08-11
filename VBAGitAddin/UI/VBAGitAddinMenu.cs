@@ -63,17 +63,17 @@ namespace VBAGitAddin.UI
 
             if (_app.GetVBProjectRepository(project) != null)
             {
-                _scSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnSourceControlSync, "git_sync");               
-                _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnSourceControlCommit, "git_commit");                
-                _scPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnSourceControlPull, "git_pull");                
-                _scFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnSourceControlFetch, "git_pull");                
-                _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnSourceControlPush, "git_push");
+                _scSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnGitSync, "git_sync");               
+                _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnGitCommit, "git_commit");                
+                _scPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnGitPull, "git_pull");                
+                _scFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnGitFetch, "git_pull");                
+                _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnGitPush, "git_push");
 
                 AddVBAGitMenu(true);
             }
             else
             {
-                _scCreate = AddButton(_menu, VBAGitUI.VBAGitMenu_Create, false, OnSourceControlCreate, "create_repo");
+                _scCreate = AddButton(_menu, VBAGitUI.VBAGitMenu_Create, false, OnGitCreate, "create_repo");
 
                 AddVBAGitMenu(false);
             }           
@@ -87,132 +87,132 @@ namespace VBAGitAddin.UI
 
             if (hasRepo)
             {                
-                _scDiff = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Diff, false, OnSourceControlDiff, "VBAGit_diff");
+                _scDiff = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Diff, false, OnGitDiff, "VBAGit_diff");
 
-                _scShowLog = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_ShowLog, true, OnSourceControlShowLog, "VBAGit_showlog");
-                _scRepoBrowser = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_RepoBrowser, false, OnSourceControlRepoBrowser, "VBAGit_repobrowser");
-                _scCheckMod = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CheckForModifications, false, OnSourceControlCheckForModifications, "VBAGit_checkmod");
-                _scRebase = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Rebase, false, OnSourceControlRebase, "VBAGit_rebase");
+                _scShowLog = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_ShowLog, true, OnGitShowLog, "VBAGit_showlog");
+                _scRepoBrowser = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_RepoBrowser, false, OnGitRepoBrowser, "VBAGit_repobrowser");
+                _scCheckMod = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CheckForModifications, false, OnGitCheckForModifications, "VBAGit_checkmod");
+                _scRebase = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Rebase, false, OnGitRebase, "VBAGit_rebase");
 
-                _scResolve = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Resolve, true, OnSourceControlResolve, "VBAGit_resolve");
-                _scDelete = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Delete, false, OnSourceControlDelete, "VBAGit_delete");
-                _scRevert = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Revert, false, OnSourceControlRevert, "VBAGit_revert");
-                _scCleanUp = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CleanUp, false, OnSourceControlCleanUp, "VBAGit_cleanup");
+                _scResolve = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Resolve, true, OnGitResolve, "VBAGit_resolve");
+                _scDelete = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Delete, false, OnGitDelete, "VBAGit_delete");
+                _scRevert = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Revert, false, OnGitRevert, "VBAGit_revert");
+                _scCleanUp = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CleanUp, false, OnGitCleanUp, "VBAGit_cleanup");
 
-                _scCheckout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Checkout, true, OnSourceControlCheckout, "VBAGit_checkout");
-                _scMerge = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Merge, false, OnSourceControlMerge, "VBAGit_merge");
-                _scCreateBranch = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CreateBranch, false, OnSourceControlCreateBranch, "VBAGit_createbranch");
-                _scExport = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Export, false, OnSourceControlExport, "VBAGit_export");
+                _scCheckout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Checkout, true, OnGitCheckout, "VBAGit_checkout");
+                _scMerge = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Merge, false, OnGitMerge, "VBAGit_merge");
+                _scCreateBranch = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CreateBranch, false, OnGitCreateBranch, "VBAGit_createbranch");
+                _scExport = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Export, false, OnGitExport, "VBAGit_export");
 
             }
 
-            _scSettings = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Settings, true, OnSourceControlSettings, "VBAGit_settings");
-            _scAbout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_About, false, OnSourceControlAbout, "VBAGit_about");
+            _scSettings = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Settings, true, OnGitSettings, "VBAGit_settings");
+            _scAbout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_About, false, OnGitAbout, "VBAGit_about");
         }
 
-        private void OnSourceControlSync(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitSync(CommandBarButton Ctrl, ref bool CancelDefault)
         {
          
         }
 
-        private void OnSourceControlCommit(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitCommit(CommandBarButton Ctrl, ref bool CancelDefault)
         {
             _app.Commit(_app.IDE.ActiveVBProject);            
         }
 
-        private void OnSourceControlPull(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitPull(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlFetch(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitFetch(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlPush(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitPush(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlCreate(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitCreate(CommandBarButton Ctrl, ref bool CancelDefault)
         {
             var project = _app.IDE.ActiveVBProject;
             _app.CreateNewRepo(project);
             RecreateMenu(project);
         }
 
-        private void OnSourceControlDiff(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitDiff(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlShowLog(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitShowLog(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlRepoBrowser(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitRepoBrowser(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlCheckForModifications(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitCheckForModifications(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlRebase(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitRebase(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlResolve(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitResolve(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlDelete(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitDelete(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlRevert(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitRevert(CommandBarButton Ctrl, ref bool CancelDefault)
+        {
+            _app.Revert(_app.IDE.ActiveVBProject);
+        }
+
+        private void OnGitCleanUp(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlCleanUp(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitCheckout(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlCheckout(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitMerge(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlMerge(CommandBarButton Ctrl, ref bool CancelDefault)
-        {
-
-        }
-
-        private void OnSourceControlCreateBranch(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitCreateBranch(CommandBarButton Ctrl, ref bool CancelDefault)
         {
             _app.CreateBranch(_app.IDE.ActiveVBProject);
         }
 
-        private void OnSourceControlExport(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitExport(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlSettings(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitSettings(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }
 
-        private void OnSourceControlAbout(CommandBarButton Ctrl, ref bool CancelDefault)
+        private void OnGitAbout(CommandBarButton Ctrl, ref bool CancelDefault)
         {
 
         }        
@@ -220,51 +220,51 @@ namespace VBAGitAddin.UI
         private void UnsubsribeCommandBarButtonClickEvents()
         {
             if (_scCreate != null)
-                _scCreate.Click -= OnSourceControlCreate;
+                _scCreate.Click -= OnGitCreate;
 
             if (_scSync != null)
-                _scSync.Click -= OnSourceControlSync;
+                _scSync.Click -= OnGitSync;
             if (_scCommit != null)
-                _scCommit.Click -= OnSourceControlCommit;
+                _scCommit.Click -= OnGitCommit;
 
             if (_scPull != null)
-                _scPull.Click -= OnSourceControlPull;
+                _scPull.Click -= OnGitPull;
             if (_scFetch != null)
-                _scFetch.Click -= OnSourceControlFetch;
+                _scFetch.Click -= OnGitFetch;
             if (_scPush != null)
-                _scPush.Click -= OnSourceControlPush;
+                _scPush.Click -= OnGitPush;
 
             if (_scDiff != null)
-                _scDiff.Click -= OnSourceControlDiff;
+                _scDiff.Click -= OnGitDiff;
             if (_scShowLog != null)
-                _scShowLog.Click -= OnSourceControlShowLog;
+                _scShowLog.Click -= OnGitShowLog;
             if (_scRepoBrowser != null)
-                _scRepoBrowser.Click -= OnSourceControlRepoBrowser;
+                _scRepoBrowser.Click -= OnGitRepoBrowser;
             if (_scCheckMod != null)
-                _scCheckMod.Click -= OnSourceControlCheckForModifications;
+                _scCheckMod.Click -= OnGitCheckForModifications;
             if (_scRebase != null)
-                _scRebase.Click -= OnSourceControlRebase;
+                _scRebase.Click -= OnGitRebase;
             if (_scResolve != null)
-                _scResolve.Click -= OnSourceControlResolve;
+                _scResolve.Click -= OnGitResolve;
             if (_scDelete != null)
-                _scDelete.Click -= OnSourceControlDelete;
+                _scDelete.Click -= OnGitDelete;
             if (_scRevert != null)
-                _scRevert.Click -= OnSourceControlRevert;
+                _scRevert.Click -= OnGitRevert;
             if (_scCleanUp != null)
-                _scCleanUp.Click -= OnSourceControlCleanUp;
+                _scCleanUp.Click -= OnGitCleanUp;
             if (_scCheckout != null)
-                _scCheckout.Click -= OnSourceControlCheckout;
+                _scCheckout.Click -= OnGitCheckout;
             if(_scMerge != null)
-                _scMerge.Click -= OnSourceControlMerge;
+                _scMerge.Click -= OnGitMerge;
             if (_scCreateBranch != null)
-                _scCreateBranch.Click -= OnSourceControlCreateBranch;
+                _scCreateBranch.Click -= OnGitCreateBranch;
             if (_scExport != null)
-                _scExport.Click -= OnSourceControlExport;
+                _scExport.Click -= OnGitExport;
 
             if (_scSettings != null)
-                _scSettings.Click -= OnSourceControlSettings;
+                _scSettings.Click -= OnGitSettings;
             if (_scAbout != null)
-                _scAbout.Click -= OnSourceControlAbout;
+                _scAbout.Click -= OnGitAbout;
     }
 
         private bool _disposed;
