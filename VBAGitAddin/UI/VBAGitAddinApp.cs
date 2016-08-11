@@ -354,6 +354,28 @@ namespace VBAGitAddin.UI
         }
 
         /// <summary>
+        /// Revert files in repository
+        /// </summary>
+        /// <param name="project">VBProject</param>
+        public void Revert(VBProject project)
+        {
+            try
+            {
+                EnableFileSystemWatcher = false;
+
+                var repo = GetVBProjectRepository(project);
+                using (var gitCommand = new CommandRevert(project, repo))
+                {
+                    gitCommand.Execute();
+                }
+            }
+            finally
+            {
+                EnableFileSystemWatcher = true;
+            }
+        }
+
+        /// <summary>
         /// Release resources 
         /// </summary>
         public void Dispose()
