@@ -176,6 +176,9 @@ namespace VBAGitAddin.UI
             project.ImportSourceFile(filePath);            
         }
 
+        /// <summary>
+        /// Visual Basic for Applications IDE
+        /// </summary>
         public VBE IDE
         {
             get
@@ -184,14 +187,21 @@ namespace VBAGitAddin.UI
             }
         }
 
+        /// <summary>
+        /// Enable or disable repository file watcher
+        /// </summary>
         public bool EnableFileSystemWatcher
         {
             set
             {
                 _repoWatchers.ForEach(fsWatcher => fsWatcher.EnableRaisingEvents = value);
             }
-        }       
+        }
 
+        /// <summary>
+        /// Add VBProject to watch repository files
+        /// </summary>
+        /// <param name="project">VBProject</param>
         public void AddVBProject(VBProject project)
         {
             RemoveVBProject(project);
@@ -213,6 +223,10 @@ namespace VBAGitAddin.UI
             }
         }
 
+        /// <summary>
+        /// Remove VBProject form watching files
+        /// </summary>
+        /// <param name="project">VBProject</param>
         public void RemoveVBProject(VBProject project)
         {
             var repoWatcher = _repoWatchers.Find(w => w.Project == project);
@@ -233,20 +247,34 @@ namespace VBAGitAddin.UI
                        .ToUpperInvariant();
         }
 
+        /// <summary>
+        /// Returns repository settings for project
+        /// </summary>
+        /// <param name="project">VBProject</param>
+        /// <returns></returns>
         public RepositorySettings GetVBProjectRepository(VBProject project)
         {
             var projectRepoPath = GetVBProjectRepoPath(project);
             return _config.Repositories.Find(r => (r.Name == project.GetRepoName() &&
                                                    NormalizePath(r.LocalPath) == NormalizePath(projectRepoPath) &&
                                                    Directory.Exists(r.LocalPath)));
-        }             
+        }
 
+        /// <summary>
+        /// Returns folder contains repository path for project
+        /// </summary>
+        /// <param name="project">VBProject</param>
+        /// <returns></returns>
         public static string GetVBProjectRepoPath(VBProject project)
         {
             var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
             return Path.Combine(pathVBAGit, project.GetRepoName());
-        }      
+        }
 
+        /// <summary>
+        /// Create new repository for project
+        /// </summary>
+        /// <param name="project">VBProject</param>
         public void CreateNewRepo(VBProject project)
         {
             try
@@ -281,6 +309,10 @@ namespace VBAGitAddin.UI
             }
         }
 
+        /// <summary>
+        /// Commit changes to repository for project
+        /// </summary>
+        /// <param name="project">VBProject</param>
         public void Commit(VBProject project)
         {
             try
@@ -299,6 +331,10 @@ namespace VBAGitAddin.UI
             }
         }
 
+        /// <summary>
+        /// Create new branch for repository
+        /// </summary>
+        /// <param name="project">VBProject</param>
         public void CreateBranch(VBProject project)
         {
             try
@@ -317,6 +353,9 @@ namespace VBAGitAddin.UI
             }
         }
 
+        /// <summary>
+        /// Release resources 
+        /// </summary>
         public void Dispose()
         {
             _repoWatchers.ForEach(repoWatcher =>
