@@ -29,7 +29,7 @@ namespace VBAGitAddin.UI
             public bool Equals(RepositoryFile other)
             {
                 return FilePath == other.FilePath &&
-                    Project.Name == other.Project.Name &&
+                    Project == other.Project &&
                     Repository.Name == other.Repository.Name &&
                     Repository.LocalPath == other.Repository.LocalPath &&
                     Repository.RemotePath == other.Repository.RemotePath;
@@ -215,7 +215,7 @@ namespace VBAGitAddin.UI
 
         public void RemoveVBProject(VBProject project)
         {
-            var repoWatcher = _repoWatchers.Find(w => w.Project.Name == project.Name);
+            var repoWatcher = _repoWatchers.Find(w => w.Project == project);
             if(repoWatcher != null)
             {
                 repoWatcher.EnableRaisingEvents = false;
@@ -226,14 +226,6 @@ namespace VBAGitAddin.UI
             }
         }
 
-        public RepositorySettings GetVBProjectRepository(VBProject project)
-        {
-            var projectRepoPath = GetVBProjectRepoPath(project);
-            return _config.Repositories.Find(r => (r.Name == project.Name &&
-                                                   NormalizePath(r.LocalPath) == NormalizePath(projectRepoPath) &&
-                                                   Directory.Exists(r.LocalPath)));
-        }      
-
         private string NormalizePath(string path)
         {
             return Path.GetFullPath(new Uri(path).LocalPath)
@@ -241,41 +233,43 @@ namespace VBAGitAddin.UI
                        .ToUpperInvariant();
         }
 
+        public RepositorySettings GetVBProjectRepository(VBProject project)
+        {
+            var projectRepoPath = GetVBProjectRepoPath(project);
+            return _config.Repositories.Find(r => (r.Name == project.GetRepoName() &&
+                                                   NormalizePath(r.LocalPath) == NormalizePath(projectRepoPath) &&
+                                                   Directory.Exists(r.LocalPath)));
+        }             
+
         public static string GetVBProjectRepoPath(VBProject project)
         {
             var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
-            return Path.Combine(pathVBAGit, project.Name);
-        }
+            return Path.Combine(pathVBAGit, project.GetRepoName());
+        }      
 
-        public void AddRepoToConfig(RepositorySettings repo)
-        {
-            if (!_config.Repositories.Exists(r => (r.Name == repo.Name &&
-                                                   r.LocalPath == repo.LocalPath &&
-                                                   r.RemotePath == repo.RemotePath)))
-            {
-                _config.Repositories.Add(repo);
-                _configService.SaveConfiguration(_config);
-            }
-        }
-
-        public void CreateNewRepo()
+        public void CreateNewRepo(VBProject project)
         {
             try
             {
                 EnableFileSystemWatcher = false;
 
-                var project = _vbe.ActiveVBProject;
                 using (var gitCommand = new CommandInit(project))
                 {
                     gitCommand.Execute();
 
                     if (gitCommand.Status == CommandStatus.Success)
                     {
-                        RepositorySettings repoSetting = new RepositorySettings();
-                        repoSetting.Name = project.Name;
-                        repoSetting.LocalPath = gitCommand.Repository.Info.WorkingDirectory;
+                        RepositorySettings repo = new RepositorySettings();
+                        repo.Name = project.GetRepoName();
+                        repo.LocalPath = gitCommand.Repository.Info.WorkingDirectory;
 
-                        AddRepoToConfig(repoSetting);
+                        if (!_config.Repositories.Exists(r => (r.Name == repo.Name &&
+                                                    r.LocalPath == repo.LocalPath &&
+                                                    r.RemotePath == repo.RemotePath)))
+                        {
+                            _config.Repositories.Add(repo);
+                            _configService.SaveConfiguration(_config);
+                        }
 
                         AddVBProject(project);
                     }
@@ -287,14 +281,14 @@ namespace VBAGitAddin.UI
             }
         }
 
-        public void Commit()
+        public void Commit(VBProject project)
         {
             try
             {
                 EnableFileSystemWatcher = false;
 
-                var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
-                using (var gitCommand = new CommandCommit(_vbe.ActiveVBProject, repo))
+                var repo = GetVBProjectRepository(project);
+                using (var gitCommand = new CommandCommit(project, repo))
                 {
                     gitCommand.Execute();
                 }
@@ -305,14 +299,14 @@ namespace VBAGitAddin.UI
             }
         }
 
-        public void CreateBranch()
+        public void CreateBranch(VBProject project)
         {
             try
             {
                 EnableFileSystemWatcher = false;
 
-                var repo = GetVBProjectRepository(_vbe.ActiveVBProject);
-                using (var gitCommand = new CommandCreateBranch(_vbe.ActiveVBProject, repo))
+                var repo = GetVBProjectRepository(project);
+                using (var gitCommand = new CommandCreateBranch(project, repo))
                 {
                     gitCommand.Execute();
                 }

@@ -52,6 +52,16 @@ namespace VBAGitAddin.VBEditor.Extensions
         }
 
         /// <summary>
+        /// Returns then name for the repository
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        public static string GetRepoName(this VBProject project)
+        {
+            return Path.GetFileNameWithoutExtension(project.FileName);
+        }
+
+        /// <summary>
         /// Remove Vbcomponent from VbProject.
         /// </summary>        
         /// <param name="project"></param>

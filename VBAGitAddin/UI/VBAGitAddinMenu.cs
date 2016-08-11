@@ -117,7 +117,7 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCommit(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            _app.Commit();            
+            _app.Commit(_app.IDE.ActiveVBProject);            
         }
 
         private void OnSourceControlPull(CommandBarButton Ctrl, ref bool CancelDefault)
@@ -137,8 +137,9 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCreate(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            _app.CreateNewRepo();
-            RecreateMenu(_app.IDE.ActiveVBProject);
+            var project = _app.IDE.ActiveVBProject;
+            _app.CreateNewRepo(project);
+            RecreateMenu(project);
         }
 
         private void OnSourceControlDiff(CommandBarButton Ctrl, ref bool CancelDefault)
@@ -198,7 +199,7 @@ namespace VBAGitAddin.UI
 
         private void OnSourceControlCreateBranch(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            _app.CreateBranch();
+            _app.CreateBranch(_app.IDE.ActiveVBProject);
         }
 
         private void OnSourceControlExport(CommandBarButton Ctrl, ref bool CancelDefault)
