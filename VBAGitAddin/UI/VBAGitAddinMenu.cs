@@ -5,7 +5,6 @@ namespace VBAGitAddin.UI
 {
     internal class VBAGitAddinMenu : Menu
     {       
-        private readonly AddIn _addIn;
         private readonly VBAGitAddinApp _app;
 
         private CommandBarPopup _menu;
@@ -34,22 +33,21 @@ namespace VBAGitAddin.UI
         private CommandBarButton _scSettings;
         private CommandBarButton _scAbout;
 
-        public VBAGitAddinMenu(VBE vbe, AddIn addIn)
-            : base(vbe, addIn)
+        public VBAGitAddinMenu(VBAGitAddinApp app)
+            : base()
         {
-            _addIn = addIn;
-            _app = new VBAGitAddinApp(vbe);
+            _app = app;
         }
         
         public void Initialize()
         {
-            RecreateMenu();
+            RecreateMenu(_app.IDE.ActiveVBProject);
         }
 
-        public void RecreateMenu()
+        public void RecreateMenu(VBProject project)
         {
             int windowMenuId = 30038;
-            var menuBarControls = IDE.CommandBars[1].Controls;
+            var menuBarControls = _app.IDE.CommandBars[1].Controls;
             var beforeIndex = FindMenuInsertionIndex(menuBarControls, windowMenuId);
 
             if (_menu != null)
@@ -63,29 +61,31 @@ namespace VBAGitAddin.UI
             _menu.Tag = "VBAGit";       
             _menu.Caption = VBAGitUI.VBAGitMenu;
 
-            if (_app.IsActiveProjectHasRepo)
+            if (_app.GetVBProjectRepository(project) != null)
             {
                 _scSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnSourceControlSync, "git_sync");               
                 _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnSourceControlCommit, "git_commit");                
                 _scPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnSourceControlPull, "git_pull");                
                 _scFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnSourceControlFetch, "git_pull");                
                 _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnSourceControlPush, "git_push");
+
+                AddVBAGitMenu(true);
             }
             else
             {
-                _scCreate = AddButton(_menu, VBAGitUI.VBAGitMenu_Create, false, OnSourceControlCreate, "create_repo");                
-            }
+                _scCreate = AddButton(_menu, VBAGitUI.VBAGitMenu_Create, false, OnSourceControlCreate, "create_repo");
 
-            AddVBAGitMenu();
+                AddVBAGitMenu(false);
+            }           
         }
 
-        private void AddVBAGitMenu()
+        private void AddVBAGitMenu(bool hasRepo)
         {
             _vbaGitMenu = _menu.Controls.Add(MsoControlType.msoControlPopup, Temporary: true) as CommandBarPopup;
             _vbaGitMenu.BeginGroup = true;
             _vbaGitMenu.Caption = VBAGitUI.VBAGitMenu_VBAGit;
 
-            if (_app.IsActiveProjectHasRepo)
+            if (hasRepo)
             {                
                 _scDiff = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Diff, false, OnSourceControlDiff, "VBAGit_diff");
 
@@ -138,7 +138,7 @@ namespace VBAGitAddin.UI
         private void OnSourceControlCreate(CommandBarButton Ctrl, ref bool CancelDefault)
         {
             _app.CreateNewRepo();
-            RecreateMenu();
+            RecreateMenu(_app.IDE.ActiveVBProject);
         }
 
         private void OnSourceControlDiff(CommandBarButton Ctrl, ref bool CancelDefault)
@@ -283,7 +283,7 @@ namespace VBAGitAddin.UI
 
             if (_menu != null)
             {
-                var menuBarControls = IDE.CommandBars[1].Controls;
+                var menuBarControls = _app.IDE.CommandBars[1].Controls;
                 var control = menuBarControls.Parent.FindControl(_menu.Type, _menu.Id, _menu.Tag, _menu.Visible);
                 if (control != null) control.Delete();
             }

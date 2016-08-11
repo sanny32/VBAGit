@@ -26,15 +26,8 @@ namespace VBAGitAddin.UI
             }
         }
 
-        private readonly VBE _vbe;
-        protected readonly AddIn AddIn;
-
-        protected VBE IDE { get { return this._vbe; } }     
-
-        protected Menu(VBE vbe, AddIn addIn)
+        protected Menu()
         {
-            AddIn = addIn;
-            _vbe = vbe;
         }
 
         private CommandBarButton AddButton(CommandBarPopup parentMenu, string caption)

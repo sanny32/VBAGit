@@ -41,17 +41,31 @@ namespace VBAGitAddin.VBEditor.Extensions
         }
 
         /// <summary>
+        /// Determine than VBComponents contains VBProject with name
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="name">Name of project</param>
+        /// <returns>true, if VBComponents contains VBProject with name, otherwise false</returns>
+        public static bool Contains(this VBProject project, string name)
+        {
+            return project.VBComponents.Find(name) != null;
+        }
+
+        /// <summary>
         /// Remove Vbcomponent from VbProject.
         /// </summary>        
         /// <param name="project"></param>
-        /// <param name="name">name of removed component</param>
-        public static void RemoveComponent(this VBProject project, string name)
+        /// <param name="name">name of removed component</param>   
+        /// <returns>true, if component was removed successfully, otherwise false</returns>
+        public static bool RemoveComponent(this VBProject project, string name)
         {
             var component = project.VBComponents.Find(name);
             if(component != null)
             {
                 project.VBComponents.RemoveSafely(component);
+                return true;
             }
+            return false;
         }
 
         /// <summary>

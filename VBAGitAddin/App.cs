@@ -12,6 +12,7 @@ namespace VBAGitAddin
         private readonly AddIn _addIn;        
 
         private VBAGitAddinMenu _menu;
+        private VBAGitAddinApp _app;
         private VBProjectsEventsSink _sink;
         private IConnectionPoint _projectsEventsConnectionPoint;
         private int _projectsEventsCookie;
@@ -21,9 +22,22 @@ namespace VBAGitAddin
             _vbe = vbe;
             _addIn = addIn;
 
-            CleanUp();
-
             Setup();
+        }       
+
+        private void Setup()
+        {
+            _app = new VBAGitAddinApp(_vbe);
+            _menu = new VBAGitAddinMenu(_app);
+
+            _sink = new VBProjectsEventsSink();
+            var connectionPointContainer = (IConnectionPointContainer)_vbe.VBProjects;
+            var interfaceId = typeof(_dispVBProjectsEvents).GUID;
+            connectionPointContainer.FindConnectionPoint(ref interfaceId, out _projectsEventsConnectionPoint);
+            _projectsEventsConnectionPoint.Advise(_sink, out _projectsEventsCookie);
+            _sink.ProjectActivated += _sink_ProjectActivated;
+            _sink.ProjectRemoved += _sink_ProjectRemoved;
+            _sink.ProjectAdded += _sink_ProjectAdded;
         }
 
         private void _sink_ProjectActivated(object sender, DispatcherEventArgs<VBProject> e)
@@ -34,25 +48,22 @@ namespace VBAGitAddin
             }
         }
 
-        private void _configService_SettingsChanged(object sender, EventArgs e)
+        private void _sink_ProjectAdded(object sender, DispatcherEventArgs<VBProject> e)
         {
-            CleanUp();
-
-            Setup();
-        }        
-
-        private void Setup()
-        {            
-            _menu = new VBAGitAddinMenu(_vbe, _addIn);
-
-            _sink = new VBProjectsEventsSink();
-            var connectionPointContainer = (IConnectionPointContainer)_vbe.VBProjects;
-            var interfaceId = typeof(_dispVBProjectsEvents).GUID;
-            connectionPointContainer.FindConnectionPoint(ref interfaceId, out _projectsEventsConnectionPoint);
-            _projectsEventsConnectionPoint.Advise(_sink, out _projectsEventsCookie);
-            _sink.ProjectActivated += _sink_ProjectActivated;
+            if(_app != null)
+            {
+                _app.AddVBProject(e.Item);
+            }
         }
-        
+
+        private void _sink_ProjectRemoved(object sender, DispatcherEventArgs<VBProject> e)
+        {
+            if (_app != null)
+            {
+                _app.RemoveVBProject(e.Item);
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -66,20 +77,27 @@ namespace VBAGitAddin
         }
 
         private void CleanUp()
-        {
-            if (_menu != null)
-            {
-                _menu.Dispose();
-            }
-
-            if(_sink != null)
+        {                        
+            if (_sink != null)
             {
                 _sink.ProjectActivated -= _sink_ProjectActivated;
+                _sink.ProjectRemoved -= _sink_ProjectRemoved;
+                _sink.ProjectAdded -= _sink_ProjectAdded;
             }
 
             if (_projectsEventsConnectionPoint != null)
             {
                 _projectsEventsConnectionPoint.Unadvise(_projectsEventsCookie);
+            }
+
+            if (_menu != null)
+            {
+                _menu.Dispose();
+            }
+
+            if (_app != null)
+            {
+                _app.Dispose();
             }
         }
     }

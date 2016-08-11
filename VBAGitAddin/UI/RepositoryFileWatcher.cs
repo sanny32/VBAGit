@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.Vbe.Interop;
+using System.IO;
 using VBAGitAddin.Configuration;
 
 namespace VBAGitAddin.UI
@@ -11,6 +12,12 @@ namespace VBAGitAddin.UI
         }
 
         public RepositorySettings Repository
+        {
+            get;
+            set;
+        }
+
+        public VBProject Project
         {
             get;
             set;
