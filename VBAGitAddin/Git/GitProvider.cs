@@ -423,8 +423,7 @@ namespace VBAGitAddin.Git
         public IEnumerable<StatusEntry> Status()
         {
             try
-            {
-                _project.ExportSourceFiles(_repo.Info.WorkingDirectory);
+            {                
                 return _repo.RetrieveStatus();
             }
             catch (LibGit2SharpException ex)

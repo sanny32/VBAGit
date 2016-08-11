@@ -353,6 +353,7 @@ namespace VBAGitAddin.UI.Forms
        
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            _gitCommand.VBProject.ExportSourceFiles(_gitCommand.Repository.Info.WorkingDirectory);
             e.Result = _gitCommand.FileList;                         
         }
 
