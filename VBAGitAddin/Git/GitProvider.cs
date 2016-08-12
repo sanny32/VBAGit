@@ -364,18 +364,27 @@ namespace VBAGitAddin.Git
             }
         }
 
-        public void Revert()
+        public void Revert(IEnumerable<string> paths)
         {
             try
             {
-                var results = _repo.Revert(_repo.Head.Tip, GetSignature());
+                var options = new CheckoutOptions();
+                options.CheckoutModifiers = CheckoutModifiers.Force;
+                options.OnCheckoutNotify = (string path, CheckoutNotifyFlags notifyFlag) =>
+                                           {
+                                               Trace.TraceInformation("git revert file '{0}'... {1}", path, notifyFlag);
+                                               return true;
+                                           };
+                _repo.CheckoutPaths(_repo.Head.FriendlyName, paths, options);
 
-                if (results.Status == RevertStatus.Conflicts)
-                {
-                    throw new GitException("Revert resulted in conflicts. Revert failed.");
-                }
+                //var results = _repo.Revert(_repo.Head.Tip, GetSignature());
 
-                Refresh();
+                //if (results.Status == RevertStatus.Conflicts)
+                //{
+                //    throw new GitException("Revert resulted in conflicts. Revert failed.");
+                //}
+
+                Refresh(paths);
             }
             catch (LibGit2SharpException ex)
             {
@@ -488,7 +497,7 @@ namespace VBAGitAddin.Git
             }
         }
 
-        private void Refresh()
+        private void Refresh(IEnumerable<string> files = null)
         {
             //Because refreshing removes all components, we need to store the current selection,
             // so we can correctly reset it once the files are imported from the repository.
@@ -499,8 +508,25 @@ namespace VBAGitAddin.Git
                 name = selection.QualifiedName.Component.Name;
             }
 
-            _project.RemoveAllComponents();
-            _project.ImportSourceFiles(_repo.Info.WorkingDirectory);
+            if (files == null)
+            {
+                _project.RemoveAllComponents();
+                _project.ImportSourceFiles(_repo.Info.WorkingDirectory);
+            }
+            else
+            {
+                foreach (var file in files)
+                {
+                    if (File.Exists(file))
+                    {
+                        string component = Path.GetFileNameWithoutExtension(file);
+                        if (_project.RemoveComponent(component))
+                        {
+                            _project.ImportSourceFile(file);
+                        }
+                    }
+                }                    
+            }
 
             _project.VBE.SetSelection(selection.QualifiedName.Project, selection.Selection, name);
         }

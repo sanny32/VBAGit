@@ -53,8 +53,10 @@ namespace VBAGitAddin.UI.Commands
             ReportProgress(0, VBAGitUI.ProgressInfo_Revert);
 
             var files = e.Argument as IEnumerable<string>;
-
-            //Provider.Revert()            
+            if (files != null)
+            {
+                Provider.Revert(files);
+            }
         }
     }
 }

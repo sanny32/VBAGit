@@ -57,8 +57,9 @@ namespace VBAGitAddin.UI.Forms
             ColumnName.Text = VBAGitUI.Name;
             ColumnExtension.Text = VBAGitUI.Extension;
             ColumnStatus.Text = VBAGitUI.Status;
-
+            
             SelectAll.Text = VBAGitUI.RevertForm_SelectAll;
+            EmptyRevertList.Text = VBAGitUI.RevertForm_EmptyRevertList;
 
             Ok.Text = VBAGitUI.OK;
             Cancel.Text = VBAGitUI.Cancel;
@@ -68,7 +69,9 @@ namespace VBAGitAddin.UI.Forms
 
         private void Application_Idle(object sender, EventArgs e)
         {
+            UpdateOkButtonState();
             UpdateSelectAllCheckState();
+            EmptyRevertList.Visible = (RevertList.Items.Count == 0);
         }
 
         public new void ShowDialog()
@@ -142,19 +145,28 @@ namespace VBAGitAddin.UI.Forms
 
         private void Ok_Click(object sender, EventArgs e)
         {
+            List<string> files = new List<string>();
+            IEnumerable<ListViewItem> items = RevertList.Items.Cast<ListViewItem>();
+            var checkedItems = items.ToList().Where(item => item.Checked);
+            checkedItems.ToList().ForEach(item => files.AddRange((item.Tag as ListViewItemObject).Files));            
 
+            _gitCommand.Revert(files);
+            if(_gitCommand.Status == CommandStatus.Success)
+            {
+                Close();
+            }
         }
 
         private void UpdateSelectAllCheckState()
         {
             var checkedCount = RevertList.Items.Cast<ListViewItem>().Count(item => item.Checked);
-            if (checkedCount == RevertList.Items.Count)
+            if (checkedCount == 0)
             {
-                SelectAll.CheckState = CheckState.Checked;
+                SelectAll.CheckState = CheckState.Unchecked;
             }
             else
             {
-                if (checkedCount == 0)
+                if (checkedCount == RevertList.Items.Count)
                 {
                     SelectAll.CheckState = CheckState.Unchecked;
                 }
@@ -163,6 +175,11 @@ namespace VBAGitAddin.UI.Forms
                     SelectAll.CheckState = CheckState.Indeterminate;
                 }
             }
+        }
+
+        private void UpdateOkButtonState()
+        {
+            Ok.Enabled = RevertList.Items.Cast<ListViewItem>().Count(item => item.Checked) > 0;
         }
 
         private void SelectAll_Click(object sender, EventArgs e)

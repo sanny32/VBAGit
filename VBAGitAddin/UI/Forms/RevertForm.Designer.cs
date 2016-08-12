@@ -42,6 +42,7 @@ namespace VBAGitAddin.UI.Forms
             this.SelectAll = new System.Windows.Forms.CheckBox();
             this.Cancel = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
+            this.EmptyRevertList = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RevertList
@@ -123,11 +124,23 @@ namespace VBAGitAddin.UI.Forms
             this.Ok.UseVisualStyleBackColor = true;
             this.Ok.Click += new System.EventHandler(this.Ok_Click);
             // 
+            // EmptyRevertList
+            // 
+            this.EmptyRevertList.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.EmptyRevertList.BackColor = System.Drawing.SystemColors.Window;
+            this.EmptyRevertList.Location = new System.Drawing.Point(138, 51);
+            this.EmptyRevertList.Name = "EmptyRevertList";
+            this.EmptyRevertList.Size = new System.Drawing.Size(230, 38);
+            this.EmptyRevertList.TabIndex = 13;
+            this.EmptyRevertList.Text = "File list is empty";
+            this.EmptyRevertList.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // RevertForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(504, 411);
+            this.Controls.Add(this.EmptyRevertList);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Ok);
             this.Controls.Add(this.SelectAll);
@@ -155,5 +168,6 @@ namespace VBAGitAddin.UI.Forms
         private System.Windows.Forms.ColumnHeader ColumnExtension;
         private System.Windows.Forms.ColumnHeader ColumnStatus;
         private ImageList VBComponentsImageList;
+        private Label EmptyRevertList;
     }
 }

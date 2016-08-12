@@ -402,4 +402,7 @@ Do you want to reload it?</value>
   <data name="RevertForm_Text" xml:space="preserve">
     <value>{0} - Revert - VBAGit</value>
   </data>
+  <data name="RevertForm_EmptyRevertList" xml:space="preserve">
+    <value>File list is empty</value>
+  </data>
 </root>

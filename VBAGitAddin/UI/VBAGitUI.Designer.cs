@@ -631,6 +631,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File list is empty.
+        /// </summary>
+        internal static string RevertForm_EmptyRevertList {
+            get {
+                return ResourceManager.GetString("RevertForm_EmptyRevertList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select/deselect all.
         /// </summary>
         internal static string RevertForm_SelectAll {
