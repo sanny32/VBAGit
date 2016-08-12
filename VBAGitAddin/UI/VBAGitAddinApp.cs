@@ -268,7 +268,7 @@ namespace VBAGitAddin.UI
         public static string GetVBProjectRepoPath(VBProject project)
         {
             var fileName = project.GetFileName();
-            if (fileName != null)
+            if (File.Exists(fileName))
             {
                 var pathVBAGit = Path.Combine(Path.GetDirectoryName(fileName), VBAGitUI.VBAGitFolder);
                 return Path.Combine(pathVBAGit, project.GetRepoName());
