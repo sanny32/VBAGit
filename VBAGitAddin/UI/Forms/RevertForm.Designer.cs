@@ -105,9 +105,9 @@ namespace VBAGitAddin.UI.Forms
             // 
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(389, 368);
+            this.Cancel.Location = new System.Drawing.Point(403, 372);
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(101, 31);
+            this.Cancel.Size = new System.Drawing.Size(87, 27);
             this.Cancel.TabIndex = 7;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
@@ -115,9 +115,9 @@ namespace VBAGitAddin.UI.Forms
             // Ok
             // 
             this.Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ok.Location = new System.Drawing.Point(280, 368);
+            this.Ok.Location = new System.Drawing.Point(310, 372);
             this.Ok.Name = "Ok";
-            this.Ok.Size = new System.Drawing.Size(101, 31);
+            this.Ok.Size = new System.Drawing.Size(87, 27);
             this.Ok.TabIndex = 6;
             this.Ok.Text = "OK";
             this.Ok.UseVisualStyleBackColor = true;

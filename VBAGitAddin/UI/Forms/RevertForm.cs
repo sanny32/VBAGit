@@ -84,7 +84,8 @@ namespace VBAGitAddin.UI.Forms
         {
             RevertList.Items.Clear();
 
-            _gitCommand.FileList.ToList().ForEach(stat =>
+            var fileList = _gitCommand.Provider.Status().ToList();
+            fileList.ForEach(stat =>
             {
                 if (stat.State == FileStatus.NewInIndex ||
                     stat.State == FileStatus.ModifiedInWorkdir)
