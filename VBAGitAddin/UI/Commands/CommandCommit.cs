@@ -8,7 +8,6 @@ using LibGit2Sharp;
 using VBAGitAddin.Git;
 using VBAGitAddin.Configuration;
 using VBAGitAddin.UI.Forms;
-using VBAGitAddin.VBEditor.Extensions;
 
 namespace VBAGitAddin.UI.Commands
 {
