@@ -24,7 +24,7 @@ namespace VBAGitAddin.UI.Forms
             this.Abort = new System.Windows.Forms.Button();
             this.ProgressInfo = new System.Windows.Forms.Label();
             this.Action = new System.Windows.Forms.Button();
-            this.Animation = new AnimationControl();
+            this.Animation = new VBAGitAddin.UI.Controls.AnimationControl();
             this.SuspendLayout();
             // 
             // ProgressBar
@@ -122,6 +122,7 @@ namespace VBAGitAddin.UI.Forms
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ProgressForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

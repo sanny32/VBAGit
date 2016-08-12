@@ -120,5 +120,10 @@ namespace VBAGitAddin.UI.Forms
             _gitCommand.Abort();
             UseWaitCursor = false;
         }
+
+        private void ProgressForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = (_gitCommand.Status == CommandStatus.InProgress);
+        }
     }
 }
