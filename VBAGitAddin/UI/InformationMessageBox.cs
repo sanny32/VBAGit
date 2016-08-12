@@ -4,16 +4,10 @@ using System.Windows.Forms;
 namespace VBAGitAddin.UI
 {
     public class InformationMessageBox
-    {
-        private readonly string _msg;
-        public InformationMessageBox(string msg)
+    {      
+        public static void Show(string msg)
         {
-            _msg = msg;
-        }
-
-        public void Show()
-        {
-            MessageBox.Show(_msg, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(msg, VBAGitUI.VBAGitCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
