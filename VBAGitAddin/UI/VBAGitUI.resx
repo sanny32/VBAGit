@@ -121,7 +121,7 @@
     <value>Git</value>
   </data>
   <data name="VBAGitMenu_About" xml:space="preserve">
-    <value>&amp;About...</value>
+    <value>About...</value>
   </data>
   <data name="VBAGitLoadFailure" xml:space="preserve">
     <value>VBAGit Add-In could not be loaded</value>
@@ -139,7 +139,7 @@
     <value>Online</value>
   </data>
   <data name="VBAGitMenu_Commit" xml:space="preserve">
-    <value>Git &amp;Commit...</value>
+    <value>Git Commit...</value>
   </data>
   <data name="VBAGitMenu_Create" xml:space="preserve">
     <value>Git create repositor&amp;y...</value>
@@ -154,7 +154,7 @@
     <value>Push</value>
   </data>
   <data name="VBAGitMenu_Sync" xml:space="preserve">
-    <value>Git &amp;Sync...</value>
+    <value>Git Sync...</value>
   </data>
   <data name="VBAGitMenu_VBAGit" xml:space="preserve">
     <value>VBAGit</value>

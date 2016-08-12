@@ -107,6 +107,7 @@
     <Compile Include="Git\GitProvider.cs" />
     <Compile Include="Git\GitException.cs" />
     <Compile Include="UI\Commands\CommandRevert.cs" />
+    <Compile Include="UI\ContextMenu.cs" />
     <Compile Include="UI\Controls\AnimationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

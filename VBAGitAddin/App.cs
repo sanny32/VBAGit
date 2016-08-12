@@ -9,8 +9,9 @@ namespace VBAGitAddin
     public class App : IDisposable
     {
         private readonly VBE _vbe;
-        private readonly AddIn _addIn;        
+        private readonly AddIn _addIn;
 
+        private ContextMenu _ctxMenu;
         private VBAGitAddinMenu _menu;
         private VBAGitAddinApp _app;
         private VBProjectsEventsSink _sink;
@@ -28,8 +29,12 @@ namespace VBAGitAddin
         private void Setup()
         {
             _app = new VBAGitAddinApp(_vbe);
+
             _menu = new VBAGitAddinMenu(_app);
             _menu.Initialize();
+
+            _ctxMenu = new ContextMenu(_app);
+            _ctxMenu.Initialize();
 
             _sink = new VBProjectsEventsSink();
             var connectionPointContainer = (IConnectionPointContainer)_vbe.VBProjects;
@@ -46,6 +51,11 @@ namespace VBAGitAddin
             if (_menu != null)
             {
                 _menu.Initialize();
+            }
+
+            if(_ctxMenu != null)
+            {
+                _ctxMenu.Initialize();
             }
         }
 
@@ -89,6 +99,11 @@ namespace VBAGitAddin
             if (_projectsEventsConnectionPoint != null)
             {
                 _projectsEventsConnectionPoint.Unadvise(_projectsEventsCookie);
+            }
+
+            if(_ctxMenu != null)
+            {
+                _ctxMenu.Dispose();
             }
 
             if (_menu != null)

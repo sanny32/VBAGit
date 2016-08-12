@@ -703,7 +703,7 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;About....
+        ///   Looks up a localized string similar to About....
         /// </summary>
         internal static string VBAGitMenu_About {
             get {
@@ -739,7 +739,7 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Git &amp;Commit....
+        ///   Looks up a localized string similar to Git Commit....
         /// </summary>
         internal static string VBAGitMenu_Commit {
             get {
@@ -883,7 +883,7 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Git &amp;Sync....
+        ///   Looks up a localized string similar to Git Sync....
         /// </summary>
         internal static string VBAGitMenu_Sync {
             get {

@@ -9,29 +9,29 @@ namespace VBAGitAddin.UI
 
         private CommandBarPopup _menu;
 
-        private CommandBarButton _scCreate;
-        private CommandBarButton _scSync;
-        private CommandBarButton _scCommit;
-        private CommandBarButton _scPull;
-        private CommandBarButton _scFetch;
-        private CommandBarButton _scPush;
+        private CommandBarButton _gitCreate;
+        private CommandBarButton _gitSync;
+        private CommandBarButton _gitCommit;
+        private CommandBarButton _gitPull;
+        private CommandBarButton _gitFetch;
+        private CommandBarButton _gitPush;
 
         private CommandBarPopup _vbaGitMenu;
-        private CommandBarButton _scDiff;
-        private CommandBarButton _scShowLog;
-        private CommandBarButton _scRepoBrowser;
-        private CommandBarButton _scCheckMod;
-        private CommandBarButton _scRebase;
-        private CommandBarButton _scResolve;
-        private CommandBarButton _scDelete;
-        private CommandBarButton _scRevert;
-        private CommandBarButton _scCleanUp;
-        private CommandBarButton _scCheckout;
-        private CommandBarButton _scMerge;
-        private CommandBarButton _scCreateBranch;
-        private CommandBarButton _scExport;
-        private CommandBarButton _scSettings;
-        private CommandBarButton _scAbout;
+        private CommandBarButton _gitDiff;
+        private CommandBarButton _gitShowLog;
+        private CommandBarButton _gitRepoBrowser;
+        private CommandBarButton _gitCheckMod;
+        private CommandBarButton _gitRebase;
+        private CommandBarButton _gitResolve;
+        private CommandBarButton _gitDelete;
+        private CommandBarButton _gitRevert;
+        private CommandBarButton _gitCleanUp;
+        private CommandBarButton _gitCheckout;
+        private CommandBarButton _gitMerge;
+        private CommandBarButton _gitCreateBranch;
+        private CommandBarButton _gitExport;
+        private CommandBarButton _gitSettings;
+        private CommandBarButton _gitAbout;
 
         public VBAGitAddinMenu(VBAGitAddinApp app)
             : base()
@@ -63,17 +63,17 @@ namespace VBAGitAddin.UI
 
             if (_app.GetVBProjectRepository(project) != null)
             {
-                _scSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnGitSync, "git_sync");               
-                _scCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnGitCommit, "git_commit");                
-                _scPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnGitPull, "git_pull");                
-                _scFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnGitFetch, "git_pull");                
-                _scPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnGitPush, "git_push");
+                _gitSync = AddButton(_menu, VBAGitUI.VBAGitMenu_Sync, false, OnGitSync, "git_sync");               
+                _gitCommit = AddButton(_menu, VBAGitUI.VBAGitMenu_Commit, false, OnGitCommit, "git_commit");                
+                _gitPull = AddButton(_menu, VBAGitUI.VBAGitMenu_Pull, true, OnGitPull, "git_pull");                
+                _gitFetch = AddButton(_menu, VBAGitUI.VBAGitMenu_Fecth, false, OnGitFetch, "git_pull");                
+                _gitPush = AddButton(_menu, VBAGitUI.VBAGitMenu_Push, false, OnGitPush, "git_push");
 
                 AddVBAGitMenu(true);
             }
             else
             {
-                _scCreate = AddButton(_menu, VBAGitUI.VBAGitMenu_Create, false, OnGitCreate, "create_repo");
+                _gitCreate = AddButton(_menu, VBAGitUI.VBAGitMenu_Create, false, OnGitCreate, "create_repo");
 
                 AddVBAGitMenu(false);
             }           
@@ -87,27 +87,27 @@ namespace VBAGitAddin.UI
 
             if (hasRepo)
             {                
-                _scDiff = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Diff, false, OnGitDiff, "VBAGit_diff");
+                _gitDiff = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Diff, false, OnGitDiff, "VBAGit_diff");
 
-                _scShowLog = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_ShowLog, true, OnGitShowLog, "VBAGit_showlog");
-                _scRepoBrowser = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_RepoBrowser, false, OnGitRepoBrowser, "VBAGit_repobrowser");
-                _scCheckMod = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CheckForModifications, false, OnGitCheckForModifications, "VBAGit_checkmod");
-                _scRebase = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Rebase, false, OnGitRebase, "VBAGit_rebase");
+                _gitShowLog = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_ShowLog, true, OnGitShowLog, "VBAGit_showlog");
+                _gitRepoBrowser = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_RepoBrowser, false, OnGitRepoBrowser, "VBAGit_repobrowser");
+                _gitCheckMod = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CheckForModifications, false, OnGitCheckForModifications, "VBAGit_checkmod");
+                _gitRebase = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Rebase, false, OnGitRebase, "VBAGit_rebase");
 
-                _scResolve = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Resolve, true, OnGitResolve, "VBAGit_resolve");
-                _scDelete = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Delete, false, OnGitDelete, "VBAGit_delete");
-                _scRevert = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Revert, false, OnGitRevert, "VBAGit_revert");
-                _scCleanUp = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CleanUp, false, OnGitCleanUp, "VBAGit_cleanup");
+                _gitResolve = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Resolve, true, OnGitResolve, "VBAGit_resolve");
+                _gitDelete = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Delete, false, OnGitDelete, "VBAGit_delete");
+                _gitRevert = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Revert, false, OnGitRevert, "VBAGit_revert");
+                _gitCleanUp = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CleanUp, false, OnGitCleanUp, "VBAGit_cleanup");
 
-                _scCheckout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Checkout, true, OnGitCheckout, "VBAGit_checkout");
-                _scMerge = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Merge, false, OnGitMerge, "VBAGit_merge");
-                _scCreateBranch = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CreateBranch, false, OnGitCreateBranch, "VBAGit_createbranch");
-                _scExport = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Export, false, OnGitExport, "VBAGit_export");
+                _gitCheckout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Checkout, true, OnGitCheckout, "VBAGit_checkout");
+                _gitMerge = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Merge, false, OnGitMerge, "VBAGit_merge");
+                _gitCreateBranch = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CreateBranch, false, OnGitCreateBranch, "VBAGit_createbranch");
+                _gitExport = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Export, false, OnGitExport, "VBAGit_export");
 
             }
 
-            _scSettings = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Settings, true, OnGitSettings, "VBAGit_settings");
-            _scAbout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_About, false, OnGitAbout, "VBAGit_about");
+            _gitSettings = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Settings, true, OnGitSettings, "VBAGit_settings");
+            _gitAbout = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_About, false, OnGitAbout, "VBAGit_about");
         }
 
         private void OnGitSync(CommandBarButton Ctrl, ref bool CancelDefault)
@@ -219,52 +219,52 @@ namespace VBAGitAddin.UI
 
         private void UnsubsribeCommandBarButtonClickEvents()
         {
-            if (_scCreate != null)
-                _scCreate.Click -= OnGitCreate;
+            if (_gitCreate != null)
+                _gitCreate.Click -= OnGitCreate;
 
-            if (_scSync != null)
-                _scSync.Click -= OnGitSync;
-            if (_scCommit != null)
-                _scCommit.Click -= OnGitCommit;
+            if (_gitSync != null)
+                _gitSync.Click -= OnGitSync;
+            if (_gitCommit != null)
+                _gitCommit.Click -= OnGitCommit;
 
-            if (_scPull != null)
-                _scPull.Click -= OnGitPull;
-            if (_scFetch != null)
-                _scFetch.Click -= OnGitFetch;
-            if (_scPush != null)
-                _scPush.Click -= OnGitPush;
+            if (_gitPull != null)
+                _gitPull.Click -= OnGitPull;
+            if (_gitFetch != null)
+                _gitFetch.Click -= OnGitFetch;
+            if (_gitPush != null)
+                _gitPush.Click -= OnGitPush;
 
-            if (_scDiff != null)
-                _scDiff.Click -= OnGitDiff;
-            if (_scShowLog != null)
-                _scShowLog.Click -= OnGitShowLog;
-            if (_scRepoBrowser != null)
-                _scRepoBrowser.Click -= OnGitRepoBrowser;
-            if (_scCheckMod != null)
-                _scCheckMod.Click -= OnGitCheckForModifications;
-            if (_scRebase != null)
-                _scRebase.Click -= OnGitRebase;
-            if (_scResolve != null)
-                _scResolve.Click -= OnGitResolve;
-            if (_scDelete != null)
-                _scDelete.Click -= OnGitDelete;
-            if (_scRevert != null)
-                _scRevert.Click -= OnGitRevert;
-            if (_scCleanUp != null)
-                _scCleanUp.Click -= OnGitCleanUp;
-            if (_scCheckout != null)
-                _scCheckout.Click -= OnGitCheckout;
-            if(_scMerge != null)
-                _scMerge.Click -= OnGitMerge;
-            if (_scCreateBranch != null)
-                _scCreateBranch.Click -= OnGitCreateBranch;
-            if (_scExport != null)
-                _scExport.Click -= OnGitExport;
+            if (_gitDiff != null)
+                _gitDiff.Click -= OnGitDiff;
+            if (_gitShowLog != null)
+                _gitShowLog.Click -= OnGitShowLog;
+            if (_gitRepoBrowser != null)
+                _gitRepoBrowser.Click -= OnGitRepoBrowser;
+            if (_gitCheckMod != null)
+                _gitCheckMod.Click -= OnGitCheckForModifications;
+            if (_gitRebase != null)
+                _gitRebase.Click -= OnGitRebase;
+            if (_gitResolve != null)
+                _gitResolve.Click -= OnGitResolve;
+            if (_gitDelete != null)
+                _gitDelete.Click -= OnGitDelete;
+            if (_gitRevert != null)
+                _gitRevert.Click -= OnGitRevert;
+            if (_gitCleanUp != null)
+                _gitCleanUp.Click -= OnGitCleanUp;
+            if (_gitCheckout != null)
+                _gitCheckout.Click -= OnGitCheckout;
+            if(_gitMerge != null)
+                _gitMerge.Click -= OnGitMerge;
+            if (_gitCreateBranch != null)
+                _gitCreateBranch.Click -= OnGitCreateBranch;
+            if (_gitExport != null)
+                _gitExport.Click -= OnGitExport;
 
-            if (_scSettings != null)
-                _scSettings.Click -= OnGitSettings;
-            if (_scAbout != null)
-                _scAbout.Click -= OnGitAbout;
+            if (_gitSettings != null)
+                _gitSettings.Click -= OnGitSettings;
+            if (_gitAbout != null)
+                _gitAbout.Click -= OnGitAbout;
     }
 
         private bool _disposed;

@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Office.Core;
-using Microsoft.Vbe.Interop;
 using stdole;
 using CommandBarButtonClickEvent = Microsoft.Office.Core._CommandBarButtonEvents_ClickEventHandler;
 
@@ -58,10 +57,8 @@ namespace VBAGitAddin.UI
         protected CommandBarButton AddButton(CommandBarPopup parentMenu, string caption, bool beginGroup, CommandBarButtonClickEvent buttonClickHandler, string imageName)
         {
             var button = AddButton(parentMenu, caption, beginGroup, buttonClickHandler);
-            var resourceCulture = VBAGitAddin.Properties.Resources.Culture;
-            Bitmap image = (System.Drawing.Bitmap)VBAGitAddin.Properties.Resources.ResourceManager.GetObject(imageName, resourceCulture);
-            Bitmap mask = (System.Drawing.Bitmap)VBAGitAddin.Properties.Resources.ResourceManager.GetObject(imageName + "_mask", resourceCulture);
-            SetButtonImage(button, image, mask);
+            SetButtonImage(button, imageName);
+
             return button;
         }
 
@@ -83,6 +80,14 @@ namespace VBAGitAddin.UI
                 Clipboard.SetDataObject(image, true);
                 button.PasteFace();
             }
+        }
+
+        public static void SetButtonImage(CommandBarButton button, string imageName)
+        {
+            var resourceCulture = Properties.Resources.Culture;
+            Bitmap image = (Bitmap)Properties.Resources.ResourceManager.GetObject(imageName, resourceCulture);
+            Bitmap mask = (Bitmap)Properties.Resources.ResourceManager.GetObject(imageName + "_mask", resourceCulture);
+            SetButtonImage(button, image, mask);
         }
 
         public static void SetButtonImage(CommandBarButton button, Bitmap image, Bitmap mask)
