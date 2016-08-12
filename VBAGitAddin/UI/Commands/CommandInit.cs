@@ -63,6 +63,11 @@ namespace VBAGitAddin.UI.Commands
             var provider = new GitProvider(_project);
             var path = VBAGitAddinApp.GetVBProjectRepoPath(_project);
 
+            if(path == null)
+            {
+                throw new Exception("You must save project before create git repository.");
+            }
+
             _repositroty = provider.Init(path, false);
 
             int progress = 0;

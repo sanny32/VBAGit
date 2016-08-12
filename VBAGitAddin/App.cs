@@ -29,6 +29,7 @@ namespace VBAGitAddin
         {
             _app = new VBAGitAddinApp(_vbe);
             _menu = new VBAGitAddinMenu(_app);
+            _menu.Initialize();
 
             _sink = new VBProjectsEventsSink();
             var connectionPointContainer = (IConnectionPointContainer)_vbe.VBProjects;

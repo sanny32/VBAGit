@@ -38,15 +38,7 @@ namespace VBAGitAddin.UI.Commands
         {
             _project = project;
             _provider = new GitProvider(_project, repoSettings);
-        }      
-        
-        public IList<StatusEntry> FileList
-        {
-            get
-            {
-                return _provider.Status().ToList();
-            }
-        }
+        }                   
 
         public VBProject VBProject
         {

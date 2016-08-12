@@ -254,7 +254,7 @@ namespace VBAGitAddin.UI
         /// <returns></returns>
         public RepositorySettings GetVBProjectRepository(VBProject project)
         {
-            var projectRepoPath = GetVBProjectRepoPath(project);
+            var projectRepoPath = GetVBProjectRepoPath(project);            
             return _config.Repositories.Find(r => (r.Name == project.GetRepoName() &&
                                                    NormalizePath(r.LocalPath) == NormalizePath(projectRepoPath) &&
                                                    Directory.Exists(r.LocalPath)));
@@ -267,8 +267,16 @@ namespace VBAGitAddin.UI
         /// <returns></returns>
         public static string GetVBProjectRepoPath(VBProject project)
         {
-            var pathVBAGit = Path.Combine(Path.GetDirectoryName(project.FileName), VBAGitUI.VBAGitFolder);
-            return Path.Combine(pathVBAGit, project.GetRepoName());
+            var fileName = project.GetFileName();
+            if (fileName != null)
+            {
+                var pathVBAGit = Path.Combine(Path.GetDirectoryName(fileName), VBAGitUI.VBAGitFolder);
+                return Path.Combine(pathVBAGit, project.GetRepoName());
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

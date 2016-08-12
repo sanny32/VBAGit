@@ -58,7 +58,24 @@ namespace VBAGitAddin.VBEditor.Extensions
         /// <returns></returns>
         public static string GetRepoName(this VBProject project)
         {
-            return Path.GetFileNameWithoutExtension(project.FileName);
+            return Path.GetFileNameWithoutExtension(project.GetFileName());
+        }
+
+        /// <summary>
+        /// Returns poject file name safely
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns>Project file name or null in case exception occured</returns>
+        public static string GetFileName(this VBProject project)
+        {
+            try
+            {
+                return project.FileName;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
