@@ -37,6 +37,14 @@ namespace VBAGitAddin.UI
             return button;
         }
 
+        private CommandBarButton AddButton(CommandBar commandBar, int before, string caption)
+        {
+            var button = commandBar.Controls.Add(MsoControlType.msoControlButton, Temporary: true, Before: before) as CommandBarButton;
+            button.Caption = caption;
+
+            return button;
+        }
+
         protected CommandBarButton AddButton(CommandBarPopup parentMenu, string caption, bool beginGroup, CommandBarButtonClickEvent buttonClickHandler)
         {
             var button = AddButton(parentMenu, caption);
@@ -66,6 +74,16 @@ namespace VBAGitAddin.UI
         {
             var button = AddButton(parentMenu, caption, beginGroup, buttonClickHandler);
             SetButtonImage(button, image);
+
+            return button;
+        }
+
+        protected CommandBarButton AddButton(CommandBar commandBar, int before, string caption, bool beginGroup, CommandBarButtonClickEvent buttonClickHandler, string imageName)
+        {
+            var button = AddButton(commandBar, before, caption);
+            button.BeginGroup = beginGroup;
+            button.Click += buttonClickHandler;
+            SetButtonImage(button, imageName);
 
             return button;
         }

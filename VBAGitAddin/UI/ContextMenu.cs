@@ -25,19 +25,12 @@ namespace VBAGitAddin.UI
         public void RecreateMenu(VBProject project)
         {
             var beforeItem = _app.IDE.CommandBars["Project Window"].Controls.Cast<CommandBarControl>().First(control => control.Id == 2578).Index;
+            var parentMenu = _app.IDE.CommandBars["Project Window"];
 
             if (_app.GetVBProjectRepository(project) != null)
-            {
-                _gitCommit = (CommandBarButton)_app.IDE.CommandBars["Project Window"].Controls.Add(Type: MsoControlType.msoControlButton, Temporary: true, Before: beforeItem);
-                _gitCommit.Caption = VBAGitUI.VBAGitMenu_Commit;
-                _gitCommit.BeginGroup = true;
-                _gitCommit.Click += _gitCommit_Click;
-                SetButtonImage(_gitCommit, "git_commit");
-
-                _gitRevert = (CommandBarButton)_app.IDE.CommandBars["Project Window"].Controls.Add(Type: MsoControlType.msoControlButton, Temporary: true, Before: beforeItem + 1);
-                _gitRevert.Caption = VBAGitUI.VBAGitMenu_Revert;
-                _gitRevert.Click += _gitRevert_Click;
-                SetButtonImage(_gitRevert, "VBAGit_revert");
+            {               
+                _gitCommit = AddButton(parentMenu, beforeItem, VBAGitUI.VBAGitMenu_Commit, true, _gitCommit_Click, "git_commit");                
+                _gitRevert = AddButton(parentMenu, beforeItem + 1, VBAGitUI.VBAGitMenu_Revert, false, _gitCommit_Click, "VBAGit_revert");               
             }
             else
             {
