@@ -1,7 +1,6 @@
 ﻿using Microsoft.Vbe.Interop;
 using System;
 using System.Linq;
-using System.Drawing;
 using System.ComponentModel;
 using System.Collections.Generic;
 using LibGit2Sharp;
@@ -30,20 +29,18 @@ namespace VBAGitAddin.UI.Commands
             public IEnumerable<string> Files { get; private set; }
         }
 
-        private readonly VBProject _project;
-        private readonly GitProvider _provider;
-
+        
         public CommandCommit(VBProject project, RepositorySettings repoSettings)
+            :base(project)
         {
-            _project = project;
-            _provider = new GitProvider(_project, repoSettings);
-        }                   
+            Provider = new GitProvider(project, repoSettings);
+        }
 
-        public VBProject VBProject
+        public override string Name
         {
             get
             {
-                return _project;
+                return string.Format("{0} - Git Commit", this.Repository.Info.WorkingDirectory);
             }
         }
 
@@ -51,7 +48,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                return _provider.Author;
+                return Provider.Author;
             }
         }       
 
@@ -59,17 +56,9 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                return (_provider.CurrentBranch == null) ? "master" : _provider.CurrentBranch.FriendlyName;
+                return (Provider.CurrentBranch == null) ? "master" : Provider.CurrentBranch.FriendlyName;
             }
-        }
-
-        public GitProvider Provider
-        {
-            get
-            {
-                return _provider;
-            }
-        }
+        }        
 
         public void Commit(string branch, string message, string author, DateTimeOffset when, IEnumerable<string> files)
         {
@@ -96,44 +85,20 @@ namespace VBAGitAddin.UI.Commands
             if (commitInfo.Files?.Count() > 0)
             {
                 options.AllowEmptyCommit = false;
-                _provider.Stage(commitInfo.Files);
+                Provider.Stage(commitInfo.Files);
             }
 
             if(commitInfo.Branch != "master" &&
                commitInfo.Branch != this.CurrentBranch)           
             {
                 ReportProgress(50, VBAGitUI.ProgressInfo_CreateBranch);
-                _provider.CreateBranch(commitInfo.Branch);                
+                Provider.CreateBranch(commitInfo.Branch);                
             }
 
             ReportProgress(60, VBAGitUI.ProgressInfo_Commit);
-            _provider.Commit(commitInfo.Message, commitInfo.Author, commitInfo.When, options);            
+            Provider.Commit(commitInfo.Message, commitInfo.Author, commitInfo.When, options);            
         }
 
-
-        public override string Name
-        {
-            get
-            {
-                return string.Format("{0} - Git Commit", this.Repository.Info.WorkingDirectory);
-            }
-        }
-
-        public override Bitmap ProgressImage
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        public override IRepository Repository
-        {
-            get
-            {
-                return _provider.Repository;
-            }
-        }          
        
         public override void Execute()
         {

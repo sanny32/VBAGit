@@ -4,7 +4,6 @@ using System.ComponentModel;
 using VBAGitAddin.Git;
 using VBAGitAddin.UI.Forms;
 using VBAGitAddin.VBEditor.Extensions;
-using System.Drawing;
 using LibGit2Sharp;
 
 
@@ -12,14 +11,14 @@ namespace VBAGitAddin.UI.Commands
 {
     public class CommandInit : CommandBase, IGitCommand
     {
-        private readonly VBProject _project;
         private IRepository _repositroty;
 
         public CommandInit(VBProject project)
+            :base(project)
         {
-            _project = project;            
+            Provider = new GitProvider(VBProject);
         }
-      
+
         public override IRepository Repository
         {
             get
@@ -35,15 +34,7 @@ namespace VBAGitAddin.UI.Commands
                 return "Git Init";
             }
         }
-
-        public override Bitmap ProgressImage
-        {
-            get
-            {
-                return null;
-            }
-        }
-       
+              
         public override void Execute()
         {            
             using (var progressForm = new ProgressForm(this))
@@ -60,20 +51,19 @@ namespace VBAGitAddin.UI.Commands
 
         protected override void OnExectute(DoWorkEventArgs e)
         {          
-            var provider = new GitProvider(_project);
-            var path = VBAGitAddinApp.GetVBProjectRepoPath(_project);
+            var path = VBAGitAddinApp.GetVBProjectRepoPath(VBProject);
 
             if(path == null)
             {
                 throw new Exception("You must save project before create git repository.");
             }
 
-            _repositroty = provider.Init(path, false);
+            _repositroty = Provider.Init(path, false);
 
             int progress = 0;
-            int count = _project.VBComponents.Count;
+            int count = VBProject.VBComponents.Count;
 
-            foreach (VBComponent component in _project.VBComponents)
+            foreach (VBComponent component in VBProject.VBComponents)
             {
                 ReportProgress(100 * ++progress / count, VBAGitUI.ProgressInfo_ExportingFiles);
 

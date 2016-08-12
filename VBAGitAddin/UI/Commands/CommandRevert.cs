@@ -14,13 +14,10 @@ namespace VBAGitAddin.UI.Commands
 {
     public class CommandRevert : CommandBase, IGitCommand
     {
-        private readonly VBProject _project;
-        private readonly GitProvider _provider;
-
         public CommandRevert(VBProject project, RepositorySettings repoSettings)
+            :base(project)
         {
-            _project = project;
-            _provider = new GitProvider(_project, repoSettings);
+            Provider = new GitProvider(project, repoSettings);
         }
 
         public override string Name
@@ -30,39 +27,7 @@ namespace VBAGitAddin.UI.Commands
                 return string.Format("{0} - Git Revert", this.Repository.Info.WorkingDirectory);
             }
         }
-
-        public override Bitmap ProgressImage
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        public IList<StatusEntry> FileList
-        {
-            get
-            {
-                return _provider.Status().ToList();
-            }
-        }
-
-        public override IRepository Repository
-        {
-            get
-            {
-                return _provider.Repository;
-            }
-        }
-
-        public GitProvider Provider
-        {
-            get
-            {
-                return _provider;
-            }
-        }
-
+      
         public void Revert(IEnumerable<string> files)
         {
             using (var progressForm = new ProgressForm(this))
@@ -89,7 +54,7 @@ namespace VBAGitAddin.UI.Commands
 
             var files = e.Argument as IEnumerable<string>;
 
-            //_provider.Revert()            
+            //Provider.Revert()            
         }
     }
 }

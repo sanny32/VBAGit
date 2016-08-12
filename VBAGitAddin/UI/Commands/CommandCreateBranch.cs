@@ -1,8 +1,6 @@
-﻿using LibGit2Sharp;
-using Microsoft.Vbe.Interop;
+﻿using Microsoft.Vbe.Interop;
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using VBAGitAddin.Configuration;
 using VBAGitAddin.Git;
 using VBAGitAddin.UI.Forms;
@@ -24,13 +22,10 @@ namespace VBAGitAddin.UI.Commands
             public CreateBranchOptions Options { get; private set; }
         }
 
-        private readonly VBProject _project;
-        private readonly GitProvider _provider;
-
         public CommandCreateBranch(VBProject project, RepositorySettings repoSettings)
+            :base(project)
         {
-            _project = project;
-            _provider = new GitProvider(_project, repoSettings);
+            Provider = new GitProvider(project, repoSettings);
         }
 
         public override string Name
@@ -40,38 +35,14 @@ namespace VBAGitAddin.UI.Commands
                 return string.Format("{0} - Git Create Branch", this.Repository.Info.WorkingDirectory);
             }
         }
-
-        public override Bitmap ProgressImage
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        public override IRepository Repository
-        {
-            get
-            {
-                return _provider.Repository;
-            }
-        }
-
+       
         public string CurrentBranch
         {
             get
             {
-                return (_provider.CurrentBranch == null) ? "master" : _provider.CurrentBranch.FriendlyName;
+                return (Provider.CurrentBranch == null) ? "master" : Provider.CurrentBranch.FriendlyName;
             }
-        }
-
-        public GitProvider Provider
-        {
-            get
-            {
-                return _provider;
-            }
-        }
+        }     
 
         public void CreateBranch(string branch, string description, CreateBranchOptions options)
         {
@@ -98,7 +69,7 @@ namespace VBAGitAddin.UI.Commands
             ReportProgress(100, VBAGitUI.ProgressInfo_CreateBranch);
 
             var branchInfo = e.Argument as CreateBranchInfo;
-            _provider.CreateBranch(branchInfo.Branch, branchInfo.Description, branchInfo.Options);            
+            Provider.CreateBranch(branchInfo.Branch, branchInfo.Description, branchInfo.Options);            
         }
     }
 }

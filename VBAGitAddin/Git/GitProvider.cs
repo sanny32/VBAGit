@@ -14,7 +14,7 @@ using VBAGitAddin.Git.Extensions;
 
 namespace VBAGitAddin.Git
 {
-    public class GitProvider
+    public class GitProvider: IDisposable
     {
         private VBProject _project;
         private readonly IRepository _repo;
@@ -48,15 +48,7 @@ namespace VBAGitAddin.Git
             };
 
             _credentialsHandler = (url, user, cred) => _credentials;
-        }       
-
-        ~GitProvider()
-        {
-            if (_repo != null)
-            {
-                _repo.Dispose();
-            }
-        }
+        }              
 
         public Branch CurrentBranch
         {
@@ -511,6 +503,14 @@ namespace VBAGitAddin.Git
             _project.ImportSourceFiles(_repo.Info.WorkingDirectory);
 
             _project.VBE.SetSelection(selection.QualifiedName.Project, selection.Selection, name);
+        }
+
+        public void Dispose()
+        {
+            if (_repo != null)
+            {
+                _repo.Dispose();
+            }
         }
     }
 }

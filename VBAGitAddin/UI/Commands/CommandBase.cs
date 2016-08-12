@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using LibGit2Sharp;
 using VBAGitAddin.UI.Extensions;
+using Microsoft.Vbe.Interop;
+using VBAGitAddin.Git;
 
 namespace VBAGitAddin.UI.Commands
 {
@@ -13,8 +15,13 @@ namespace VBAGitAddin.UI.Commands
         private Stopwatch _watch;
         private CommandStatus _status;
 
-        public CommandBase()
+        private readonly VBProject _project;
+        private GitProvider _provider;
+
+        public CommandBase(VBProject project)
         {
+            _project = project;
+
             _bgw = new BackgroundWorker();
             _bgw.DoWork += _bgw_DoWork;
             _bgw.ProgressChanged += _bgw_ProgressChanged;
@@ -25,6 +32,29 @@ namespace VBAGitAddin.UI.Commands
             _watch = new Stopwatch();
 
             _status = CommandStatus.NotExecuted;
+        }
+
+        public VBProject VBProject
+        {
+            get
+            {
+                return _project;
+            }
+        }
+
+        public GitProvider Provider
+        {
+            get
+            {
+                return _provider;
+            }
+            protected set
+            {
+                if (_provider != null)
+                    _provider.Dispose();
+
+                _provider = value;
+            }
         }
 
         public TimeSpan LastExecutionDuration
@@ -48,14 +78,20 @@ namespace VBAGitAddin.UI.Commands
             get;      
         }
 
-        public abstract Bitmap ProgressImage
+        public virtual Bitmap ProgressImage
         {
-            get;            
+            get
+            {
+                return null;
+            }      
         }
 
-        public abstract IRepository Repository
+        public virtual IRepository Repository
         {
-            get;
+            get
+            {
+                return _provider?.Repository;
+            }
         }
 
         public event EventHandler CommandAborted;
@@ -127,7 +163,12 @@ namespace VBAGitAddin.UI.Commands
 
         public void Dispose()
         {
-            _bgw.Dispose();            
+            _bgw.Dispose();
+
+            if (_provider != null)
+            {
+                _provider.Dispose();
+            }
         }
     }
 }
