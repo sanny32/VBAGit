@@ -354,12 +354,26 @@ namespace VBAGitAddin.UI.Forms
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             _gitCommand.VBProject.ExportSourceFiles(_gitCommand.Repository.Info.WorkingDirectory);
-            e.Result = _gitCommand.Provider.Status().ToList();                         
+            _gitCommand.Provider.Status();
+            e.Result = _gitCommand.Provider.Status().ToList();
         }
 
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            foreach (var stat in e.Result as IList<StatusEntry>)
+        {            
+            var fileList = e.Result as IList<StatusEntry>;
+
+            if(fileList == null || e.Error!= null)
+            {
+                EmptyCommitList.Text = "Error occured during update file status :(";
+                if(e.Error != null)
+                {
+                    ExceptionMessageBox.Show(e.Error);
+                }
+
+                return;
+            }
+
+            foreach (var stat in fileList)
             {
                 if (stat.State == FileStatus.Ignored)
                 {
