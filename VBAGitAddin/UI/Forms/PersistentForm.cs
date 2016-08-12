@@ -15,6 +15,16 @@ namespace VBAGitAddin.UI.Forms
             WindowState = new PersistWindowState(this, @"SOFTWARE\Microsoft\VBA\VBE\6.0\Addins\" + _Extension.ProgId + @"\Forms");
         }
 
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
+        }
+
         private void InitializeComponent()
         {
             this.SuspendLayout();
