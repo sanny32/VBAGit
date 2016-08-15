@@ -63,7 +63,7 @@ namespace VBAGitAddin.UI.Forms
 
             Ok.Text = VBAGitUI.OK;
             Cancel.Text = VBAGitUI.Cancel;
-           
+
             Application.Idle += Application_Idle;
         }
 
@@ -88,17 +88,29 @@ namespace VBAGitAddin.UI.Forms
             RevertList.Items.Clear();
 
             var fileList = _gitCommand.Provider.Status().ToList();
-            fileList.ForEach(stat =>
+            foreach(var stat in fileList)
             {
+                ListViewItem item = new ListViewItem();
+                ListViewItemObject itemTag = new ListViewItemObject();
+
+                var ext = Path.GetExtension(stat.FilePath);
+                var componentName = Path.GetFileNameWithoutExtension(stat.FilePath);
+
+                if (_gitCommand.Components != null)
+                {
+                    if(!_gitCommand.Components.Contains(componentName))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        item.Checked = true;
+                    }
+                }
+
                 if (stat.State == FileStatus.NewInIndex ||
                     stat.State == FileStatus.ModifiedInWorkdir)
                 {
-                    ListViewItem item = new ListViewItem();
-                    ListViewItemObject itemTag = new ListViewItemObject();
-
-                    var ext = Path.GetExtension(stat.FilePath);
-                    var componentName = Path.GetFileNameWithoutExtension(stat.FilePath);
-
                     switch (ext)
                     {
                         case VBComponentExtensions.DocClassExtension:
@@ -140,7 +152,7 @@ namespace VBAGitAddin.UI.Forms
 
                     RevertList.Items.Add(item);
                 }
-            });
+            }
         }
 
         private void Ok_Click(object sender, EventArgs e)
@@ -168,7 +180,7 @@ namespace VBAGitAddin.UI.Forms
             {
                 if (checkedCount == RevertList.Items.Count)
                 {
-                    SelectAll.CheckState = CheckState.Unchecked;
+                    SelectAll.CheckState = CheckState.Checked;
                 }
                 else
                 {
@@ -184,7 +196,7 @@ namespace VBAGitAddin.UI.Forms
 
         private void SelectAll_Click(object sender, EventArgs e)
         {
-            switch(SelectAll.CheckState)
+            switch (SelectAll.CheckState)
             {
                 case CheckState.Checked:
                 case CheckState.Indeterminate:

@@ -30,10 +30,17 @@ namespace VBAGitAddin.UI.Commands
         }
 
         
-        public CommandCommit(VBProject project, RepositorySettings repoSettings)
+        public CommandCommit(VBProject project, RepositorySettings repoSettings, IEnumerable<string> components)
             :base(project)
         {
             Provider = new GitProvider(project, repoSettings);
+            Components = components;
+        }
+
+        public IEnumerable<string> Components
+        {
+            get;
+            private set;
         }
 
         public override string Name

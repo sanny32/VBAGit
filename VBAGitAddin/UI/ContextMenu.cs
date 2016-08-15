@@ -2,6 +2,7 @@
 using Microsoft.Office.Core;
 using Microsoft.Vbe.Interop;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace VBAGitAddin.UI
 {
@@ -24,13 +25,13 @@ namespace VBAGitAddin.UI
 
         public void RecreateMenu(VBProject project)
         {
-            var beforeItem = _app.IDE.CommandBars["Project Window"].Controls.Cast<CommandBarControl>().First(control => control.Id == 2578).Index;
-            var parentMenu = _app.IDE.CommandBars["Project Window"];
+            var commandBar = _app.IDE.CommandBars["Project Window"];
+            var beforeItem = commandBar.Controls.Cast<CommandBarControl>().First(control => control.Id == 2578).Index;            
 
             if (_app.GetVBProjectRepository(project) != null)
             {               
-                _gitCommit = AddButton(parentMenu, beforeItem, VBAGitUI.VBAGitMenu_Commit, true, _gitCommit_Click, "git_commit");                
-                _gitRevert = AddButton(parentMenu, beforeItem + 1, VBAGitUI.VBAGitMenu_Revert, false, _gitCommit_Click, "VBAGit_revert");               
+                _gitCommit = AddButton(commandBar, beforeItem, VBAGitUI.VBAGitMenu_Commit, true, _gitCommit_Click, "git_commit");                
+                _gitRevert = AddButton(commandBar, beforeItem + 1, VBAGitUI.VBAGitMenu_Revert, false, _gitRevert_Click, "VBAGit_revert");               
             }
             else
             {
@@ -40,12 +41,18 @@ namespace VBAGitAddin.UI
 
         private void _gitRevert_Click(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-
+            if(_app.IDE.SelectedVBComponent != null)
+            {
+                _app.Revert(_app.IDE.ActiveVBProject, new List<string>() { _app.IDE.SelectedVBComponent.Name });
+            }
         }
 
         private void _gitCommit_Click(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-
+            if (_app.IDE.SelectedVBComponent != null)
+            {
+                _app.Commit(_app.IDE.ActiveVBProject, new List<string>() { _app.IDE.SelectedVBComponent.Name });
+            }
         }
 
         private void RemoveButtons()

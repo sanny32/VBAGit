@@ -14,10 +14,11 @@ namespace VBAGitAddin.UI.Commands
 {
     public class CommandRevert : CommandBase, IGitCommand
     {
-        public CommandRevert(VBProject project, RepositorySettings repoSettings)
+        public CommandRevert(VBProject project, RepositorySettings repoSettings, IEnumerable<string> components)
             :base(project)
         {
             Provider = new GitProvider(project, repoSettings);
+            Components = components;
         }
 
         public override string Name
@@ -26,6 +27,12 @@ namespace VBAGitAddin.UI.Commands
             {
                 return string.Format("{0} - Git Revert", this.Repository.Info.WorkingDirectory);
             }
+        }
+
+        public IEnumerable<string> Components
+        {
+            get;
+            private set;
         }
       
         public void Revert(IEnumerable<string> files)

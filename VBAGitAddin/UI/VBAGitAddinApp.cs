@@ -321,14 +321,14 @@ namespace VBAGitAddin.UI
         /// Commit changes to repository for project
         /// </summary>
         /// <param name="project">VBProject</param>
-        public void Commit(VBProject project)
+        public void Commit(VBProject project, IEnumerable<string> components = null)
         {
             try
             {
                 EnableFileSystemWatcher = false;
 
                 var repo = GetVBProjectRepository(project);
-                using (var gitCommand = new CommandCommit(project, repo))
+                using (var gitCommand = new CommandCommit(project, repo, components))
                 {
                     gitCommand.Execute();
                 }
@@ -365,14 +365,14 @@ namespace VBAGitAddin.UI
         /// Revert files in repository
         /// </summary>
         /// <param name="project">VBProject</param>
-        public void Revert(VBProject project)
+        public void Revert(VBProject project, IEnumerable<string> components = null)
         {
             try
             {
                 EnableFileSystemWatcher = false;
 
                 var repo = GetVBProjectRepository(project);
-                using (var gitCommand = new CommandRevert(project, repo))
+                using (var gitCommand = new CommandRevert(project, repo, components))
                 {
                     gitCommand.Execute();
                 }

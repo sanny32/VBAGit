@@ -385,6 +385,18 @@ namespace VBAGitAddin.UI.Forms
                 var ext = Path.GetExtension(stat.FilePath);
                 var componentName = Path.GetFileNameWithoutExtension(stat.FilePath);
 
+                if (_gitCommand.Components != null)
+                {
+                    if (!_gitCommand.Components.Contains(componentName))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        item.Checked = true;
+                    }
+                }
+
                 switch (ext)
                 {
                     case VBComponentExtensions.DocClassExtension:
