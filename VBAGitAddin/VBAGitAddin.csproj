@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="UI\Commands\CommandCreateBranch.cs" />
     <Compile Include="UI\DialogResultEx.cs" />
+    <Compile Include="UI\Extensions\NativeWindowExtensions.cs" />
     <Compile Include="UI\FlashWindow.cs" />
     <Compile Include="UI\Forms\BrowseReferencesForm.cs">
       <SubType>Form</SubType>
@@ -194,6 +195,7 @@
     <Compile Include="VBEditor\QualifiedSelection.cs" />
     <Compile Include="VBEditor\Selection.cs" />
     <Compile Include="VBEditor\SubClassingWindowEventArgs.cs" />
+    <Compile Include="VBEditor\ProjectExplorerTreeView.cs" />
     <Compile Include="VBEditor\VBProjectsEventsSink.cs" />
   </ItemGroup>
   <ItemGroup>
