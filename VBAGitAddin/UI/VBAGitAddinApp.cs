@@ -98,7 +98,8 @@ namespace VBAGitAddin.UI
 
         private void fsWatcher_Changed(object sender, FileSystemEventArgs e)
         {           
-            if(e.ChangeType == WatcherChangeTypes.Changed)
+            if(e.ChangeType == WatcherChangeTypes.Changed &&
+               e.Name != ".git")
             {                               
                 lock(_changedFiles)
                 {
@@ -143,6 +144,9 @@ namespace VBAGitAddin.UI
                                                 window.AssignHandle(new IntPtr(_vbe.MainWindow.HWnd));
 
                                                 result = form.ShowDialog(window);
+
+                                                window.ReleaseHandle();
+
                                                 switch (result)
                                                 {
                                                     case DialogResultEx.Yes:
@@ -150,8 +154,6 @@ namespace VBAGitAddin.UI
                                                         ReloadVBComponent(project, name, fileInfo.FullName);
                                                         break;
                                                 }
-
-                                                window.ReleaseHandle();
                                             }
                                         }
                                         break;
@@ -172,8 +174,15 @@ namespace VBAGitAddin.UI
 
         private void ReloadVBComponent(VBProject project, string name, string filePath)
         {
-            project.RemoveComponent(name);
-            project.ImportSourceFile(filePath);            
+            try
+            {
+                project.RemoveComponent(name);
+                project.ImportSourceFile(filePath);
+            }
+            catch(Exception ex)
+            {
+                ExceptionMessageBox.Show(new IntPtr(_vbe.MainWindow.HWnd), ex);
+            }
         }
 
         /// <summary>
