@@ -47,7 +47,7 @@ namespace VBAGitAddin.UI.Commands
         {
             get
             {
-                return string.Format("{0} - Git Commit", this.Repository.Info.WorkingDirectory);
+                return string.Format("{0} - Git Commit", Repository.Info.WorkingDirectory);
             }
         }
 
