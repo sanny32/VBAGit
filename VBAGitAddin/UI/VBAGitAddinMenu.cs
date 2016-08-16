@@ -23,7 +23,6 @@ namespace VBAGitAddin.UI
         private CommandBarButton _gitCheckMod;
         private CommandBarButton _gitRebase;
         private CommandBarButton _gitResolve;
-        private CommandBarButton _gitDelete;
         private CommandBarButton _gitRevert;
         private CommandBarButton _gitCleanUp;
         private CommandBarButton _gitCheckout;
@@ -95,7 +94,6 @@ namespace VBAGitAddin.UI
                 _gitRebase = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Rebase, false, OnGitRebase, "VBAGit_rebase");
 
                 _gitResolve = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Resolve, true, OnGitResolve, "VBAGit_resolve");
-                _gitDelete = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Delete, false, OnGitDelete, "VBAGit_delete");
                 _gitRevert = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_Revert, false, OnGitRevert, "VBAGit_revert");
                 _gitCleanUp = AddButton(_vbaGitMenu, VBAGitUI.VBAGitMenu_CleanUp, false, OnGitCleanUp, "VBAGit_cleanup");
 
@@ -171,12 +169,7 @@ namespace VBAGitAddin.UI
         {
 
         }
-
-        private void OnGitDelete(CommandBarButton Ctrl, ref bool CancelDefault)
-        {
-
-        }
-
+     
         private void OnGitRevert(CommandBarButton Ctrl, ref bool CancelDefault)
         {
             _app.Revert(_app.IDE.ActiveVBProject);
@@ -245,9 +238,7 @@ namespace VBAGitAddin.UI
             if (_gitRebase != null)
                 _gitRebase.Click -= OnGitRebase;
             if (_gitResolve != null)
-                _gitResolve.Click -= OnGitResolve;
-            if (_gitDelete != null)
-                _gitDelete.Click -= OnGitDelete;
+                _gitResolve.Click -= OnGitResolve;           
             if (_gitRevert != null)
                 _gitRevert.Click -= OnGitRevert;
             if (_gitCleanUp != null)
