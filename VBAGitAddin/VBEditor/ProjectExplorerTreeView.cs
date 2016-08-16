@@ -127,16 +127,7 @@ namespace VBAGitAddin.VBEditor
             {
                 return _hTreeView;
             }
-        }
-
-        public string Node_Project
-        {
-            get
-            {
-                var project = _vbe.ActiveVBProject;
-                return string.Format("{0} ({1})", project.Name, project.BuildFileName);
-            }
-        }
+        }       
 
         protected override void WndProc(ref Message m)
         {
