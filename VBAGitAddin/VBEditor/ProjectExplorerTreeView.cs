@@ -21,10 +21,6 @@ namespace VBAGitAddin.VBEditor
 
     public class ProjectExplorerTreeViewItem
     {
-        public ProjectExplorerTreeViewItem()
-        {         
-        }
-
         public IntPtr Handle { get; set; }
         public string Text { get; set; }
         public ProjectFolder Folder { get; set; }              

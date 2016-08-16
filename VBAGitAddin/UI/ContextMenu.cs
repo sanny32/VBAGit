@@ -26,20 +26,7 @@ namespace VBAGitAddin.UI
         private void _projectExplorer_OnSelectionChanged(object sender, EventArgs e)
         {
             _selectedItem = _projectExplorer.GetSelectedItem();
-            switch(_selectedItem.Folder)
-            {                
-                case ProjectFolder.References:
-                    EnableButtons(false);
-                    break;
-
-                case ProjectFolder.None:
-                case ProjectFolder.Objects:
-                case ProjectFolder.Forms:
-                case ProjectFolder.Modules:
-                case ProjectFolder.ClassModules:
-                    EnableButtons(true);
-                    break;
-            }
+            UpdateButtonsState(_selectedItem.Folder);
         }
        
         public void Initialize()
@@ -57,7 +44,10 @@ namespace VBAGitAddin.UI
             if (_app.GetVBProjectRepository(project) != null)
             {               
                 _gitCommit = AddButton(commandBar, beforeItem, VBAGitUI.VBAGitMenu_Commit, true, _gitCommit_Click, "git_commit");                
-                _gitRevert = AddButton(commandBar, beforeItem + 1, VBAGitUI.VBAGitMenu_Revert, false, _gitRevert_Click, "VBAGit_revert");               
+                _gitRevert = AddButton(commandBar, beforeItem + 1, VBAGitUI.VBAGitMenu_Revert, false, _gitRevert_Click, "VBAGit_revert");
+
+                _selectedItem = _projectExplorer.GetSelectedItem();
+                UpdateButtonsState(_selectedItem.Folder);
             }           
         }
 
@@ -76,6 +66,24 @@ namespace VBAGitAddin.UI
             {
                 _app.Commit(_app.IDE.ActiveVBProject, _selectedItem.SelectedComponents);
             }           
+        }
+
+        private void UpdateButtonsState(ProjectFolder folder)
+        {            
+            switch (folder)
+            {
+                case ProjectFolder.References:
+                    EnableButtons(false);
+                    break;
+
+                case ProjectFolder.None:
+                case ProjectFolder.Objects:
+                case ProjectFolder.Forms:
+                case ProjectFolder.Modules:
+                case ProjectFolder.ClassModules:
+                    EnableButtons(true);
+                    break;
+            }
         }
 
         private void EnableButtons(bool enable)
