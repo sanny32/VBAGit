@@ -34,10 +34,19 @@ namespace VBAGitAddin.VBEditor
         private const int TVM_GETNEXTITEM = (TV_FIRST + 10);
         private const int TVM_GETITEM = (TV_FIRST + 12);
 
+        private const int NM_FIRST = 0;
+        private const int NM_RCLICK = (NM_FIRST - 5);
+
+        private const int TVN_FIRST = -400;
+        private const int TVN_SELCHANGING = (TVN_FIRST - 1);
+        private const int TVN_SELCHANGED = (TVN_FIRST - 2);
+
         private const int TVIF_TEXT = 0x1;
 
-        private const int WM_CONTEXTMENU = 0x007B;
-        private const int WM_RBUTTONDOWN = 0x0204;
+        private const int WM_CONTEXTMENU = 0x007B;        
+        private const int WM_NOTIFY = 0x004E;
+        private const int WM_REFLECT = 0x2000;
+        
 
         [StructLayout(LayoutKind.Sequential)]
         private struct NMHDR
@@ -67,8 +76,10 @@ namespace VBAGitAddin.VBEditor
         public const string Node_References = "References";       
 
         private readonly VBE _vbe;
+        private readonly IntPtr _hTreeView;
 
         public event EventHandler OnContextMenu;
+        public event EventHandler OnSelectionChanged;
 
         public ProjectExplorerTreeView(VBE vbe)
         {
@@ -77,16 +88,40 @@ namespace VBAGitAddin.VBEditor
             NativeWindow window = new NativeWindow();
             window.AssignHandle(new IntPtr(vbe.MainWindow.HWnd));
 
-            var hTreeView = window.FindChildWindow("SysTreeView32");
-            AssignHandle(hTreeView);
+            var hPROJECT = window.FindChildWindow("PROJECT");
+            AssignHandle(hPROJECT);
+
+            _hTreeView = window.FindChildWindow("SysTreeView32");            
 
             window.ReleaseHandle();
         }
 
+        public new IntPtr Handle
+        {
+            get
+            {
+                return _hTreeView;
+            }
+        }
+
         protected override void WndProc(ref Message m)
-        {          
+        {
             switch (m.Msg)
-            {               
+            {
+                case WM_NOTIFY:
+                    var nmhdr = (NMHDR)Marshal.PtrToStructure(m.LParam, typeof(NMHDR));
+                    switch(nmhdr.code)
+                    {
+                        case NM_RCLICK:
+                            //OnContextMenu.Raise(this, new EventArgs());
+                            break;
+
+                       case TVN_SELCHANGED:
+                            OnSelectionChanged.Raise(this, new EventArgs());
+                            break;
+                    }                   
+                    break;
+
                 case WM_CONTEXTMENU:
                     OnContextMenu.Raise(this, new EventArgs());
                     break;

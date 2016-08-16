@@ -19,15 +19,15 @@ namespace VBAGitAddin.UI
         {
             _app = app;
             _projectExplorer = new ProjectExplorerTreeView(_app.IDE);
-            _projectExplorer.OnContextMenu += _projectExplorer_OnContextMenu;
+            _projectExplorer.OnSelectionChanged += _projectExplorer_OnSelectionChanged;
         }
 
-        private void _projectExplorer_OnContextMenu(object sender, EventArgs e)
+        private void _projectExplorer_OnSelectionChanged(object sender, EventArgs e)
         {
             string selectedItem = _projectExplorer.GetSelectedItemText();
             EnableButtons(selectedItem != ProjectExplorerTreeView.Node_References);
         }
-
+       
         public void Initialize()
         {
             RecreateMenu(_app.IDE.ActiveVBProject);
