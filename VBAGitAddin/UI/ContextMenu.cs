@@ -122,6 +122,7 @@ namespace VBAGitAddin.UI
 
             if (_projectExplorer != null)
             {
+                _projectExplorer.OnSelectionChanged -= _projectExplorer_OnSelectionChanged;
                 _projectExplorer.Dispose();
             }
 
