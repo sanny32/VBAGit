@@ -4,16 +4,18 @@ It's an add-in for the Microsoft VBA IDE (*Visual Basic Editor, VBE*) to help de
 
 ## Current project status
 
-Now implements the following git commands:
+Project in development now...
 
- - Create repository (init)
+The following git commands are implemented:
+
+ - Init (create repository)
  - Commit
  - Revert
  - Create branch
 
 ## Prerequisites
 
- - **Windows:** .NET 4.0+
+ - Microsoft .NET 4.0+
 
 ## Libraries
  
