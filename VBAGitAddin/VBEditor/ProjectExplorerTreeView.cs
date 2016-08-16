@@ -1,12 +1,36 @@
 ﻿using Microsoft.Vbe.Interop;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VBAGitAddin.UI.Extensions;
+using VBAGitAddin.VBEditor.Extensions;
 
 namespace VBAGitAddin.VBEditor
 {
+    public enum ProjectFolder
+    {
+        None = 0,
+        Objects,
+        Forms,
+        Modules,
+        ClassModules,
+        References
+    }
+
+    public class ProjectExplorerTreeViewItem
+    {
+        public ProjectExplorerTreeViewItem()
+        {         
+        }
+
+        public IntPtr Handle { get; set; }
+        public string Text { get; set; }
+        public ProjectFolder Folder { get; set; }              
+        public IEnumerable<string> SelectedComponents { get; set; }
+    }
+
     public class ProjectExplorerTreeView : NativeWindow, IDisposable
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
@@ -25,6 +49,7 @@ namespace VBAGitAddin.VBEditor
 
         private const int TVGN_ROOT = 0x0;
         private const int TVGN_NEXT = 0x1;
+        private const int TVGN_PARENT = 0x3;
         private const int TVGN_CHILD = 0x4;
         private const int TVGN_FIRSTVISIBLE = 0x5;
         private const int TVGN_NEXTVISIBLE = 0x6;
@@ -69,11 +94,11 @@ namespace VBAGitAddin.VBEditor
             public int cChildren;
             public IntPtr lParam;
         }     
-
-        public const string Node_Forms = "Forms";
-        public const string Node_Modules = "Modules";
-        public const string Node_ClassModules = "Class Modules";
-        public const string Node_References = "References";       
+      
+        private const string Node_Forms = "Forms";
+        private const string Node_Modules = "Modules";
+        private const string Node_ClassModules = "Class Modules";
+        private const string Node_References = "References";       
 
         private readonly VBE _vbe;
         private readonly IntPtr _hTreeView;
@@ -91,9 +116,9 @@ namespace VBAGitAddin.VBEditor
             var hPROJECT = window.FindChildWindow("PROJECT");
             AssignHandle(hPROJECT);
 
-            _hTreeView = window.FindChildWindow("SysTreeView32");            
-
             window.ReleaseHandle();
+
+            _hTreeView = this.FindChildWindow("SysTreeView32");            
         }
 
         public new IntPtr Handle
@@ -101,6 +126,15 @@ namespace VBAGitAddin.VBEditor
             get
             {
                 return _hTreeView;
+            }
+        }
+
+        public string Node_Project
+        {
+            get
+            {
+                var project = _vbe.ActiveVBProject;
+                return string.Format("{0} ({1})", project.Name, project.BuildFileName);
             }
         }
 
@@ -113,7 +147,7 @@ namespace VBAGitAddin.VBEditor
                     switch(nmhdr.code)
                     {
                         case NM_RCLICK:
-                            //OnContextMenu.Raise(this, new EventArgs());
+                            OnContextMenu.Raise(this, new EventArgs());
                             break;
 
                        case TVN_SELCHANGED:
@@ -130,17 +164,15 @@ namespace VBAGitAddin.VBEditor
             base.WndProc(ref m);
         }
 
-        public string GetSelectedItemText()
-        {
-            IntPtr selectedItem = SendMessage(Handle, TVM_GETNEXTITEM, new IntPtr(TVGN_CARET), IntPtr.Zero);
-
+        public string GetItemText(IntPtr handle)
+        {            
             TVITEM tvi = new TVITEM();
 
             const int maxSize = 260;
             IntPtr pszText = LocalAlloc(0x40, maxSize);
 
             tvi.mask = TVIF_TEXT;
-            tvi.hItem = selectedItem;
+            tvi.hItem = handle;
             tvi.cchTextMax = 260;
             tvi.pszText = pszText;
 
@@ -152,24 +184,89 @@ namespace VBAGitAddin.VBEditor
             return nodeText?.TrimEnd('\0');
         }
 
-        public IEnumerable<string> GetComponents()
+        public ProjectExplorerTreeViewItem GetSelectedItem()
         {
-            List<string> items = new List<string>();
+            ProjectExplorerTreeViewItem item = new ProjectExplorerTreeViewItem();
 
-            string selectedItem = GetSelectedItemText();
-            switch(selectedItem)
+            item.Handle = SendMessage(Handle, TVM_GETNEXTITEM, new IntPtr(TVGN_CARET), IntPtr.Zero);            
+            item.Text = GetItemText(item.Handle);           
+            item.Folder = GetItemFolder(item.Text);
+
+            List<string> listOfComponents = new List<string>();
+
+            if (item.Folder == ProjectFolder.None)
             {
-                case Node_Forms:
-                    break;
+                IntPtr hParent = SendMessage(Handle, TVM_GETNEXTITEM, new IntPtr(TVGN_PARENT), item.Handle);
+                string parentText = GetItemText(hParent);
+                item.Folder = GetItemFolder(parentText);
 
-                case Node_Modules:
-                    break;
-
-                case Node_ClassModules:
-                    break;
+                if (item.Folder != ProjectFolder.None)
+                {
+                    listOfComponents.Add(item.Text);
+                    item.SelectedComponents = listOfComponents;
+                }
             }
+            else
+            {
+                IEnumerable<VBComponent> components = null;
+                switch (item.Folder)
+                {
+                    case ProjectFolder.None:
+                        break;
 
-            return items;
+                    case ProjectFolder.Objects:
+                        components = _vbe.ActiveVBProject.SelectComponents(vbext_ComponentType.vbext_ct_Document);
+                        break;
+
+                    case ProjectFolder.Forms:
+                        components = _vbe.ActiveVBProject.SelectComponents(vbext_ComponentType.vbext_ct_MSForm);
+                        break;
+
+                    case ProjectFolder.Modules:
+                        components = _vbe.ActiveVBProject.SelectComponents(vbext_ComponentType.vbext_ct_StdModule);
+                        break;
+
+                    case ProjectFolder.ClassModules:
+                        components = _vbe.ActiveVBProject.SelectComponents(vbext_ComponentType.vbext_ct_ClassModule);
+                        break;
+                }
+
+                if (components != null)
+                {
+                    listOfComponents.AddRange(components.Select(c => c.Name));
+                    item.SelectedComponents = listOfComponents;
+                }
+            }                               
+
+            return item;
+        }        
+      
+        private ProjectFolder GetItemFolder(string text)
+        {
+            if (text.Contains("Objects"))
+            {
+                return ProjectFolder.Objects;
+            }
+            else
+            {
+                switch (text)
+                {
+                    case Node_Forms:
+                        return ProjectFolder.Forms;
+
+                    case Node_Modules:
+                        return ProjectFolder.Modules;
+
+                    case Node_ClassModules:
+                        return ProjectFolder.ClassModules;
+
+                    case Node_References:
+                        return ProjectFolder.References;
+
+                    default:
+                        return ProjectFolder.None;
+                }
+            }
         }
 
         public void Dispose()

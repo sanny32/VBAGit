@@ -11,6 +11,7 @@ namespace VBAGitAddin.UI
     {
         private readonly VBAGitAddinApp _app;
         private readonly ProjectExplorerTreeView _projectExplorer;
+        private ProjectExplorerTreeViewItem _selectedItem;
 
         private CommandBarButton _gitCommit;
         private CommandBarButton _gitRevert;
@@ -24,8 +25,21 @@ namespace VBAGitAddin.UI
 
         private void _projectExplorer_OnSelectionChanged(object sender, EventArgs e)
         {
-            string selectedItem = _projectExplorer.GetSelectedItemText();
-            EnableButtons(selectedItem != ProjectExplorerTreeView.Node_References);
+            _selectedItem = _projectExplorer.GetSelectedItem();
+            switch(_selectedItem.Folder)
+            {                
+                case ProjectFolder.References:
+                    EnableButtons(false);
+                    break;
+
+                case ProjectFolder.None:
+                case ProjectFolder.Objects:
+                case ProjectFolder.Forms:
+                case ProjectFolder.Modules:
+                case ProjectFolder.ClassModules:
+                    EnableButtons(true);
+                    break;
+            }
         }
        
         public void Initialize()
@@ -48,24 +62,20 @@ namespace VBAGitAddin.UI
         }
 
         private void _gitRevert_Click(CommandBarButton Ctrl, ref bool CancelDefault)
-        {
-            if(_app.IDE.SelectedVBComponent != null)
+        {           
+            if (_selectedItem != null)
             {
-                _app.Revert(_app.IDE.ActiveVBProject, new List<string>() { _app.IDE.SelectedVBComponent.Name });
+                _app.Revert(_app.IDE.ActiveVBProject, _selectedItem.SelectedComponents);
             }
-            else
-            {                               
-                //string selectedItem = _projectExplorer.GetSelectedItemText();                
-            }
-            
+
         }
 
         private void _gitCommit_Click(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-            if (_app.IDE.SelectedVBComponent != null)
+            if (_selectedItem != null)
             {
-                _app.Commit(_app.IDE.ActiveVBProject, new List<string>() { _app.IDE.SelectedVBComponent.Name });
-            }
+                _app.Commit(_app.IDE.ActiveVBProject, _selectedItem.SelectedComponents);
+            }           
         }
 
         private void EnableButtons(bool enable)

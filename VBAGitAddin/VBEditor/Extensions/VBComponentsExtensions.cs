@@ -1,5 +1,7 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.Vbe.Interop;
+using System.Collections.Generic;
 
 namespace VBAGitAddin.VBEditor.Extensions
 {
@@ -31,6 +33,12 @@ namespace VBAGitAddin.VBEditor.Extensions
             }
         }
 
+        /// <summary>
+        /// Find component by name
+        /// </summary>
+        /// <param name="components"></param>
+        /// <param name="name">component`s name</param>
+        /// <returns>null if component not found, otherwise VBComponent</returns>
         public static VBComponent Find(this VBComponents components, string name)
         {
             foreach(VBComponent component in components)
@@ -43,7 +51,24 @@ namespace VBAGitAddin.VBEditor.Extensions
 
             return null;
         }
+
+        /// <summary>
+        /// Select components by type
+        /// </summary>
+        /// <param name="components"></param>
+        /// <param name="type">type to select</param>
+        /// <returns></returns>
+        public static IEnumerable<VBComponent> Select(this VBComponents components, vbext_ComponentType type)
+        {
+            IEnumerable<VBComponent> list = components.Cast<VBComponent>();
+            return list.Where(c => c.Type == type);
+        }
                 
+        /// <summary>
+        /// Import component from source file
+        /// </summary>
+        /// <param name="components"></param>
+        /// <param name="filePath">file to import</param>
         public static void ImportSourceFile(this VBComponents components, string filePath)
         {
             var ext = Path.GetExtension(filePath);

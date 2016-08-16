@@ -52,6 +52,17 @@ namespace VBAGitAddin.VBEditor.Extensions
         }
 
         /// <summary>
+        /// Select components by type
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="type">type to select</param>
+        /// <returns></returns>
+        public static IEnumerable<VBComponent> SelectComponents(this VBProject project, vbext_ComponentType type)
+        {
+            return project.VBComponents.Select(type);
+        }
+
+        /// <summary>
         /// Returns then name for the repository
         /// </summary>
         /// <param name="project"></param>
