@@ -1,6 +1,6 @@
-# What is VBAGit
+# What is VBAGit?
 
-It's an add-in for the VBA IDE (*Visual Basic Editor*, VBE) to help developer manage source code through git.
+It's an add-in for the Microsoft VBA IDE (*Visual Basic Editor, VBE*) to help developer manage source code through git.
 
 ## Current project status
 
@@ -25,4 +25,4 @@ Now implements the following git commands:
 
 ## Installation
 
- To install add-in after building you must execute RegisterAddinForIDE.reg file to add information in windows registry
+ To install add-in after building you must execute RegisterAddinForIDE.reg file to add information in the windows registry.
