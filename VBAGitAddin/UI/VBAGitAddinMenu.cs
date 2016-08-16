@@ -130,7 +130,7 @@ namespace VBAGitAddin.UI
 
         private void OnGitPush(CommandBarButton Ctrl, ref bool CancelDefault)
         {
-
+            _app.Push(_app.IDE.ActiveVBProject);
         }
 
         private void OnGitCreate(CommandBarButton Ctrl, ref bool CancelDefault)

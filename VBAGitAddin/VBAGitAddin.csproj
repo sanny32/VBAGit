@@ -106,6 +106,7 @@
     <Compile Include="Git\DefaultSettings.cs" />
     <Compile Include="Git\GitProvider.cs" />
     <Compile Include="Git\GitException.cs" />
+    <Compile Include="UI\Commands\CommandPush.cs" />
     <Compile Include="UI\Commands\CommandRevert.cs" />
     <Compile Include="UI\ContextMenu.cs" />
     <Compile Include="UI\Controls\AnimationControl.cs">
@@ -138,6 +139,12 @@
     <Compile Include="UI\ExceptionMessageBox.cs" />
     <Compile Include="UI\Extensions\EventExtensions.cs" />
     <Compile Include="UI\Extensions\RichTextBoxExtensions.cs" />
+    <Compile Include="UI\Forms\PushForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\PushForm.Designer.cs">
+      <DependentUpon>PushForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\ReloadFileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\PushForm.resx">
+      <DependentUpon>PushForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ReloadFileForm.resx">
       <DependentUpon>ReloadFileForm.cs</DependentUpon>

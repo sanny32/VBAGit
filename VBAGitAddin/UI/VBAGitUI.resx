@@ -405,4 +405,46 @@ Do you want to reload it?</value>
   <data name="RevertForm_EmptyRevertList" xml:space="preserve">
     <value>File list is empty</value>
   </data>
+  <data name="PushForm_DestinationRemote" xml:space="preserve">
+    <value>Remote: </value>
+  </data>
+  <data name="PushForm_DestinationUrl" xml:space="preserve">
+    <value>Arbitrary URL: </value>
+  </data>
+  <data name="PushForm_GroupDestinantion" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="PushForm_GroupOptions" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="PushForm_GroupRef" xml:space="preserve">
+    <value>Ref</value>
+  </data>
+  <data name="PushForm_LabelLocal" xml:space="preserve">
+    <value>Local: </value>
+  </data>
+  <data name="PushForm_LabelRemote" xml:space="preserve">
+    <value>Remote: </value>
+  </data>
+  <data name="PushForm_LableForce" xml:space="preserve">
+    <value>Force: May discard</value>
+  </data>
+  <data name="PushForm_Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="PushForm_OptionIncludeTags" xml:space="preserve">
+    <value>Include Tags</value>
+  </data>
+  <data name="PushForm_OptionKnownChanges" xml:space="preserve">
+    <value>known changes</value>
+  </data>
+  <data name="PushForm_OptionSetUpstream" xml:space="preserve">
+    <value>Set upstream/track remote branch</value>
+  </data>
+  <data name="PushForm_OptionUnknownChanges" xml:space="preserve">
+    <value>unknown changes</value>
+  </data>
+  <data name="PushForm_PushAllBranches" xml:space="preserve">
+    <value>Push all branches</value>
+  </data>
 </root>

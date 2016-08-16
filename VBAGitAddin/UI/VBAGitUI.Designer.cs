@@ -619,6 +619,132 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remote: .
+        /// </summary>
+        internal static string PushForm_DestinationRemote {
+            get {
+                return ResourceManager.GetString("PushForm_DestinationRemote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arbitrary URL: .
+        /// </summary>
+        internal static string PushForm_DestinationUrl {
+            get {
+                return ResourceManager.GetString("PushForm_DestinationUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        internal static string PushForm_GroupDestinantion {
+            get {
+                return ResourceManager.GetString("PushForm_GroupDestinantion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string PushForm_GroupOptions {
+            get {
+                return ResourceManager.GetString("PushForm_GroupOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ref.
+        /// </summary>
+        internal static string PushForm_GroupRef {
+            get {
+                return ResourceManager.GetString("PushForm_GroupRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local: .
+        /// </summary>
+        internal static string PushForm_LabelLocal {
+            get {
+                return ResourceManager.GetString("PushForm_LabelLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote: .
+        /// </summary>
+        internal static string PushForm_LabelRemote {
+            get {
+                return ResourceManager.GetString("PushForm_LabelRemote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force: May discard.
+        /// </summary>
+        internal static string PushForm_LableForce {
+            get {
+                return ResourceManager.GetString("PushForm_LableForce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage.
+        /// </summary>
+        internal static string PushForm_Manage {
+            get {
+                return ResourceManager.GetString("PushForm_Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Tags.
+        /// </summary>
+        internal static string PushForm_OptionIncludeTags {
+            get {
+                return ResourceManager.GetString("PushForm_OptionIncludeTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to known changes.
+        /// </summary>
+        internal static string PushForm_OptionKnownChanges {
+            get {
+                return ResourceManager.GetString("PushForm_OptionKnownChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set upstream/track remote branch.
+        /// </summary>
+        internal static string PushForm_OptionSetUpstream {
+            get {
+                return ResourceManager.GetString("PushForm_OptionSetUpstream", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unknown changes.
+        /// </summary>
+        internal static string PushForm_OptionUnknownChanges {
+            get {
+                return ResourceManager.GetString("PushForm_OptionUnknownChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Push all branches.
+        /// </summary>
+        internal static string PushForm_PushAllBranches {
+            get {
+                return ResourceManager.GetString("PushForm_PushAllBranches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///
         ///This file has been modified outside of the source editor.

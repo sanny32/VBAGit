@@ -349,6 +349,28 @@ namespace VBAGitAddin.UI
         }
 
         /// <summary>
+        /// Push changes to remote repository
+        /// </summary>
+        /// <param name="project">VBProject</param>
+        public void Push(VBProject project)
+        {
+            try
+            {
+                EnableFileSystemWatcher = false;
+
+                var repo = GetVBProjectRepository(project);
+                using (var gitCommand = new CommandPush(project, repo))
+                {
+                    gitCommand.Execute();
+                }
+            }
+            finally
+            {
+                EnableFileSystemWatcher = true;
+            }
+        }
+
+        /// <summary>
         /// Create new branch for repository
         /// </summary>
         /// <param name="project">VBProject</param>
