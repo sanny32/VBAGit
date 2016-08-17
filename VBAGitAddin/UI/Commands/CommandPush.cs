@@ -11,6 +11,17 @@ namespace VBAGitAddin.UI.Commands
 {
     public class CommandPush : CommandBase
     {
+        private class PushInfo
+        {
+            public PushInfo(string remote, IEnumerable<string> pushRefSpecs)
+            {
+                Remote = remote;
+                PushRefs = pushRefSpecs;
+            }
+            public string Remote { get; private set; }           
+            public IEnumerable<string> PushRefs { get; private set; }
+        }
+
         public CommandPush(VBProject project, RepositorySettings repoSettings)
             :base(project)
         {
@@ -25,13 +36,13 @@ namespace VBAGitAddin.UI.Commands
             }
         }
 
-        public void Push()
+        public void Push(string remote, IEnumerable<string> pushRefSpecs)
         {
             using (var progressForm = new ProgressForm(this))
             {
                 progressForm.Shown += delegate (object sender, EventArgs e)
-                {
-                    RunCommandAsync();
+                {                 
+                    RunCommandAsync(new PushInfo(remote, pushRefSpecs));
                 };
                 progressForm.ShowDialog();
             };
@@ -47,7 +58,10 @@ namespace VBAGitAddin.UI.Commands
 
         protected override void OnExectute(DoWorkEventArgs e)
         {
-            
+            var pushInfo = e.Argument as PushInfo;
+
+            var remote = Repository.Network.Remotes.FirstOrDefault(r => r.Name == pushInfo.Remote);
+            Provider.Push(remote, pushInfo.PushRefs);
         }
     }
 }

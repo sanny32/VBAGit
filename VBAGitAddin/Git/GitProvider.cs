@@ -142,7 +142,7 @@ namespace VBAGitAddin.Git
             }
         }
         
-        public void Push()
+        public void Push(Remote remote, IEnumerable<string> pushRefSpecs)
         {
             try
             {
@@ -155,9 +155,8 @@ namespace VBAGitAddin.Git
                         CredentialsProvider = _credentialsHandler
                     };
                 }
-
-                var branch = _repo.Branches[this.CurrentBranch.FriendlyName];
-                _repo.Network.Push(branch, options);
+               
+                _repo.Network.Push(remote, pushRefSpecs, options);
 
                 RequeryUnsyncedCommits();
             }

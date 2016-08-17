@@ -13,6 +13,23 @@ namespace VBAGitAddin.UI.Forms
 {
     public partial class PushForm : PersistentForm
     {
+        private class ComboBoxItem
+        {
+            public ComboBoxItem(string name, object tag)
+            {
+                Name = name;
+                Tag = tag;
+            }
+
+            public string Name { get; }
+            public object Tag { get; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
+
         private readonly CommandPush _gitCommand;
 
         public PushForm(CommandPush gitCommand)
@@ -41,9 +58,9 @@ namespace VBAGitAddin.UI.Forms
             Ok.Text = VBAGitUI.OK;
             Cancel.Text = VBAGitUI.Cancel;
 
-            var branches = _gitCommand.Provider.Branches;
-            LocalBranches.Items.AddRange(branches.Where(b => !b.IsRemote).Select(b => b.FriendlyName).ToArray());
-            LocalBranches.SelectedItem = LocalBranches.Items.Cast<string>().FirstOrDefault(i => i == _gitCommand.Repository.Head?.FriendlyName);
+            var branches = _gitCommand.Provider.Branches.Where(b => !b.IsRemote);
+            LocalBranches.Items.AddRange(branches.Select(b=> new ComboBoxItem(b.FriendlyName, b)).ToArray());
+            LocalBranches.SelectedItem = LocalBranches.Items.Cast<ComboBoxItem>().FirstOrDefault(i => i.Name == _gitCommand.Repository.Head?.FriendlyName);
 
             var remotes = _gitCommand.Repository.Network.Remotes;
             Remotes.Items.AddRange(remotes.Select(r => r.Name).ToArray());
@@ -116,6 +133,30 @@ namespace VBAGitAddin.UI.Forms
                         }
                     }
                 }
+            }
+        }
+
+        private void Ok_Click(object sender, EventArgs e)
+        {
+            List<string> listRefs = new List<string>();
+
+            if(PushAllBranches.Checked)
+            {
+                var branches = _gitCommand.Repository.Branches.Where(b => !b.IsRemote);
+                listRefs.AddRange(branches.Select(b => b.CanonicalName).ToArray());
+            }
+            else
+            {
+                var item = LocalBranches.SelectedItem as ComboBoxItem;
+                var branch = item?.Tag as Branch;
+                listRefs.Add(branch?.CanonicalName);                
+            }
+
+            _gitCommand.Push(Remotes.Text, listRefs);
+
+            if(_gitCommand.Status == CommandStatus.Success)
+            {
+                Close();
             }
         }
     }
