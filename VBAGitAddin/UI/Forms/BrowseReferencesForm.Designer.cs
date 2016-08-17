@@ -51,7 +51,7 @@
             this.RefsTree.HideSelection = false;
             this.RefsTree.Location = new System.Drawing.Point(14, 37);
             this.RefsTree.Name = "RefsTree";
-            treeNode1.Name = "Node0";
+            treeNode1.Name = "refs";
             treeNode1.Text = "refs";
             this.RefsTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
