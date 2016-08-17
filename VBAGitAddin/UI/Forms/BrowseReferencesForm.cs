@@ -203,7 +203,7 @@ namespace VBAGitAddin.UI.Forms
             }
         }
 
-        private void Refs()
+        private void DisplayRefs()
         {
             _items.Clear();
             RefsList.Clear();            
@@ -264,7 +264,7 @@ namespace VBAGitAddin.UI.Forms
             RefsList.Items.AddRange(_items.AsParallel().Where(i => IsItemFiltered(i)).ToArray());
         }
 
-        private void Heads()
+        private void DisplayHeads()
         {
             _items.Clear();
             RefsList.Clear();
@@ -301,7 +301,7 @@ namespace VBAGitAddin.UI.Forms
             RefsList.Items.AddRange(_items.AsParallel().Where(i => IsItemFiltered(i)).ToArray());
         }
 
-        private void Tags()
+        private void DisplayTags()
         {
             _items.Clear();
             RefsList.Clear();
@@ -334,7 +334,7 @@ namespace VBAGitAddin.UI.Forms
             RefsList.Items.AddRange(_items.AsParallel().Where(i => IsItemFiltered(i)).ToArray());
         }
 
-        private void Remotes([Optional]Remote remote)
+        private void DisplayRemotes([Optional]Remote remote)
         {
             _items.Clear();
             RefsList.Clear();
@@ -398,19 +398,19 @@ namespace VBAGitAddin.UI.Forms
             switch (e.Node.Name)
             {
                 case "refs":
-                    Refs();
+                    DisplayRefs();
                     break;
 
                 case "heads":
-                    Heads();
+                    DisplayHeads();
                     break;
 
                 case "tags":
-                    Tags();
+                    DisplayTags();
                     break;
 
                 case "remotes":
-                    Remotes();
+                    DisplayRemotes();
                     break;
 
                 default:
@@ -418,7 +418,7 @@ namespace VBAGitAddin.UI.Forms
                     if (e.Node.Tag is Remote)
                     {
                         var remote = e.Node.Tag as Remote;
-                        Remotes(remote);
+                        DisplayRemotes(remote);
                     }
                     break;
             }
