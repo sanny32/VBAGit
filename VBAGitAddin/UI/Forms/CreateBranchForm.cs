@@ -39,7 +39,8 @@ namespace VBAGitAddin.UI.Forms
             Cancel.Text = VBAGitUI.Cancel;
 
             // populate combobox with branches
-            Branches.Items.AddRange(_gitCommand.Provider.Branches.Select(b => b.FriendlyName).ToArray());
+            var branches = _gitCommand.Provider.Branches;
+            Branches.Items.AddRange(branches.Where(b => !b.IsRemote).Select(b => b.FriendlyName).ToArray());
             Branches.SelectedIndex = Branches.Items.Count > 0 ? 0 : -1;
 
             // populate combobox with tags
