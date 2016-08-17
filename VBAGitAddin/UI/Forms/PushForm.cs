@@ -150,13 +150,18 @@ namespace VBAGitAddin.UI.Forms
             if(PushAllBranches.Checked)
             {
                 var branches = _gitCommand.Repository.Branches.Where(b => !b.IsRemote);
-                listRefs.AddRange(branches.Select(b => b.CanonicalName).ToArray());
+                listRefs.AddRange(branches.Select(b => b.CanonicalName));
             }
             else
             {
                 var item = LocalBranches.SelectedItem as ComboBoxItem;
                 var branch = item?.Tag as Branch;
                 listRefs.Add(branch?.CanonicalName);                
+            }
+
+            if(OptionIncludeTags.Checked)
+            {
+                listRefs.AddRange(_gitCommand.Repository.Tags.Select(t => t.CanonicalName));
             }
 
             _gitCommand.Push(Remotes.Text, listRefs);
