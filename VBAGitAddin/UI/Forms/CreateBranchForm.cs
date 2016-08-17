@@ -173,12 +173,15 @@ namespace VBAGitAddin.UI.Forms
             using (BrowseReferencesForm browsRefsForm = new BrowseReferencesForm(_gitCommand.Repository))
             {
                 var branch = _gitCommand.Provider.Branches.FirstOrDefault(b => b.FriendlyName == Branches.Text);
-                if (branch!= null && browsRefsForm.ShowDialog(branch) == DialogResult.OK)
+                if (branch!= null && browsRefsForm.ShowHeads(branch) == DialogResult.OK)
                 {
                     if (browsRefsForm.SelectedReference is Branch)
                     {
                         var selectedBranch = browsRefsForm.SelectedReference as Branch;
-                        Branches.SelectedItem = selectedBranch.FriendlyName;
+                        if (!selectedBranch.IsRemote)
+                        {
+                            Branches.SelectedItem = selectedBranch.FriendlyName;
+                        }
                     }                    
                 }
             }
