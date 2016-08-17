@@ -745,6 +745,15 @@ namespace VBAGitAddin.UI {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Push - VBAGit.
+        /// </summary>
+        internal static string PushForm_Text {
+            get {
+                return ResourceManager.GetString("PushForm_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///
         ///This file has been modified outside of the source editor.

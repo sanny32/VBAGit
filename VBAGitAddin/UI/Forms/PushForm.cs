@@ -69,6 +69,13 @@ namespace VBAGitAddin.UI.Forms
             Application.Idle += Application_Idle;
         }
 
+        public new void ShowDialog()
+        {
+            Text = string.Format(VBAGitUI.PushForm_Text, _gitCommand.Repository.Info.WorkingDirectory);
+
+            base.ShowDialog();
+        }
+
         private void Application_Idle(object sender, EventArgs e)
         {
             UpdateRefsState();

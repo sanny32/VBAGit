@@ -447,4 +447,7 @@ Do you want to reload it?</value>
   <data name="PushForm_PushAllBranches" xml:space="preserve">
     <value>Push all branches</value>
   </data>
+  <data name="PushForm_Text" xml:space="preserve">
+    <value>{0} - Push - VBAGit</value>
+  </data>
 </root>
