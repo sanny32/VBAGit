@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibGit2Sharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,11 +41,21 @@ namespace VBAGitAddin.UI.Forms
             Ok.Text = VBAGitUI.OK;
             Cancel.Text = VBAGitUI.Cancel;
 
+            var branches = _gitCommand.Provider.Branches;
+            LocalBranches.Items.AddRange(branches.Where(b => !b.IsRemote).Select(b => b.FriendlyName).ToArray());
+            LocalBranches.SelectedItem = LocalBranches.Items.Cast<string>().FirstOrDefault(i => i == _gitCommand.Repository.Head?.FriendlyName);
+
+            var remotes = _gitCommand.Repository.Network.Remotes;
+            Remotes.Items.AddRange(remotes.Select(r => r.Name).ToArray());
+            Remotes.SelectedIndex = Remotes.Items.Count > 0 ? 0 : -1;
+
             Application.Idle += Application_Idle;
         }
 
         private void Application_Idle(object sender, EventArgs e)
         {
+            UpdateRefsState();
+            UpdateDestinationState();
             UpdateOptionsState();
         }
 
@@ -52,6 +63,60 @@ namespace VBAGitAddin.UI.Forms
         {
             OptionKnownChanges.Enabled = !OptionUnknownChanges.Checked;
             OptionUnknownChanges.Enabled = !OptionKnownChanges.Checked;
+            OptionIncludeTags.Enabled = !OptionKnownChanges.Checked;
+        }
+
+        private void UpdateRefsState()
+        {
+            LocalBranches.Enabled = !PushAllBranches.Checked;
+            RemoteBranches.Enabled = !PushAllBranches.Checked;
+            SelectLocalBranch.Enabled = !PushAllBranches.Checked;
+            SelectRemoteBranch.Enabled = !PushAllBranches.Checked;
+        }
+
+        private void UpdateDestinationState()
+        {
+            Remotes.Enabled = DestinationRemote.Checked;
+            Manage.Enabled = DestinationRemote.Checked;
+            ArbitraryUrl.Enabled = DestinationUrl.Checked;
+        }
+
+        private void SelectLocalBranch_Click(object sender, EventArgs e)
+        {
+            using (BrowseReferencesForm browsRefsForm = new BrowseReferencesForm(_gitCommand.Repository))
+            {
+                var branch = _gitCommand.Provider.Branches.FirstOrDefault(b => b.FriendlyName == LocalBranches.Text);
+                if (branch != null && browsRefsForm.ShowHeads(branch) == DialogResult.OK)
+                {
+                    if (browsRefsForm.SelectedReference is Branch)
+                    {
+                        var selectedBranch = browsRefsForm.SelectedReference as Branch;
+                        if (!selectedBranch.IsRemote)
+                        {
+                            LocalBranches.Text = selectedBranch?.FriendlyName;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SelectRemoteBranch_Click(object sender, EventArgs e)
+        {
+            using (BrowseReferencesForm browsRefsForm = new BrowseReferencesForm(_gitCommand.Repository))
+            {
+                var branch = _gitCommand.Provider.Branches.FirstOrDefault(b => b.FriendlyName == RemoteBranches.Text);
+                if (browsRefsForm.ShowRemotes(branch) == DialogResult.OK)
+                {
+                    if (browsRefsForm.SelectedReference is Branch)
+                    {
+                        var selectedBranch = browsRefsForm.SelectedReference as Branch;
+                        if (selectedBranch.IsRemote)
+                        {
+                            RemoteBranches.Text = selectedBranch.FriendlyName;
+                        }
+                    }
+                }
+            }
         }
     }
 }

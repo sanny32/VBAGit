@@ -34,25 +34,25 @@ namespace VBAGitAddin.UI.Forms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PushForm));
             this.GroupRef = new System.Windows.Forms.GroupBox();
-            this.PushAllBranches = new System.Windows.Forms.CheckBox();
-            this.LabelLocal = new System.Windows.Forms.Label();
-            this.LocalBranches = new System.Windows.Forms.ComboBox();
-            this.LabelRemote = new System.Windows.Forms.Label();
-            this.RemoteBranches = new System.Windows.Forms.ComboBox();
-            this.SelectRemoteBranch = new System.Windows.Forms.Button();
             this.SelectLocalBranch = new System.Windows.Forms.Button();
+            this.SelectRemoteBranch = new System.Windows.Forms.Button();
+            this.RemoteBranches = new System.Windows.Forms.ComboBox();
+            this.LabelRemote = new System.Windows.Forms.Label();
+            this.LocalBranches = new System.Windows.Forms.ComboBox();
+            this.LabelLocal = new System.Windows.Forms.Label();
+            this.PushAllBranches = new System.Windows.Forms.CheckBox();
             this.GroupDestination = new System.Windows.Forms.GroupBox();
-            this.DestinationRemote = new System.Windows.Forms.RadioButton();
-            this.DestinationUrl = new System.Windows.Forms.RadioButton();
-            this.Remotes = new System.Windows.Forms.ComboBox();
-            this.Manage = new System.Windows.Forms.Button();
             this.ArbitraryUrl = new System.Windows.Forms.TextBox();
+            this.Manage = new System.Windows.Forms.Button();
+            this.Remotes = new System.Windows.Forms.ComboBox();
+            this.DestinationUrl = new System.Windows.Forms.RadioButton();
+            this.DestinationRemote = new System.Windows.Forms.RadioButton();
             this.GroupOptions = new System.Windows.Forms.GroupBox();
-            this.LabelForce = new System.Windows.Forms.Label();
-            this.OptionKnownChanges = new System.Windows.Forms.CheckBox();
-            this.OptionUnknownChanges = new System.Windows.Forms.CheckBox();
-            this.OptionIncludeTags = new System.Windows.Forms.CheckBox();
             this.OptionSetUpstream = new System.Windows.Forms.CheckBox();
+            this.OptionIncludeTags = new System.Windows.Forms.CheckBox();
+            this.OptionUnknownChanges = new System.Windows.Forms.CheckBox();
+            this.OptionKnownChanges = new System.Windows.Forms.CheckBox();
+            this.LabelForce = new System.Windows.Forms.Label();
             this.Cancel = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
             this.GroupRef.SuspendLayout();
@@ -78,55 +78,16 @@ namespace VBAGitAddin.UI.Forms
             this.GroupRef.TabStop = false;
             this.GroupRef.Text = "Ref";
             // 
-            // PushAllBranches
+            // SelectLocalBranch
             // 
-            this.PushAllBranches.AutoSize = true;
-            this.PushAllBranches.Location = new System.Drawing.Point(6, 22);
-            this.PushAllBranches.Name = "PushAllBranches";
-            this.PushAllBranches.Size = new System.Drawing.Size(118, 19);
-            this.PushAllBranches.TabIndex = 0;
-            this.PushAllBranches.Text = "Push all branches";
-            this.PushAllBranches.UseVisualStyleBackColor = true;
-            // 
-            // LabelLocal
-            // 
-            this.LabelLocal.AutoSize = true;
-            this.LabelLocal.Location = new System.Drawing.Point(6, 58);
-            this.LabelLocal.Name = "LabelLocal";
-            this.LabelLocal.Size = new System.Drawing.Size(41, 15);
-            this.LabelLocal.TabIndex = 1;
-            this.LabelLocal.Text = "Local: ";
-            // 
-            // LocalBranches
-            // 
-            this.LocalBranches.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LocalBranches.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.LocalBranches.FormattingEnabled = true;
-            this.LocalBranches.Location = new System.Drawing.Point(131, 55);
-            this.LocalBranches.Name = "LocalBranches";
-            this.LocalBranches.Size = new System.Drawing.Size(316, 23);
-            this.LocalBranches.TabIndex = 2;
-            // 
-            // LabelRemote
-            // 
-            this.LabelRemote.AutoSize = true;
-            this.LabelRemote.Location = new System.Drawing.Point(6, 87);
-            this.LabelRemote.Name = "LabelRemote";
-            this.LabelRemote.Size = new System.Drawing.Size(54, 15);
-            this.LabelRemote.TabIndex = 3;
-            this.LabelRemote.Text = "Remote: ";
-            // 
-            // RemoteBranches
-            // 
-            this.RemoteBranches.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RemoteBranches.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.RemoteBranches.FormattingEnabled = true;
-            this.RemoteBranches.Location = new System.Drawing.Point(131, 84);
-            this.RemoteBranches.Name = "RemoteBranches";
-            this.RemoteBranches.Size = new System.Drawing.Size(316, 23);
-            this.RemoteBranches.TabIndex = 4;
+            this.SelectLocalBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SelectLocalBranch.Location = new System.Drawing.Point(458, 53);
+            this.SelectLocalBranch.Name = "SelectLocalBranch";
+            this.SelectLocalBranch.Size = new System.Drawing.Size(26, 25);
+            this.SelectLocalBranch.TabIndex = 9;
+            this.SelectLocalBranch.Text = "...";
+            this.SelectLocalBranch.UseVisualStyleBackColor = true;
+            this.SelectLocalBranch.Click += new System.EventHandler(this.SelectLocalBranch_Click);
             // 
             // SelectRemoteBranch
             // 
@@ -137,16 +98,55 @@ namespace VBAGitAddin.UI.Forms
             this.SelectRemoteBranch.TabIndex = 8;
             this.SelectRemoteBranch.Text = "...";
             this.SelectRemoteBranch.UseVisualStyleBackColor = true;
+            this.SelectRemoteBranch.Click += new System.EventHandler(this.SelectRemoteBranch_Click);
             // 
-            // SelectLocalBranch
+            // RemoteBranches
             // 
-            this.SelectLocalBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SelectLocalBranch.Location = new System.Drawing.Point(458, 53);
-            this.SelectLocalBranch.Name = "SelectLocalBranch";
-            this.SelectLocalBranch.Size = new System.Drawing.Size(26, 25);
-            this.SelectLocalBranch.TabIndex = 9;
-            this.SelectLocalBranch.Text = "...";
-            this.SelectLocalBranch.UseVisualStyleBackColor = true;
+            this.RemoteBranches.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RemoteBranches.FormattingEnabled = true;
+            this.RemoteBranches.Location = new System.Drawing.Point(131, 84);
+            this.RemoteBranches.Name = "RemoteBranches";
+            this.RemoteBranches.Size = new System.Drawing.Size(316, 23);
+            this.RemoteBranches.TabIndex = 4;
+            // 
+            // LabelRemote
+            // 
+            this.LabelRemote.AutoSize = true;
+            this.LabelRemote.Location = new System.Drawing.Point(6, 87);
+            this.LabelRemote.Name = "LabelRemote";
+            this.LabelRemote.Size = new System.Drawing.Size(54, 15);
+            this.LabelRemote.TabIndex = 3;
+            this.LabelRemote.Text = "Remote: ";
+            // 
+            // LocalBranches
+            // 
+            this.LocalBranches.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LocalBranches.FormattingEnabled = true;
+            this.LocalBranches.Location = new System.Drawing.Point(131, 55);
+            this.LocalBranches.Name = "LocalBranches";
+            this.LocalBranches.Size = new System.Drawing.Size(316, 23);
+            this.LocalBranches.TabIndex = 2;
+            // 
+            // LabelLocal
+            // 
+            this.LabelLocal.AutoSize = true;
+            this.LabelLocal.Location = new System.Drawing.Point(6, 58);
+            this.LabelLocal.Name = "LabelLocal";
+            this.LabelLocal.Size = new System.Drawing.Size(41, 15);
+            this.LabelLocal.TabIndex = 1;
+            this.LabelLocal.Text = "Local: ";
+            // 
+            // PushAllBranches
+            // 
+            this.PushAllBranches.AutoSize = true;
+            this.PushAllBranches.Location = new System.Drawing.Point(6, 22);
+            this.PushAllBranches.Name = "PushAllBranches";
+            this.PushAllBranches.Size = new System.Drawing.Size(118, 19);
+            this.PushAllBranches.TabIndex = 0;
+            this.PushAllBranches.Text = "Push all branches";
+            this.PushAllBranches.UseVisualStyleBackColor = true;
             // 
             // GroupDestination
             // 
@@ -164,27 +164,24 @@ namespace VBAGitAddin.UI.Forms
             this.GroupDestination.TabStop = false;
             this.GroupDestination.Text = "Destination";
             // 
-            // DestinationRemote
+            // ArbitraryUrl
             // 
-            this.DestinationRemote.AutoSize = true;
-            this.DestinationRemote.Location = new System.Drawing.Point(6, 28);
-            this.DestinationRemote.Name = "DestinationRemote";
-            this.DestinationRemote.Size = new System.Drawing.Size(72, 19);
-            this.DestinationRemote.TabIndex = 0;
-            this.DestinationRemote.TabStop = true;
-            this.DestinationRemote.Text = "Remote: ";
-            this.DestinationRemote.UseVisualStyleBackColor = true;
+            this.ArbitraryUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ArbitraryUrl.Location = new System.Drawing.Point(131, 56);
+            this.ArbitraryUrl.Name = "ArbitraryUrl";
+            this.ArbitraryUrl.Size = new System.Drawing.Size(353, 23);
+            this.ArbitraryUrl.TabIndex = 4;
             // 
-            // DestinationUrl
+            // Manage
             // 
-            this.DestinationUrl.AutoSize = true;
-            this.DestinationUrl.Location = new System.Drawing.Point(6, 57);
-            this.DestinationUrl.Name = "DestinationUrl";
-            this.DestinationUrl.Size = new System.Drawing.Size(101, 19);
-            this.DestinationUrl.TabIndex = 1;
-            this.DestinationUrl.TabStop = true;
-            this.DestinationUrl.Text = "Arbitrary URL: ";
-            this.DestinationUrl.UseVisualStyleBackColor = true;
+            this.Manage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Manage.Location = new System.Drawing.Point(415, 26);
+            this.Manage.Name = "Manage";
+            this.Manage.Size = new System.Drawing.Size(69, 25);
+            this.Manage.TabIndex = 3;
+            this.Manage.Text = "Manage";
+            this.Manage.UseVisualStyleBackColor = true;
             // 
             // Remotes
             // 
@@ -197,24 +194,27 @@ namespace VBAGitAddin.UI.Forms
             this.Remotes.Size = new System.Drawing.Size(278, 23);
             this.Remotes.TabIndex = 2;
             // 
-            // Manage
+            // DestinationUrl
             // 
-            this.Manage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Manage.Location = new System.Drawing.Point(415, 26);
-            this.Manage.Name = "Manage";
-            this.Manage.Size = new System.Drawing.Size(69, 25);
-            this.Manage.TabIndex = 3;
-            this.Manage.Text = "Manage";
-            this.Manage.UseVisualStyleBackColor = true;
+            this.DestinationUrl.AutoSize = true;
+            this.DestinationUrl.Location = new System.Drawing.Point(6, 57);
+            this.DestinationUrl.Name = "DestinationUrl";
+            this.DestinationUrl.Size = new System.Drawing.Size(101, 19);
+            this.DestinationUrl.TabIndex = 1;
+            this.DestinationUrl.Text = "Arbitrary URL: ";
+            this.DestinationUrl.UseVisualStyleBackColor = true;
             // 
-            // ArbitraryUrl
+            // DestinationRemote
             // 
-            this.ArbitraryUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ArbitraryUrl.Location = new System.Drawing.Point(131, 56);
-            this.ArbitraryUrl.Name = "ArbitraryUrl";
-            this.ArbitraryUrl.Size = new System.Drawing.Size(353, 23);
-            this.ArbitraryUrl.TabIndex = 4;
+            this.DestinationRemote.AutoSize = true;
+            this.DestinationRemote.Checked = true;
+            this.DestinationRemote.Location = new System.Drawing.Point(6, 28);
+            this.DestinationRemote.Name = "DestinationRemote";
+            this.DestinationRemote.Size = new System.Drawing.Size(72, 19);
+            this.DestinationRemote.TabIndex = 0;
+            this.DestinationRemote.TabStop = true;
+            this.DestinationRemote.Text = "Remote: ";
+            this.DestinationRemote.UseVisualStyleBackColor = true;
             // 
             // GroupOptions
             // 
@@ -232,34 +232,15 @@ namespace VBAGitAddin.UI.Forms
             this.GroupOptions.TabStop = false;
             this.GroupOptions.Text = "Options";
             // 
-            // LabelForce
+            // OptionSetUpstream
             // 
-            this.LabelForce.AutoSize = true;
-            this.LabelForce.Location = new System.Drawing.Point(6, 23);
-            this.LabelForce.Name = "LabelForce";
-            this.LabelForce.Size = new System.Drawing.Size(106, 15);
-            this.LabelForce.TabIndex = 0;
-            this.LabelForce.Text = "Force: May discard";
-            // 
-            // OptionKnownChanges
-            // 
-            this.OptionKnownChanges.AutoSize = true;
-            this.OptionKnownChanges.Location = new System.Drawing.Point(179, 22);
-            this.OptionKnownChanges.Name = "OptionKnownChanges";
-            this.OptionKnownChanges.Size = new System.Drawing.Size(109, 19);
-            this.OptionKnownChanges.TabIndex = 1;
-            this.OptionKnownChanges.Text = "known changes";
-            this.OptionKnownChanges.UseVisualStyleBackColor = true;
-            // 
-            // OptionUnknownChanges
-            // 
-            this.OptionUnknownChanges.AutoSize = true;
-            this.OptionUnknownChanges.Location = new System.Drawing.Point(339, 23);
-            this.OptionUnknownChanges.Name = "OptionUnknownChanges";
-            this.OptionUnknownChanges.Size = new System.Drawing.Size(123, 19);
-            this.OptionUnknownChanges.TabIndex = 2;
-            this.OptionUnknownChanges.Text = "unknown changes";
-            this.OptionUnknownChanges.UseVisualStyleBackColor = true;
+            this.OptionSetUpstream.AutoSize = true;
+            this.OptionSetUpstream.Location = new System.Drawing.Point(9, 73);
+            this.OptionSetUpstream.Name = "OptionSetUpstream";
+            this.OptionSetUpstream.Size = new System.Drawing.Size(210, 19);
+            this.OptionSetUpstream.TabIndex = 4;
+            this.OptionSetUpstream.Text = "Set upstream/track remote branch ";
+            this.OptionSetUpstream.UseVisualStyleBackColor = true;
             // 
             // OptionIncludeTags
             // 
@@ -271,15 +252,34 @@ namespace VBAGitAddin.UI.Forms
             this.OptionIncludeTags.Text = "Include Tags";
             this.OptionIncludeTags.UseVisualStyleBackColor = true;
             // 
-            // OptionSetUpstream
+            // OptionUnknownChanges
             // 
-            this.OptionSetUpstream.AutoSize = true;
-            this.OptionSetUpstream.Location = new System.Drawing.Point(9, 73);
-            this.OptionSetUpstream.Name = "OptionSetUpstream";
-            this.OptionSetUpstream.Size = new System.Drawing.Size(210, 19);
-            this.OptionSetUpstream.TabIndex = 4;
-            this.OptionSetUpstream.Text = "Set upstream/track remote branch ";
-            this.OptionSetUpstream.UseVisualStyleBackColor = true;
+            this.OptionUnknownChanges.AutoSize = true;
+            this.OptionUnknownChanges.Location = new System.Drawing.Point(339, 23);
+            this.OptionUnknownChanges.Name = "OptionUnknownChanges";
+            this.OptionUnknownChanges.Size = new System.Drawing.Size(123, 19);
+            this.OptionUnknownChanges.TabIndex = 2;
+            this.OptionUnknownChanges.Text = "unknown changes";
+            this.OptionUnknownChanges.UseVisualStyleBackColor = true;
+            // 
+            // OptionKnownChanges
+            // 
+            this.OptionKnownChanges.AutoSize = true;
+            this.OptionKnownChanges.Location = new System.Drawing.Point(179, 22);
+            this.OptionKnownChanges.Name = "OptionKnownChanges";
+            this.OptionKnownChanges.Size = new System.Drawing.Size(109, 19);
+            this.OptionKnownChanges.TabIndex = 1;
+            this.OptionKnownChanges.Text = "known changes";
+            this.OptionKnownChanges.UseVisualStyleBackColor = true;
+            // 
+            // LabelForce
+            // 
+            this.LabelForce.AutoSize = true;
+            this.LabelForce.Location = new System.Drawing.Point(6, 23);
+            this.LabelForce.Name = "LabelForce";
+            this.LabelForce.Size = new System.Drawing.Size(106, 15);
+            this.LabelForce.TabIndex = 0;
+            this.LabelForce.Text = "Force: May discard";
             // 
             // Cancel
             // 
@@ -319,6 +319,7 @@ namespace VBAGitAddin.UI.Forms
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(530, 440);
             this.Name = "PushForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Push - VBAGit";
             this.GroupRef.ResumeLayout(false);
