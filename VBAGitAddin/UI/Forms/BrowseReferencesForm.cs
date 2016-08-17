@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using VBAGitAddin.Git.Extensions;
 
@@ -40,7 +41,7 @@ namespace VBAGitAddin.UI.Forms
         }
             
 
-        public DialogResult ShowHeads(Branch branch)
+        public DialogResult ShowHeads([Optional]Branch branch)
         {
             if (branch!= null && !branch.IsRemote)
             {
@@ -67,7 +68,7 @@ namespace VBAGitAddin.UI.Forms
             return ShowDialog();
         }
 
-        public DialogResult ShowRemotes(Branch branch)
+        public DialogResult ShowRemotes([Optional]Branch branch)
         {
             if (branch != null && branch.IsRemote)
             {
@@ -94,7 +95,7 @@ namespace VBAGitAddin.UI.Forms
             return ShowDialog();
         }
 
-        public DialogResult ShowTags(Tag tag)
+        public DialogResult ShowTags([Optional]Tag tag)
         {
             SelectedReference = tag;
 
@@ -114,7 +115,7 @@ namespace VBAGitAddin.UI.Forms
             return ShowDialog();
         }
 
-        public DialogResult ShowRefs(object reference)
+        public DialogResult ShowRefs([Optional]object reference)
         {
             SelectedReference = reference;
 
@@ -202,7 +203,7 @@ namespace VBAGitAddin.UI.Forms
             }
         }
 
-        private void ShowRefs()
+        private void Refs()
         {
             _items.Clear();
             RefsList.Clear();            
@@ -263,7 +264,7 @@ namespace VBAGitAddin.UI.Forms
             RefsList.Items.AddRange(_items.AsParallel().Where(i => IsItemFiltered(i)).ToArray());
         }
 
-        private void ShowHeads()
+        private void Heads()
         {
             _items.Clear();
             RefsList.Clear();
@@ -300,7 +301,7 @@ namespace VBAGitAddin.UI.Forms
             RefsList.Items.AddRange(_items.AsParallel().Where(i => IsItemFiltered(i)).ToArray());
         }
 
-        private void ShowTags()
+        private void Tags()
         {
             _items.Clear();
             RefsList.Clear();
@@ -333,7 +334,7 @@ namespace VBAGitAddin.UI.Forms
             RefsList.Items.AddRange(_items.AsParallel().Where(i => IsItemFiltered(i)).ToArray());
         }
 
-        private void ShowRemotes(Remote remote = null)
+        private void Remotes([Optional]Remote remote)
         {
             _items.Clear();
             RefsList.Clear();
@@ -397,19 +398,19 @@ namespace VBAGitAddin.UI.Forms
             switch (e.Node.Name)
             {
                 case "refs":
-                    ShowRefs();
+                    Refs();
                     break;
 
                 case "heads":
-                    ShowHeads();
+                    Heads();
                     break;
 
                 case "tags":
-                    ShowTags();
+                    Tags();
                     break;
 
                 case "remotes":
-                    ShowRemotes();
+                    Remotes();
                     break;
 
                 default:
@@ -417,7 +418,7 @@ namespace VBAGitAddin.UI.Forms
                     if (e.Node.Tag is Remote)
                     {
                         var remote = e.Node.Tag as Remote;
-                        ShowRemotes(remote);
+                        Remotes(remote);
                     }
                     break;
             }
